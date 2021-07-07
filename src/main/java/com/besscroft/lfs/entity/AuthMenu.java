@@ -1,13 +1,11 @@
 package com.besscroft.lfs.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,13 +18,15 @@ import java.util.List;
  * @Date 2021/6/9 16:05
  */
 @Data
-@TableName(value = "auth_menu")
+@Entity
+@Table(name = "auth_menu")
 @ApiModel(value = "权限管理模块菜单对象")
 public class AuthMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(type = IdType.AUTO)
+    @Id
+    @GeneratedValue
     @ApiModelProperty(value = "菜单id", dataType = "Long")
     private Long id;
 
@@ -77,6 +77,7 @@ public class AuthMenu implements Serializable {
 
     /** 子菜单 **/
     @ApiModelProperty(value = "子菜单")
+    @Transient
     private List<AuthMenu> children = new ArrayList<>();
 
 }

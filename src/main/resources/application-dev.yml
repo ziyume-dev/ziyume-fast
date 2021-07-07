@@ -42,19 +42,41 @@ spring:
         wall:
           config:
             multi-statement-allow: true
+  # JPA相关配置
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    # formatSQL
+    properties:
+      hibernate:
+        format_sql: true
 
-# MyBatis配置
-mybatis:
-  # 搜索指定包别名
-  typeAliasesPackage: com.besscroft.lfs.common.entity
-  # 配置mapper的扫描，找到所有的mapper.xml映射文件
-  mapperLocations: classpath*:mapper/*Mapper.xml
-  configuration:
-    cache-enabled: false
+jwt:
+  # JWT存储的请求头
+  tokenHeader: Authorization
+  # JWT加解密使用的密钥
+  secret: springboot-lfs
+  # JWT的超时时间 (60*60*24*7)
+  expiration: 604800
+  # JWT负载头
+  tokenHead: 'Bearer '
 
-# PageHelper分页插件
-pagehelper:
-  helperDialect: mysql
-  reasonable: true
-  supportMethodsArguments: true
-  params: count=countSql
+whitelist:
+  urls: #配置白名单路径
+    - "/doc.html"
+    - "/swagger-resources/**"
+    - "/swagger/**"
+    - "/**/v2/api-docs"
+    - "/**/*.js"
+    - "/**/*.css"
+    - "/**/*.png"
+    - "/**/*.ico"
+    - "/webjars/springfox-swagger-ui/**"
+    - "/actuator/**"
+    - "/druid/**"
+    - "/user/login"
+    - "/user/register"
+    - "/user/info"
+    - "/user/logout"

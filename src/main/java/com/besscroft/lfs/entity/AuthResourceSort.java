@@ -1,13 +1,14 @@
 package com.besscroft.lfs.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -18,13 +19,15 @@ import java.util.Date;
  * @Date 2021/6/9 16:05
  */
 @Data
-@TableName(value = "auth_resource_sort")
+@Entity
+@Table(name = "auth_resource_sort")
 @ApiModel(value = "权限管理模块资源类别管理对象")
 public class AuthResourceSort implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(type = IdType.AUTO)
+    @Id
+    @GeneratedValue
     @ApiModelProperty(value = "类别管理id", dataType = "Long")
     private Long id;
 
