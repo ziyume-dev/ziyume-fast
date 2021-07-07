@@ -21,6 +21,7 @@ target/
 .mvn
 mvnw
 mvnw.cmd
+web/node_modules
 
 ### NetBeans ###
 /nbproject/private/
