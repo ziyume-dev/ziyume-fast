@@ -37,8 +37,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
         const { data } = JSON.parse(JSON.stringify(response))
-        commit('SET_TOKEN', data.access_token)
-        setToken(data.access_token)
+        commit('SET_TOKEN', data.token)
+        setToken(data.token)
         resolve()
       }).catch(error => {
         reject(error)
@@ -53,7 +53,7 @@ const actions = {
         const data = response.data
         console.log(data)
         if (data.roles && data.roles.length > 0) {
-          commit("SET_ROLES", data.roles)
+          commit('SET_ROLES', data.roles)
         } else {
           reject('Verification failed, please Login again.')
         }

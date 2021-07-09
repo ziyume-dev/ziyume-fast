@@ -77,6 +77,4 @@ whitelist:
     - "/actuator/**"
     - "/druid/**"
     - "/user/login"
-    - "/user/register"
-    - "/user/info"
     - "/user/logout"
