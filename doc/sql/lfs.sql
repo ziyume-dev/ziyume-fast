@@ -11,7 +11,7 @@
  Target Server Version : 50734
  File Encoding         : 65001
 
- Date: 09/06/2021 16:45:53
+ Date: 09/07/2021 09:37:25
 */
 
 SET NAMES utf8mb4;
@@ -57,6 +57,34 @@ CREATE TABLE `auth_menu`  (
 -- ----------------------------
 -- Records of auth_menu
 -- ----------------------------
+INSERT INTO `auth_menu` VALUES (1, 0, '2021-03-21 18:56:44', '权限管理', NULL, 1, 1, 'auth', '/auth', 'el-icon-success', 0, 'Layout');
+INSERT INTO `auth_menu` VALUES (2, 0, '2021-03-21 18:57:06', '订单管理', NULL, 1, 2, 'order', '/order', 'el-icon-s-order', 0, 'Layout');
+INSERT INTO `auth_menu` VALUES (3, 0, '2021-03-21 18:57:49', '商品管理', NULL, 1, 3, 'product', '/product', 'el-icon-s-goods', 0, 'Layout');
+INSERT INTO `auth_menu` VALUES (4, 0, '2021-03-30 10:47:44', '营销管理', NULL, 1, 4, 'market', '/market', 'el-icon-s-marketing', 0, 'Layout');
+INSERT INTO `auth_menu` VALUES (5, 0, '2021-03-30 10:48:47', '会员管理', NULL, 1, 5, 'user', '/user', 'el-icon-user-solid', 0, 'Layout');
+INSERT INTO `auth_menu` VALUES (6, 0, '2021-03-30 10:49:29', '系统管理', NULL, 1, 6, 'system', '/system', 'el-icon-s-tools', 0, 'Layout');
+INSERT INTO `auth_menu` VALUES (10, 1, '2021-03-21 18:57:47', '用户管理', '权限管理', 2, 0, 'authUser', '/auth/authUser', 'el-icon-user-solid', 0, '/auth/authUser/index');
+INSERT INTO `auth_menu` VALUES (11, 1, '2021-03-21 18:58:31', '角色管理', '权限管理', 2, 0, 'authRole', '/auth/authRole', 'el-icon-s-custom', 0, '/auth/authRole/index');
+INSERT INTO `auth_menu` VALUES (12, 1, '2021-03-21 18:58:34', '菜单管理', '权限管理', 2, 0, 'authMenu', '/auth/authMenu', 'el-icon-menu', 0, '/auth/authMenu/index');
+INSERT INTO `auth_menu` VALUES (13, 1, '2021-03-30 10:41:52', '资源管理', '权限管理', 2, 0, 'authResource', '/auth/authResource', 'el-icon-s-promotion', 0, '/auth/authResource/index');
+INSERT INTO `auth_menu` VALUES (14, 1, '2021-03-30 10:44:02', '权限管理', '权限管理', 2, 0, 'authPermission', '/auth/authPermission', 'el-icon-check', 0, '/auth/authPermission/index');
+INSERT INTO `auth_menu` VALUES (15, 1, '2021-03-30 10:46:32', '资源类别管理', '权限管理', 2, 0, 'authResourceSort', '/auth/authResourceSort', 'el-icon-finished', 0, '/auth/authResourceSort/index');
+INSERT INTO `auth_menu` VALUES (20, 2, '2021-03-30 10:36:21', '订单列表', '订单管理', 2, 0, 'orderList', '/order/orderList', 'el-icon-s-order', 0, '/order/orderList/index');
+INSERT INTO `auth_menu` VALUES (21, 2, '2021-03-30 10:38:40', '定时任务', '订单管理', 2, 0, 'orderTimeTask', '/order/orderTimeTask', 'el-icon-timer', 0, '/order/orderTimeTask/index');
+INSERT INTO `auth_menu` VALUES (22, 2, '2021-03-30 10:39:58', '售后订单', '订单管理', 2, 0, 'orderReturn', '/order/orderReturn', 'el-icon-s-claim', 0, '/order/orderReturn');
+INSERT INTO `auth_menu` VALUES (23, 2, '2021-03-30 10:40:43', '售后原因', '订单管理', 2, 0, 'orderReason', '/order/orderReason', 'el-icon-notebook-1', 0, '/order/orderReason/index');
+INSERT INTO `auth_menu` VALUES (30, 3, '2021-03-30 10:33:46', '品牌管理', '商品管理', 2, 0, 'productBrand', '/product/productBrand', 'el-icon-postcard', 0, '/product/productBrand/index');
+INSERT INTO `auth_menu` VALUES (31, 3, '2021-03-27 15:47:53', '商品列表', '商品管理', 2, 0, 'productList', '/product/productList', 'el-icon-s-goods', 0, '/product/productList/index');
+INSERT INTO `auth_menu` VALUES (32, 3, '2021-03-30 10:31:03', '类型管理', '商品管理', 2, 0, 'productType', '/product/productType', 'el-icon-price-tag', 0, '/product/productType/index');
+INSERT INTO `auth_menu` VALUES (33, 3, '2021-03-30 10:29:15', '分类管理', '商品管理', 2, 0, 'productSort', '/product/productSort', 'el-icon-discount', 0, '/product/productSort/index');
+INSERT INTO `auth_menu` VALUES (34, 3, '2021-03-27 15:49:10', '修改商品', '商品管理', 2, 0, 'productUpdate', '/product/productUpdate', 'el-icon-sold-out', 0, '/product/productUpdate/index');
+INSERT INTO `auth_menu` VALUES (35, 3, '2021-03-27 15:49:04', '添加商品', '商品管理', 2, 0, 'productAdd', '/product/productAdd', 'el-icon-sell', 0, '/product/productAdd/index');
+INSERT INTO `auth_menu` VALUES (40, 4, '2021-03-30 10:54:02', '虚拟币管理', '营销管理', 2, 0, 'marketBit', '/market/marketBit', 'el-icon-s-finance', 0, '/market/marketBit/index');
+INSERT INTO `auth_menu` VALUES (41, 4, '2021-03-30 10:51:23', '秒杀管理', '营销管理', 2, 0, 'marketSpike', '/market/marketSpike', 'el-icon-alarm-clock', 0, '/market/marketSpike/index');
+INSERT INTO `auth_menu` VALUES (42, 4, '2021-03-30 10:52:29', '优惠券管理', '营销管理', 2, 0, 'marketCoupon', '/market/marketCoupon', 'el-icon-s-ticket', 0, '/market/marketCoupon/index');
+INSERT INTO `auth_menu` VALUES (43, 4, '2021-03-30 10:53:21', '广告管理', '营销管理', 2, 0, 'marketAD', '/market/marketAD', 'el-icon-data-line', 0, '/market/marketAD/index');
+INSERT INTO `auth_menu` VALUES (50, 5, '2021-03-30 10:55:06', '会员列表', '会员管理', 2, 0, 'userList', '/user/userList', 'el-icon-user', 0, '/user/userList/index');
+INSERT INTO `auth_menu` VALUES (51, 6, '2021-04-10 10:39:32', '版本日志', '系统管理', 2, 0, 'version', '/system/version', 'el-icon-s-promotion', 0, '/system/version/index');
 
 -- ----------------------------
 -- Table structure for auth_permission
@@ -97,6 +125,7 @@ CREATE TABLE `auth_resource`  (
 -- ----------------------------
 -- Records of auth_resource
 -- ----------------------------
+INSERT INTO `auth_resource` VALUES (7, '用户信息', '/user/info', '管理系统用户登陆后查询个人信息', '2021-07-08 17:37:11', 3);
 
 -- ----------------------------
 -- Table structure for auth_resource_sort
@@ -146,11 +175,54 @@ CREATE TABLE `auth_role_menu_relation`  (
   `role_id` bigint(20) NULL DEFAULT NULL COMMENT '角色ID',
   `menu_id` bigint(20) NULL DEFAULT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 91 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限管理模块角色菜单关系表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 134 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限管理模块角色菜单关系表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of auth_role_menu_relation
 -- ----------------------------
+INSERT INTO `auth_role_menu_relation` VALUES (91, 1, 1);
+INSERT INTO `auth_role_menu_relation` VALUES (92, 1, 2);
+INSERT INTO `auth_role_menu_relation` VALUES (93, 1, 3);
+INSERT INTO `auth_role_menu_relation` VALUES (94, 1, 4);
+INSERT INTO `auth_role_menu_relation` VALUES (95, 1, 5);
+INSERT INTO `auth_role_menu_relation` VALUES (96, 1, 6);
+INSERT INTO `auth_role_menu_relation` VALUES (97, 1, 10);
+INSERT INTO `auth_role_menu_relation` VALUES (98, 1, 11);
+INSERT INTO `auth_role_menu_relation` VALUES (99, 1, 12);
+INSERT INTO `auth_role_menu_relation` VALUES (100, 1, 13);
+INSERT INTO `auth_role_menu_relation` VALUES (101, 1, 14);
+INSERT INTO `auth_role_menu_relation` VALUES (102, 1, 15);
+INSERT INTO `auth_role_menu_relation` VALUES (103, 1, 20);
+INSERT INTO `auth_role_menu_relation` VALUES (104, 1, 21);
+INSERT INTO `auth_role_menu_relation` VALUES (105, 1, 22);
+INSERT INTO `auth_role_menu_relation` VALUES (106, 1, 23);
+INSERT INTO `auth_role_menu_relation` VALUES (107, 1, 30);
+INSERT INTO `auth_role_menu_relation` VALUES (108, 1, 31);
+INSERT INTO `auth_role_menu_relation` VALUES (109, 1, 32);
+INSERT INTO `auth_role_menu_relation` VALUES (110, 1, 33);
+INSERT INTO `auth_role_menu_relation` VALUES (111, 1, 34);
+INSERT INTO `auth_role_menu_relation` VALUES (112, 1, 35);
+INSERT INTO `auth_role_menu_relation` VALUES (113, 1, 40);
+INSERT INTO `auth_role_menu_relation` VALUES (114, 1, 41);
+INSERT INTO `auth_role_menu_relation` VALUES (115, 1, 42);
+INSERT INTO `auth_role_menu_relation` VALUES (116, 1, 43);
+INSERT INTO `auth_role_menu_relation` VALUES (117, 1, 50);
+INSERT INTO `auth_role_menu_relation` VALUES (118, 1, 51);
+INSERT INTO `auth_role_menu_relation` VALUES (119, 2, 50);
+INSERT INTO `auth_role_menu_relation` VALUES (120, 2, 51);
+INSERT INTO `auth_role_menu_relation` VALUES (121, 2, 40);
+INSERT INTO `auth_role_menu_relation` VALUES (122, 2, 41);
+INSERT INTO `auth_role_menu_relation` VALUES (123, 2, 33);
+INSERT INTO `auth_role_menu_relation` VALUES (124, 2, 30);
+INSERT INTO `auth_role_menu_relation` VALUES (125, 2, 22);
+INSERT INTO `auth_role_menu_relation` VALUES (126, 2, 15);
+INSERT INTO `auth_role_menu_relation` VALUES (127, 2, 20);
+INSERT INTO `auth_role_menu_relation` VALUES (128, 2, 10);
+INSERT INTO `auth_role_menu_relation` VALUES (129, 2, 1);
+INSERT INTO `auth_role_menu_relation` VALUES (130, 2, 2);
+INSERT INTO `auth_role_menu_relation` VALUES (131, 2, 3);
+INSERT INTO `auth_role_menu_relation` VALUES (132, 2, 4);
+INSERT INTO `auth_role_menu_relation` VALUES (133, 2, 5);
 
 -- ----------------------------
 -- Table structure for auth_role_permission_relation
@@ -181,6 +253,7 @@ CREATE TABLE `auth_role_resource_relation`  (
 -- ----------------------------
 -- Records of auth_role_resource_relation
 -- ----------------------------
+INSERT INTO `auth_role_resource_relation` VALUES (1, 1, 7);
 
 -- ----------------------------
 -- Table structure for auth_user
@@ -205,7 +278,7 @@ CREATE TABLE `auth_user`  (
 -- ----------------------------
 -- Records of auth_user
 -- ----------------------------
-INSERT INTO `auth_user` VALUES (1, 'admin', '$2a$10$E0A60hzJ.yBHJhyZ970Oze205OGuu4LIrjDSPQvcGBDl40O0oaiqC', 'https://www.52bess.com/uploads/avatar.png', 'admin@qq.com', '12345678901', '管理员', '管理员', '2021-02-24 21:22:48', '2021-06-05 15:07:27', 1, 1);
+INSERT INTO `auth_user` VALUES (1, 'admin', '$2a$10$E0A60hzJ.yBHJhyZ970Oze205OGuu4LIrjDSPQvcGBDl40O0oaiqC', 'https://www.52bess.com/uploads/avatar.png', 'admin@qq.com', '12345678901', '管理员', '管理员', '2021-02-24 21:22:48', '2021-07-09 09:29:07', 1, 1);
 INSERT INTO `auth_user` VALUES (2, 'test', '$2a$10$E0A60hzJ.yBHJhyZ970Oze205OGuu4LIrjDSPQvcGBDl40O0oaiqC', 'https://www.52bess.com/uploads/avatar.png', 'test@qq.com', '12345678902', '测试员', '测试员', '2021-03-21 13:42:10', '2021-04-24 12:45:54', 1, 1);
 INSERT INTO `auth_user` VALUES (3, 'user1', '$2a$10$U9qlXI22XmUjzAgZiH0kMOalOkBTM23LvmAownM1GNXNQTRhO4Mtu', 'https://www.52bess.com/uploads/avatar.png', 'user1@qq.com', '111', '普通用户1', '普通用户1', '2021-04-04 18:18:44', '2021-04-04 18:18:44', 1, 1);
 
@@ -225,5 +298,18 @@ CREATE TABLE `auth_user_role_relation`  (
 -- ----------------------------
 INSERT INTO `auth_user_role_relation` VALUES (1, 1, 1);
 INSERT INTO `auth_user_role_relation` VALUES (2, 2, 2);
+
+-- ----------------------------
+-- Table structure for hibernate_sequence
+-- ----------------------------
+DROP TABLE IF EXISTS `hibernate_sequence`;
+CREATE TABLE `hibernate_sequence`  (
+  `next_val` bigint(20) NULL DEFAULT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of hibernate_sequence
+-- ----------------------------
+INSERT INTO `hibernate_sequence` VALUES (1);
 
 SET FOREIGN_KEY_CHECKS = 1;

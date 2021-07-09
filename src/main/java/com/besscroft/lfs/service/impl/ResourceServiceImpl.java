@@ -23,4 +23,9 @@ public class ResourceServiceImpl implements ResourceService {
         List<AuthResource> resourceList = resourceRepository.findAllByUserId(userId);
         return resourceList;
     }
+
+    @Override
+    public List<AuthResource> listAll() {
+        return resourceRepository.findAll();
+    }
 }

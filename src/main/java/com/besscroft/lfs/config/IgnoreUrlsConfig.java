@@ -2,7 +2,6 @@ package com.besscroft.lfs.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.stereotype.Component;
 
 import java.util.List;
 
@@ -13,7 +12,6 @@ import java.util.List;
  * @Time 2021/7/2 14:40
  */
 @Data
-@Component
 @ConfigurationProperties(prefix="whitelist")
 public class IgnoreUrlsConfig {
 

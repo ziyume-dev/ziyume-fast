@@ -12,6 +12,11 @@ import java.util.List;
  */
 public interface ResourceRepository extends JpaRepository<AuthResource, Long> {
 
+    /**
+     * 根据用户id，查询所有资源
+     * @param userId 用户id
+     * @return 资源集合
+     */
     @Query(value = "select r.* from auth_resource r " +
             "inner join auth_role_resource_relation rrr on r.id = rrr.resource_id " +
             "inner join auth_role re on rrr.role_id = re.id " +
@@ -19,5 +24,11 @@ public interface ResourceRepository extends JpaRepository<AuthResource, Long> {
             "inner join auth_user u on urr.admin_id = u.id " +
             "where u.id =:userId", nativeQuery = true)
     List<AuthResource> findAllByUserId(Long userId);
+
+    /**
+     * 查询所有资源
+     * @return 资源集合
+     */
+    List<AuthResource> findAll();
 
 }

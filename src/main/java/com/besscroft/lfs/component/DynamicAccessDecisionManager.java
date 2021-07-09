@@ -1,6 +1,7 @@
 package com.besscroft.lfs.component;
 
 import cn.hutool.core.collection.CollUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.access.ConfigAttribute;
@@ -16,6 +17,7 @@ import java.util.Iterator;
  * @Author Bess Croft
  * @Time 2021/7/7 17:12
  */
+@Slf4j
 public class DynamicAccessDecisionManager implements AccessDecisionManager {
 
     @Override
@@ -28,7 +30,7 @@ public class DynamicAccessDecisionManager implements AccessDecisionManager {
         Iterator<ConfigAttribute> iterator = configAttributes.iterator();
         while (iterator.hasNext()) {
             ConfigAttribute configAttribute = iterator.next();
-            //将访问所需资源或用户拥有资源进行比对
+            // 将访问所需资源或用户拥有资源进行比对
             String needAuthority = configAttribute.getAttribute();
             for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {
                 if (needAuthority.trim().equals(grantedAuthority.getAuthority())) {

@@ -12,6 +12,7 @@
     <groupId>com.besscroft.lfs</groupId>
     <artifactId>lfs</artifactId>
     <version>1.0</version>
+    <packaging>jar</packaging>
     <name>SpringBoot-LFS</name>
     <description>自用的基于SpringBoot的解决方案</description>
 

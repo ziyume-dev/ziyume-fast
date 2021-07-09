@@ -1,8 +1,11 @@
 package com.besscroft.lfs.service.impl;
 
+import cn.hutool.json.JSONUtil;
 import com.besscroft.lfs.entity.AuthResource;
+import com.besscroft.lfs.entity.AuthRole;
 import com.besscroft.lfs.entity.AuthUser;
 import com.besscroft.lfs.model.LFSUser;
+import com.besscroft.lfs.repository.RoleRepository;
 import com.besscroft.lfs.repository.UserRepository;
 import com.besscroft.lfs.service.ResourceService;
 import com.besscroft.lfs.service.UserService;
@@ -18,7 +21,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -42,6 +48,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private HttpServletRequest request;
+
+    @Autowired
+    private RoleRepository repository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // 先调用DAO层查询用户实体对象
@@ -62,6 +74,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         //密码需要客户端加密后传递
         try {
             UserDetails userDetails = loadUserByUsername(username);
+            LOGGER.info("UserDetails:{}", JSONUtil.toJsonStr(userDetails));
             if(!passwordEncoder.matches(password,userDetails.getPassword())){
                 throw new RuntimeException("密码不正确");
             }
@@ -75,6 +88,27 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             LOGGER.warn("登录异常:{}", e.getMessage());
         }
         return token;
+    }
+
+    @Override
+    public AuthUser getCurrentAdminByUserName(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public List<AuthRole> getRoleList(Long userId) {
+        return repository.findAllByUserId(userId);
+    }
+
+    @Override
+    @Transactional
+    public boolean setLoginTime(Date loginTime, Long id) {
+        return userRepository.updateLoginTime(loginTime, id) > 0;
+    }
+
+    @Override
+    public boolean logout(Long adminId) {
+        return true;
     }
 
 }
