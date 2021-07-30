@@ -3,6 +3,7 @@ package com.besscroft.lfs.controller;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
+import com.besscroft.lfs.annotation.WebLog;
 import com.besscroft.lfs.constant.HttpStatus;
 import com.besscroft.lfs.dto.LoginParam;
 import com.besscroft.lfs.entity.AuthRole;
@@ -48,6 +49,7 @@ public class UserController {
     @Autowired
     private MenuService menuService;
 
+    @WebLog(description = "登录以后返回token")
     @ApiOperation(value = "登录以后返回token")
     @PostMapping("/login")
     public CommonResult login(@Validated @RequestBody LoginParam loginParam) {
@@ -61,6 +63,7 @@ public class UserController {
         return CommonResult.success(tokenMap);
     }
 
+    @WebLog(description = "获取当前后台系统登录用户的一些信息")
     @ApiOperation(value = "获取当前后台系统登录用户的一些信息")
     @GetMapping("/info")
     public AjaxResult getInfo() {
@@ -83,6 +86,7 @@ public class UserController {
         return AjaxResult.success(data);
     }
 
+    @WebLog(description = "后台管理系统登出功能")
     @ApiOperation("后台管理系统登出功能")
     @PostMapping(value = "/logout")
     public AjaxResult logout() {
