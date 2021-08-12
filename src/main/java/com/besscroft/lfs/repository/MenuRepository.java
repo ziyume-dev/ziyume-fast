@@ -12,7 +12,6 @@ import java.util.List;
  */
 public interface MenuRepository extends JpaRepository<AuthMenu, Long> {
 
-
     /**
      * 获取当前用户的父菜单
      * @param userId 用户id
@@ -25,7 +24,7 @@ public interface MenuRepository extends JpaRepository<AuthMenu, Long> {
             "                 inner join auth_role r on rm.role_id = r.id" +
             "                 inner join auth_user_role_relation ur on r.id = ur.role_id" +
             "                 inner join auth_user u on ur.admin_id = u.id" +
-            "        where u.id =:userId and m.hidden = 0 and m.parent_id = 0" +
+            "        where u.id =:userId and m.hidden = 1 and m.parent_id = 0" +
             "        order by m.sort", nativeQuery = true)
     List<AuthMenu> findParentAllByUserId(Long userId);
 
@@ -42,7 +41,7 @@ public interface MenuRepository extends JpaRepository<AuthMenu, Long> {
             "                 inner join auth_role r on rm.role_id = r.id" +
             "                 inner join auth_user_role_relation ur on r.id = ur.role_id" +
             "                 inner join auth_user u on ur.admin_id = u.id" +
-            "        where u.id =:userId and m.hidden = 0 and m.parent_id =:menuId" +
+            "        where u.id =:userId and m.hidden = 1 and m.parent_id =:menuId" +
             "        order by m.sort", nativeQuery = true)
     List<AuthMenu> findChildAllByUserIdAndMenuId(Long userId, Long menuId);
 

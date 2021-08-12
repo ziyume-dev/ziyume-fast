@@ -34,7 +34,7 @@ public class MenuServiceImpl implements MenuService {
             RouterVo routerVo = new RouterVo();
             routerVo.setName(menu.getName());
             routerVo.setPath(menu.getPath());
-            routerVo.setHidden(menu.getHidden() == 0);
+            routerVo.setHidden(menu.getHidden() == 1);
             routerVo.setComponent(menu.getComponent());
             routerVo.setMeta(new MetaVo(menu.getTitle(), menu.getIcon(), false));
             List<RouterVo> list = new ArrayList<>();
@@ -47,7 +47,7 @@ public class MenuServiceImpl implements MenuService {
                     router.setName(child.getName());
                     router.setComponent(child.getComponent());
                     router.setMeta(new MetaVo(child.getTitle(), child.getIcon(), false));
-                    router.setHidden(child.getHidden() == 0);
+                    router.setHidden(child.getHidden() == 1);
                     list.add(router);
                 });
                 routerVo.setChildren(list);
