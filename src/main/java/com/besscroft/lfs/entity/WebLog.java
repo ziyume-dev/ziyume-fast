@@ -24,8 +24,7 @@ public class WebLog implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @ApiModelProperty(value = "id", dataType = "Long")
+    @ApiModelProperty(value = "id", dataType = "String")
     private String id;
 
     /** 用户名 */
