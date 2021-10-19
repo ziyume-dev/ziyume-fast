@@ -22,6 +22,7 @@ target/
 mvnw
 mvnw.cmd
 web/node_modules
+logs
 
 ### NetBeans ###
 /nbproject/private/

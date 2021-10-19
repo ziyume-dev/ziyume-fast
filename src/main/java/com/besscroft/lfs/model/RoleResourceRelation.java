@@ -1,8 +1,7 @@
 package com.besscroft.lfs.model;
 
 import io.swagger.annotations.ApiModel;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,6 +16,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "auth_role_resource_relation")
 @ApiModel(value = "权限管理模块角色资源关系表")
+@Data
 public class RoleResourceRelation implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,38 +34,5 @@ public class RoleResourceRelation implements Serializable {
      * 资源ID
      */
     private Long resourceId;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
-    }
-
-    public Long getResourceId() {
-        return resourceId;
-    }
-
-    public void setResourceId(Long resourceId) {
-        this.resourceId = resourceId;
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("id", getId())
-                .append("roleId", getRoleId())
-                .append("resourceId", getResourceId())
-                .toString();
-    }
 
 }
