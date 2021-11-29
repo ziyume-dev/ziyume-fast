@@ -1,5 +1,6 @@
 package com.besscroft.lfs.aspectj;
 
+import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.IdUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
@@ -12,6 +13,7 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -32,6 +34,8 @@ import java.util.Date;
 @Component
 @Order(1)
 public class WebLogAspect {
+
+    private static final String KEY = "requestId";
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WebLogAspect.class);
 
@@ -101,6 +105,8 @@ public class WebLogAspect {
         LOGGER.info("Time Consuming:{}", System.currentTimeMillis() - START_TIME.get());
         // 将日志信息存入数据库
         logService.saveWebLog(webLog);
+        // 出口移除请求ID
+        MDC.remove(KEY);
         return result;
     }
 
@@ -110,6 +116,8 @@ public class WebLogAspect {
      */
     @Before("webLog()")
     public void deBefore(JoinPoint joinPoint) throws Exception {
+        // 入口传入请求ID
+        MDC.put(KEY, UUID.randomUUID().toString());
         // 获取当前请求对象
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
