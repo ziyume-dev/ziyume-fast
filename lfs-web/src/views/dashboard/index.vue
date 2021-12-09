@@ -12,7 +12,8 @@
       </div>
       <div>
         <a href="https://github.com/besscroft/aurora-drive" target="_blank">SpringBoot-LFS</a>
-        自用的基于SpringBoot的解决方案😀目前还在开发中！
+        基于 SpringBoot + Vue + Element UI 的快速启动框架，可基于此框架快速构建系统！
+        目前正在开发中！
       </div>
     </el-card>
 
