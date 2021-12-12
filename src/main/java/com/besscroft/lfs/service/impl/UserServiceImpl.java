@@ -1,6 +1,13 @@
 package com.besscroft.lfs.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
+import com.alibaba.excel.EasyExcel;
+import com.besscroft.lfs.constant.AuthConstants;
+import com.besscroft.lfs.converter.UserConverterMapper;
+import com.besscroft.lfs.dto.AuthUserExcelDto;
+import com.besscroft.lfs.dto.UserDto;
 import com.besscroft.lfs.entity.AuthResource;
 import com.besscroft.lfs.entity.AuthRole;
 import com.besscroft.lfs.entity.AuthUser;
@@ -10,27 +17,40 @@ import com.besscroft.lfs.repository.UserRepository;
 import com.besscroft.lfs.service.ResourceService;
 import com.besscroft.lfs.service.UserService;
 import com.besscroft.lfs.utils.JWTUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Author Bess Croft
  * @Time 2021/7/7 15:55
  */
+@Slf4j
 @Service
 public class UserServiceImpl implements UserService, UserDetailsService {
 
@@ -64,14 +84,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         // 查询权限集合
         List<AuthResource> resourceList = resourceService.getResourceList(user.getId());
-        // 走到这代表查询到了实体对象，返回我们自定义的UserDetail对象（这里权限暂时放个空集合，后面我会讲解）
+        // 返回自定义的 UserDetail 对象
         return new LFSUser(user, resourceList);
     }
 
     @Override
     public String login(String username, String password) {
         String token = null;
-        //密码需要客户端加密后传递
+        // 密码需要客户端加密后传递
         try {
             UserDetails userDetails = loadUserByUsername(username);
             LOGGER.info("UserDetails:{}", JSONUtil.toJsonStr(userDetails));
@@ -88,6 +108,19 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             LOGGER.warn("登录异常:{}", e.getMessage());
         }
         return token;
+    }
+
+    @Override
+    public AuthUser getCurrentAdmin() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUserName = "";
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            currentUserName = authentication.getName();
+            log.info("currentUserName:{}", JSONUtil.toJsonStr(currentUserName));
+        } else {
+            throw new RuntimeException("暂未登录或token已经过期");
+        }
+        return userRepository.findByUsername(currentUserName);
     }
 
     @Override
@@ -109,6 +142,95 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public boolean logout(Long adminId) {
         return true;
+    }
+
+    @Override
+    public Page<AuthUser> getUserPageList(Integer pageNum, Integer pageSize, String keyword) {
+        return userRepository.findAll(PageRequest.of(Objects.equals(pageNum, 0) ? 0 : pageNum - 1, pageSize));
+    }
+
+    @Override
+    public AuthUser getUserById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean updateUser(AuthUser authUser) {
+        return userRepository.save(authUser) != null;
+    }
+
+    @Override
+    public boolean changeSwitch(boolean flag, Long id) {
+        Integer status;
+        if (flag == true) {
+            status = 1;
+        } else {
+            status = 0;
+        }
+        return userRepository.changeSwitch(status, id) > 0;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public boolean delUser(Long id) {
+        userRepository.deleteById(id);
+        return true;
+    }
+
+    @Override
+    public boolean addUser(AuthUser authUser) {
+        // 设置用户注册的时间
+        authUser.setCreateTime(LocalDateTime.now());
+        // 设置用户登录时间与注册时间一致
+        authUser.setLoginTime(LocalDateTime.now());
+        // 加密密码
+        authUser.setPassword(new BCryptPasswordEncoder().encode(authUser.getPassword()));
+        // 设置删除状态
+        authUser.setDel(1);
+        return userRepository.save(authUser) != null;
+    }
+
+    @Override
+    public void export(List<Long> ids, HttpServletResponse response) {
+        List<AuthUser> userList = userRepository.findAllById(ids);
+        if (CollUtil.isNotEmpty(userList)) {
+            List<AuthUserExcelDto> excelDtos = UserConverterMapper.INSTANCE.authUserToAuthUserExcelListDto(userList);
+            excelDtos.forEach(excelDto -> {
+                String status = excelDto.getStatus();
+                switch (status) {
+                    case "0":
+                        excelDto.setStatus("禁用");
+                        break;
+                    case "1":
+                        excelDto.setStatus("启用");
+                        break;
+                }
+                String del = excelDto.getDel();
+                switch (del) {
+                    case "0":
+                        excelDto.setDel("已删除");
+                        break;
+                    case "1":
+                        excelDto.setDel("可用状态");
+                        break;
+                }
+            });
+            try {
+                // 这里注意 有同学反应使用 swagger 会导致各种问题，请直接用浏览器或者用 postman
+                response.setContentType("application/vnd.ms-excel");
+                // 设置返回的数据编码
+                response.setCharacterEncoding("utf-8");
+                // 这里 URLEncoder.encode 可以防止中文乱码 当然和 easyexcel 没有关系
+                String fileName = URLEncoder.encode("用户信息", "UTF-8").replaceAll("\\+", "%20");
+                response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
+                EasyExcel.write(response.getOutputStream(), AuthUserExcelDto.class).autoCloseStream(true).sheet("用户信息").doWrite(excelDtos);
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 }

@@ -3,14 +3,17 @@ package com.besscroft.lfs.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 权限管理模块角色对象
@@ -20,6 +23,8 @@ import java.util.Date;
  */
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "auth_role")
 @ApiModel(value = "权限管理模块角色对象")
 public class AuthRole implements Serializable {
@@ -46,7 +51,7 @@ public class AuthRole implements Serializable {
     /** 创建时间 */
     @ApiModelProperty(value = "创建时间", dataType = "Date")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     /** 启用状态：0->禁用；1->启用 */
     @ApiModelProperty(value = "启用状态", dataType = "Integer")

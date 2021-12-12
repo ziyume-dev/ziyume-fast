@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 权限管理模块资源类别管理对象
@@ -38,7 +38,7 @@ public class AuthResourceSort implements Serializable {
     /** 创建时间 */
     @ApiModelProperty(value = "创建时间", dataType = "Date")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     /** 资源描述 */
     @ApiModelProperty(value = "资源描述", dataType = "String")
