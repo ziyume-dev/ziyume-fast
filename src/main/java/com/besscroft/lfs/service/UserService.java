@@ -2,8 +2,10 @@ package com.besscroft.lfs.service;
 
 import com.besscroft.lfs.entity.AuthRole;
 import com.besscroft.lfs.entity.AuthUser;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
 
@@ -30,6 +32,12 @@ public interface UserService {
 
     /**
      * 获取当前登录后台用户
+     * @return 用户实体
+     */
+    AuthUser getCurrentAdmin();
+
+    /**
+     * 根据用户名获取用户
      * @param username 用户名
      * @return 用户
      */
@@ -55,5 +63,57 @@ public interface UserService {
      * @return
      */
     boolean logout(Long adminId);
+
+    /**
+     * 分页查询用户
+     * @param pageNum 页码
+     * @param pageSize 页大小
+     * @param keyword 关键字
+     * @return 分页用户集合
+     */
+    Page<AuthUser> getUserPageList(Integer pageNum, Integer pageSize, String keyword);
+
+    /**
+     * 根据id获取用户信息
+     * @param id 用户id
+     * @return 用户实体
+     */
+    AuthUser getUserById(Long id);
+
+    /**
+     * 更新用户信息
+     * @param authUser 用户实体
+     * @return
+     */
+    boolean updateUser(AuthUser authUser);
+
+    /**
+     * 用户账户启用状态更新
+     * @param flag 启用状态
+     * @param id 用户id
+     * @return
+     */
+    boolean changeSwitch(boolean flag, Long id);
+
+    /**
+     * 删除权限管理模块用户
+     * @param id 用户id
+     * @return
+     */
+    boolean delUser(Long id);
+
+    /**
+     * 新增权限管理模块用户
+     * @param authUser 用户实体
+     * @return
+     */
+    boolean addUser(AuthUser authUser);
+
+    /**
+     * 导出选定用户数据方法
+     * @param ids 用户id
+     * @param response
+     */
+    void export(List<Long> ids, HttpServletResponse response);
 
 }

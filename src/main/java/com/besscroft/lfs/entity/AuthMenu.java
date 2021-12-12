@@ -7,8 +7,8 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -37,7 +37,7 @@ public class AuthMenu implements Serializable {
     /** 创建时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "创建时间", dataType = "Date")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     /** 菜单名称 */
     @ApiModelProperty(value = "菜单名称", dataType = "String")

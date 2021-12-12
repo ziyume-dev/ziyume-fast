@@ -16,12 +16,16 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -70,14 +74,18 @@ public class WebLogAspect {
         // 获取当前请求对象
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         HttpServletRequest request = requestAttributes.getRequest();
-        // 获取header
-        String header = request.getHeader(AuthConstants.USER_TOKEN_HEADER);
         // 创建日志对象
         WebLog webLog = new WebLog();
-        if(StrUtil.isNotBlank(header)){
-            UserDto userDto = JSONUtil.toBean(header, UserDto.class);
-            // 设置操作用户
-            webLog.setUsername(userDto.getUsername());
+        try {
+            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+            String currentUserName = "";
+            if (!(authentication instanceof AnonymousAuthenticationToken)) {
+                currentUserName = authentication.getName();
+                // 设置操作用户
+                webLog.setUsername(currentUserName);
+            }
+        } catch (Exception e) {
+            LOGGER.error("暂未登录或token已经过期");
         }
         // 设置id
         webLog.setId(IdUtil.simpleUUID());
@@ -96,7 +104,7 @@ public class WebLogAspect {
         // 响应出参
         webLog.setResponseArgs(JSONUtil.toJsonStr(result));
         // 请求时间
-        webLog.setStartTime(new Date());
+        webLog.setStartTime(LocalDateTime.now());
         // 消耗时间
         webLog.setSpendTime(System.currentTimeMillis() - START_TIME.get());
         // 打印响应参数

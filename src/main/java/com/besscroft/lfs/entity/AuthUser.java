@@ -10,7 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 权限管理模块用户对象
@@ -63,12 +63,12 @@ public class AuthUser implements Serializable {
     /** 创建时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "创建时间", dataType = "Date")
-    private Date createTime;
+    private LocalDateTime createTime;
 
     /** 最后登录时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "最后登录时间", dataType = "Date")
-    private Date loginTime;
+    private LocalDateTime loginTime;
 
     /** 帐号启用状态：0->禁用；1->启用 */
     @ApiModelProperty(value = "帐号启用状态", dataType = "Integer")

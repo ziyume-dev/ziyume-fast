@@ -3,15 +3,15 @@
 
  Source Server         : localhost
  Source Server Type    : MySQL
- Source Server Version : 50734
+ Source Server Version : 50736
  Source Host           : localhost:3306
- Source Schema         : lfs
+ Source Schema         : springboot-lfs
 
  Target Server Type    : MySQL
- Target Server Version : 50734
+ Target Server Version : 50736
  File Encoding         : 65001
 
- Date: 09/12/2021 14:46:47
+ Date: 12/12/2021 18:44:23
 */
 
 SET NAMES utf8mb4;
@@ -41,10 +41,6 @@ CREATE TABLE `auth_menu`  (
 -- Records of auth_menu
 -- ----------------------------
 INSERT INTO `auth_menu` VALUES (1, 0, '2021-03-21 18:56:44', '权限管理', NULL, 1, 1, 'auth', '/auth', 'el-icon-success', 1, 'Layout');
-INSERT INTO `auth_menu` VALUES (2, 0, '2021-03-21 18:57:06', '订单管理', NULL, 1, 2, 'order', '/order', 'el-icon-s-order', 1, 'Layout');
-INSERT INTO `auth_menu` VALUES (3, 0, '2021-03-21 18:57:49', '商品管理', NULL, 1, 3, 'product', '/product', 'el-icon-s-goods', 1, 'Layout');
-INSERT INTO `auth_menu` VALUES (4, 0, '2021-03-30 10:47:44', '营销管理', NULL, 1, 4, 'market', '/market', 'el-icon-s-marketing', 1, 'Layout');
-INSERT INTO `auth_menu` VALUES (5, 0, '2021-03-30 10:48:47', '会员管理', NULL, 1, 5, 'user', '/user', 'el-icon-user-solid', 1, 'Layout');
 INSERT INTO `auth_menu` VALUES (6, 0, '2021-03-30 10:49:29', '系统管理', NULL, 1, 6, 'system', '/system', 'el-icon-s-tools', 1, 'Layout');
 INSERT INTO `auth_menu` VALUES (10, 1, '2021-03-21 18:57:47', '用户管理', '权限管理', 2, 0, 'authUser', '/auth/authUser', 'el-icon-user-solid', 1, '/auth/authUser/index');
 INSERT INTO `auth_menu` VALUES (11, 1, '2021-03-21 18:58:31', '角色管理', '权限管理', 2, 0, 'authRole', '/auth/authRole', 'el-icon-s-custom', 1, '/auth/authRole/index');
@@ -52,21 +48,6 @@ INSERT INTO `auth_menu` VALUES (12, 1, '2021-03-21 18:58:34', '菜单管理', '�
 INSERT INTO `auth_menu` VALUES (13, 1, '2021-03-30 10:41:52', '资源管理', '权限管理', 2, 0, 'authResource', '/auth/authResource', 'el-icon-s-promotion', 1, '/auth/authResource/index');
 INSERT INTO `auth_menu` VALUES (14, 1, '2021-03-30 10:44:02', '权限管理', '权限管理', 2, 0, 'authPermission', '/auth/authPermission', 'el-icon-check', 1, '/auth/authPermission/index');
 INSERT INTO `auth_menu` VALUES (15, 1, '2021-03-30 10:46:32', '资源类别管理', '权限管理', 2, 0, 'authResourceSort', '/auth/authResourceSort', 'el-icon-finished', 1, '/auth/authResourceSort/index');
-INSERT INTO `auth_menu` VALUES (20, 2, '2021-03-30 10:36:21', '订单列表', '订单管理', 2, 0, 'orderList', '/order/orderList', 'el-icon-s-order', 1, '/order/orderList/index');
-INSERT INTO `auth_menu` VALUES (21, 2, '2021-03-30 10:38:40', '定时任务', '订单管理', 2, 0, 'orderTimeTask', '/order/orderTimeTask', 'el-icon-timer', 1, '/order/orderTimeTask/index');
-INSERT INTO `auth_menu` VALUES (22, 2, '2021-03-30 10:39:58', '售后订单', '订单管理', 2, 0, 'orderReturn', '/order/orderReturn', 'el-icon-s-claim', 1, '/order/orderReturn');
-INSERT INTO `auth_menu` VALUES (23, 2, '2021-03-30 10:40:43', '售后原因', '订单管理', 2, 0, 'orderReason', '/order/orderReason', 'el-icon-notebook-1', 1, '/order/orderReason/index');
-INSERT INTO `auth_menu` VALUES (30, 3, '2021-03-30 10:33:46', '品牌管理', '商品管理', 2, 0, 'productBrand', '/product/productBrand', 'el-icon-postcard', 1, '/product/productBrand/index');
-INSERT INTO `auth_menu` VALUES (31, 3, '2021-03-27 15:47:53', '商品列表', '商品管理', 2, 0, 'productList', '/product/productList', 'el-icon-s-goods', 1, '/product/productList/index');
-INSERT INTO `auth_menu` VALUES (32, 3, '2021-03-30 10:31:03', '类型管理', '商品管理', 2, 0, 'productType', '/product/productType', 'el-icon-price-tag', 1, '/product/productType/index');
-INSERT INTO `auth_menu` VALUES (33, 3, '2021-03-30 10:29:15', '分类管理', '商品管理', 2, 0, 'productSort', '/product/productSort', 'el-icon-discount', 1, '/product/productSort/index');
-INSERT INTO `auth_menu` VALUES (34, 3, '2021-03-27 15:49:10', '修改商品', '商品管理', 2, 0, 'productUpdate', '/product/productUpdate', 'el-icon-sold-out', 1, '/product/productUpdate/index');
-INSERT INTO `auth_menu` VALUES (35, 3, '2021-03-27 15:49:04', '添加商品', '商品管理', 2, 0, 'productAdd', '/product/productAdd', 'el-icon-sell', 1, '/product/productAdd/index');
-INSERT INTO `auth_menu` VALUES (40, 4, '2021-03-30 10:54:02', '虚拟币管理', '营销管理', 2, 0, 'marketBit', '/market/marketBit', 'el-icon-s-finance', 1, '/market/marketBit/index');
-INSERT INTO `auth_menu` VALUES (41, 4, '2021-03-30 10:51:23', '秒杀管理', '营销管理', 2, 0, 'marketSpike', '/market/marketSpike', 'el-icon-alarm-clock', 1, '/market/marketSpike/index');
-INSERT INTO `auth_menu` VALUES (42, 4, '2021-03-30 10:52:29', '优惠券管理', '营销管理', 2, 0, 'marketCoupon', '/market/marketCoupon', 'el-icon-s-ticket', 1, '/market/marketCoupon/index');
-INSERT INTO `auth_menu` VALUES (43, 4, '2021-03-30 10:53:21', '广告管理', '营销管理', 2, 0, 'marketAD', '/market/marketAD', 'el-icon-data-line', 1, '/market/marketAD/index');
-INSERT INTO `auth_menu` VALUES (50, 5, '2021-03-30 10:55:06', '会员列表', '会员管理', 2, 0, 'userList', '/user/userList', 'el-icon-user', 1, '/user/userList/index');
 INSERT INTO `auth_menu` VALUES (51, 6, '2021-04-10 10:39:32', '版本日志', '系统管理', 2, 0, 'version', '/system/version', 'el-icon-s-promotion', 1, '/system/version/index');
 INSERT INTO `auth_menu` VALUES (100, 0, '2021-08-12 10:58:54', '首页', NULL, 1, 0, 'Dashboard', '/dashboard', 'el-icon-s-platform', 1, 'Layout');
 
@@ -104,12 +85,53 @@ CREATE TABLE `auth_resource`  (
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `category_id` bigint(20) NULL DEFAULT NULL COMMENT '资源类别ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 8 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限管理模块资源表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 81 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限管理模块资源表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of auth_resource
 -- ----------------------------
-INSERT INTO `auth_resource` VALUES (7, '用户信息', '/user/info', '管理系统用户登陆后查询个人信息', '2021-07-08 17:37:11', 3);
+INSERT INTO `auth_resource` VALUES (1, '添加用户', '/user/addUser', '添加权限管理模块用户', '2021-10-10 16:08:33', 3);
+INSERT INTO `auth_resource` VALUES (2, '删除用户', '/user/delUser/**', '删除后台管理系统的用户', '2021-03-17 14:32:33', 3);
+INSERT INTO `auth_resource` VALUES (3, '用户信息', '/user/info', '管理系统用户登陆后查询个人信息', '2021-03-17 15:32:20', 3);
+INSERT INTO `auth_resource` VALUES (4, '修改用户', '/user/updateUser', '更新后台管理系统用户信息', '2021-03-21 13:42:59', 3);
+INSERT INTO `auth_resource` VALUES (5, '用户列表', '/user/list', '获取管理系统所有用户', '2021-04-04 10:45:53', 3);
+INSERT INTO `auth_resource` VALUES (6, '导出用户', '/user/exportUser', '导出权限管理模块用户', '2021-04-04 13:47:26', 3);
+INSERT INTO `auth_resource` VALUES (7, '获取用户', '/user/getUser/**', '根据id获取用户', '2021-04-04 13:54:04', 3);
+INSERT INTO `auth_resource` VALUES (8, '更新状态', '/user/changeSwitch', '用户账户启用状态更新', '2021-04-04 15:29:37', 3);
+INSERT INTO `auth_resource` VALUES (9, '导出列表', '/user/export', '导出管理系统用户列表', '2021-04-04 21:56:06', 3);
+INSERT INTO `auth_resource` VALUES (10, '菜单列表', '/menu/list', '查询后台管理菜单列表', '2021-04-09 21:20:56', 2);
+INSERT INTO `auth_resource` VALUES (11, '菜单详情', '/menu/getMenu/**', '根据id查询菜单详情', '2021-04-09 21:21:33', 2);
+INSERT INTO `auth_resource` VALUES (12, '修改菜单', '/menu/updateMenu', '修改菜单', '2021-04-09 21:21:53', 2);
+INSERT INTO `auth_resource` VALUES (13, '更新状态', '/menu/changeSwitch', '菜单是否显示状态更新', '2021-04-09 21:22:27', 2);
+INSERT INTO `auth_resource` VALUES (14, '删除菜单', '/menu/delMenu/**', '根据id删除菜单', '2021-04-09 21:23:00', 2);
+INSERT INTO `auth_resource` VALUES (15, '新增菜单', '/menu/addMenu', '新增菜单', '2021-04-09 21:23:23', 2);
+INSERT INTO `auth_resource` VALUES (16, '父菜单查询', '/menu/getParentMenu', '查询所有的父菜单', '2021-04-09 22:12:04', 2);
+INSERT INTO `auth_resource` VALUES (17, '角色列表', '/role/list', '获取角色列表', '2021-04-10 09:35:50', 6);
+INSERT INTO `auth_resource` VALUES (18, '角色信息', '/role/getRole/**', '查询角色详细', '2021-04-10 09:37:06', 6);
+INSERT INTO `auth_resource` VALUES (19, '新增角色', '/role/addRole', '新增角色', '2021-04-10 09:37:42', 6);
+INSERT INTO `auth_resource` VALUES (20, '修改角色', '/role/updateRole', '修改角色信息', '2021-04-10 09:38:09', 6);
+INSERT INTO `auth_resource` VALUES (21, '删除角色', '/role/delRole/**', '根据id删除角色', '2021-04-10 09:38:43', 6);
+INSERT INTO `auth_resource` VALUES (22, '更新状态', '/role/changeSwitch', '角色启用状态更新', '2021-04-10 09:39:29', 6);
+INSERT INTO `auth_resource` VALUES (23, '资源列表', '/resource/list', '获取资源列表', '2021-04-10 10:57:07', 5);
+INSERT INTO `auth_resource` VALUES (24, '资源详情', '/resource/getResource/**', '根据id获取资源详情', '2021-04-10 10:57:43', 5);
+INSERT INTO `auth_resource` VALUES (25, '新增资源', '/resource/addResource', '新增资源', '2021-04-10 10:58:09', 5);
+INSERT INTO `auth_resource` VALUES (26, '更新资源', '/resource/updateResource', '更新资源信息', '2021-04-10 10:58:41', 5);
+INSERT INTO `auth_resource` VALUES (27, '删除资源', '/resource/delResource/**', '根据id删除资源', '2021-04-10 10:59:05', 5);
+INSERT INTO `auth_resource` VALUES (28, '获取所有角色', '/role/getRoleAll', '获取所有角色', '2021-04-15 14:12:46', 6);
+INSERT INTO `auth_resource` VALUES (29, '更新用户角色', '/role/updateRoleById', '更新用户的角色', '2021-04-15 14:28:12', 6);
+INSERT INTO `auth_resource` VALUES (30, '查询角色', '/role/getRoleById/**', '根据用户id查询角色', '2021-04-15 14:48:39', 6);
+INSERT INTO `auth_resource` VALUES (31, '获取菜单树', '/menu/getMenuTreeById/**', '根据角色id获取菜单树', '2021-04-16 14:11:27', 2);
+INSERT INTO `auth_resource` VALUES (32, '获取所有菜单树', '/menu/getAllMenuTree', '获取所有菜单树', '2021-04-16 14:53:27', 2);
+INSERT INTO `auth_resource` VALUES (33, '获取资源树', '/resource/getResourceTreeById/**', '根据角色id获取资源树', '2021-04-16 15:32:32', 5);
+INSERT INTO `auth_resource` VALUES (34, '获取所有资源树', '/resource/getAllResourceTree', '获取所有资源树', '2021-04-16 15:33:02', 5);
+INSERT INTO `auth_resource` VALUES (35, '更新菜单树', '/menu/updateMenuTree', '更新菜单树', '2021-04-16 16:49:09', 2);
+INSERT INTO `auth_resource` VALUES (36, '更新资源树', '/resource/updateResourceTree', '更新资源树', '2021-04-16 16:49:31', 5);
+INSERT INTO `auth_resource` VALUES (37, '资源类别列表', '/resourceSort/list', '获取资源类别列表', '2021-04-17 19:55:38', 4);
+INSERT INTO `auth_resource` VALUES (38, '资源类别详细', '/resourceSort/getResourceSort/**', '查询资源类别详细', '2021-04-17 19:56:07', 4);
+INSERT INTO `auth_resource` VALUES (39, '新增资源类别', '/resourceSort/addResourceSort', '新增资源类别', '2021-04-17 19:56:32', 4);
+INSERT INTO `auth_resource` VALUES (40, '修改资源类别', '/resourceSort/updateResourceSort', '修改资源类别', '2021-04-17 19:56:54', 4);
+INSERT INTO `auth_resource` VALUES (41, '删除资源类别', '/resourceSort/delResourceSort/**', '删除资源类别', '2021-04-17 19:57:10', 4);
+INSERT INTO `auth_resource` VALUES (42, '版本日志列表', '/updateLog/list', '版本日志列表', '2021-04-17 21:41:58', 7);
 
 -- ----------------------------
 -- Table structure for auth_resource_sort
@@ -122,11 +144,18 @@ CREATE TABLE `auth_resource_sort`  (
   `description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '资源描述',
   `sort` int(11) NULL DEFAULT NULL COMMENT '排序',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限管理模块资源类别管理表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 46 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限管理模块资源类别管理表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of auth_resource_sort
 -- ----------------------------
+INSERT INTO `auth_resource_sort` VALUES (1, '权限管理', '2021-04-16 15:22:07', '权限管理', 1);
+INSERT INTO `auth_resource_sort` VALUES (2, '菜单管理', '2021-04-16 15:22:17', '菜单管理', 1);
+INSERT INTO `auth_resource_sort` VALUES (3, '用户管理', '2021-04-16 15:22:28', '用户管理', 1);
+INSERT INTO `auth_resource_sort` VALUES (4, '资源类别管理', '2021-04-16 15:22:39', '资源类别管理', 1);
+INSERT INTO `auth_resource_sort` VALUES (5, '资源管理', '2021-04-16 15:22:48', '资源管理', 1);
+INSERT INTO `auth_resource_sort` VALUES (6, '角色管理', '2021-04-16 15:22:57', '角色管理', 1);
+INSERT INTO `auth_resource_sort` VALUES (7, '版本日志', '2021-04-17 21:42:33', '版本日志', 6);
 
 -- ----------------------------
 -- Table structure for auth_role
@@ -140,15 +169,16 @@ CREATE TABLE `auth_role`  (
   `create_time` datetime NULL DEFAULT NULL COMMENT '创建时间',
   `status` int(1) NULL DEFAULT 0 COMMENT '启用状态：0->禁用；1->启用',
   `sort` int(11) NULL DEFAULT 0 COMMENT '排序',
-  `del` int(1) NULL DEFAULT NULL COMMENT '假删除：0->删除状态；1->可用状态',
+  `del` int(1) NOT NULL DEFAULT 1 COMMENT '假删除：0->删除状态；1->可用状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限管理模块角色表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 15 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限管理模块角色表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of auth_role
 -- ----------------------------
 INSERT INTO `auth_role` VALUES (1, '超级管理员', '超级管理员，拥有所有的权限', 1, '2021-06-09 16:45:11', 1, 0, 1);
 INSERT INTO `auth_role` VALUES (2, '测试员111', '测试账号权限', 2, '2021-06-09 16:45:15', 1, 0, 1);
+INSERT INTO `auth_role` VALUES (14, '测试', '测试1', 0, '2021-12-12 16:06:51', 1, 1, 1);
 
 -- ----------------------------
 -- Table structure for auth_role_menu_relation
@@ -159,16 +189,12 @@ CREATE TABLE `auth_role_menu_relation`  (
   `role_id` bigint(20) NULL DEFAULT NULL COMMENT '角色ID',
   `menu_id` bigint(20) NULL DEFAULT NULL COMMENT '菜单ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 135 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限管理模块角色菜单关系表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 145 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限管理模块角色菜单关系表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of auth_role_menu_relation
 -- ----------------------------
 INSERT INTO `auth_role_menu_relation` VALUES (91, 1, 1);
-INSERT INTO `auth_role_menu_relation` VALUES (92, 1, 2);
-INSERT INTO `auth_role_menu_relation` VALUES (93, 1, 3);
-INSERT INTO `auth_role_menu_relation` VALUES (94, 1, 4);
-INSERT INTO `auth_role_menu_relation` VALUES (95, 1, 5);
 INSERT INTO `auth_role_menu_relation` VALUES (96, 1, 6);
 INSERT INTO `auth_role_menu_relation` VALUES (97, 1, 10);
 INSERT INTO `auth_role_menu_relation` VALUES (98, 1, 11);
@@ -176,38 +202,18 @@ INSERT INTO `auth_role_menu_relation` VALUES (99, 1, 12);
 INSERT INTO `auth_role_menu_relation` VALUES (100, 1, 13);
 INSERT INTO `auth_role_menu_relation` VALUES (101, 1, 14);
 INSERT INTO `auth_role_menu_relation` VALUES (102, 1, 15);
-INSERT INTO `auth_role_menu_relation` VALUES (103, 1, 20);
-INSERT INTO `auth_role_menu_relation` VALUES (104, 1, 21);
-INSERT INTO `auth_role_menu_relation` VALUES (105, 1, 22);
-INSERT INTO `auth_role_menu_relation` VALUES (106, 1, 23);
-INSERT INTO `auth_role_menu_relation` VALUES (107, 1, 30);
-INSERT INTO `auth_role_menu_relation` VALUES (108, 1, 31);
-INSERT INTO `auth_role_menu_relation` VALUES (109, 1, 32);
-INSERT INTO `auth_role_menu_relation` VALUES (110, 1, 33);
-INSERT INTO `auth_role_menu_relation` VALUES (111, 1, 34);
-INSERT INTO `auth_role_menu_relation` VALUES (112, 1, 35);
-INSERT INTO `auth_role_menu_relation` VALUES (113, 1, 40);
-INSERT INTO `auth_role_menu_relation` VALUES (114, 1, 41);
-INSERT INTO `auth_role_menu_relation` VALUES (115, 1, 42);
-INSERT INTO `auth_role_menu_relation` VALUES (116, 1, 43);
-INSERT INTO `auth_role_menu_relation` VALUES (117, 1, 50);
 INSERT INTO `auth_role_menu_relation` VALUES (118, 1, 51);
-INSERT INTO `auth_role_menu_relation` VALUES (119, 2, 50);
-INSERT INTO `auth_role_menu_relation` VALUES (120, 2, 51);
-INSERT INTO `auth_role_menu_relation` VALUES (121, 2, 40);
-INSERT INTO `auth_role_menu_relation` VALUES (122, 2, 41);
-INSERT INTO `auth_role_menu_relation` VALUES (123, 2, 33);
-INSERT INTO `auth_role_menu_relation` VALUES (124, 2, 30);
-INSERT INTO `auth_role_menu_relation` VALUES (125, 2, 22);
-INSERT INTO `auth_role_menu_relation` VALUES (126, 2, 15);
-INSERT INTO `auth_role_menu_relation` VALUES (127, 2, 20);
-INSERT INTO `auth_role_menu_relation` VALUES (128, 2, 10);
-INSERT INTO `auth_role_menu_relation` VALUES (129, 2, 1);
-INSERT INTO `auth_role_menu_relation` VALUES (130, 2, 2);
-INSERT INTO `auth_role_menu_relation` VALUES (131, 2, 3);
-INSERT INTO `auth_role_menu_relation` VALUES (132, 2, 4);
-INSERT INTO `auth_role_menu_relation` VALUES (133, 2, 5);
 INSERT INTO `auth_role_menu_relation` VALUES (134, 1, 100);
+INSERT INTO `auth_role_menu_relation` VALUES (135, 2, 1);
+INSERT INTO `auth_role_menu_relation` VALUES (136, 2, 10);
+INSERT INTO `auth_role_menu_relation` VALUES (137, 2, 11);
+INSERT INTO `auth_role_menu_relation` VALUES (138, 2, 12);
+INSERT INTO `auth_role_menu_relation` VALUES (139, 2, 13);
+INSERT INTO `auth_role_menu_relation` VALUES (140, 2, 14);
+INSERT INTO `auth_role_menu_relation` VALUES (141, 2, 15);
+INSERT INTO `auth_role_menu_relation` VALUES (142, 2, 6);
+INSERT INTO `auth_role_menu_relation` VALUES (143, 2, 51);
+INSERT INTO `auth_role_menu_relation` VALUES (144, 2, 100);
 
 -- ----------------------------
 -- Table structure for auth_role_permission_relation
@@ -233,12 +239,53 @@ CREATE TABLE `auth_role_resource_relation`  (
   `role_id` bigint(20) NULL DEFAULT NULL COMMENT '角色ID',
   `resource_id` bigint(20) NULL DEFAULT NULL COMMENT '资源ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限管理模块角色资源关系表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 43 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限管理模块角色资源关系表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of auth_role_resource_relation
 -- ----------------------------
-INSERT INTO `auth_role_resource_relation` VALUES (1, 1, 7);
+INSERT INTO `auth_role_resource_relation` VALUES (1, 1, 1);
+INSERT INTO `auth_role_resource_relation` VALUES (2, 1, 2);
+INSERT INTO `auth_role_resource_relation` VALUES (3, 1, 3);
+INSERT INTO `auth_role_resource_relation` VALUES (4, 1, 4);
+INSERT INTO `auth_role_resource_relation` VALUES (5, 1, 5);
+INSERT INTO `auth_role_resource_relation` VALUES (6, 1, 6);
+INSERT INTO `auth_role_resource_relation` VALUES (7, 1, 7);
+INSERT INTO `auth_role_resource_relation` VALUES (8, 1, 8);
+INSERT INTO `auth_role_resource_relation` VALUES (9, 1, 9);
+INSERT INTO `auth_role_resource_relation` VALUES (10, 1, 10);
+INSERT INTO `auth_role_resource_relation` VALUES (11, 1, 11);
+INSERT INTO `auth_role_resource_relation` VALUES (12, 1, 12);
+INSERT INTO `auth_role_resource_relation` VALUES (13, 1, 13);
+INSERT INTO `auth_role_resource_relation` VALUES (14, 1, 14);
+INSERT INTO `auth_role_resource_relation` VALUES (15, 1, 15);
+INSERT INTO `auth_role_resource_relation` VALUES (16, 1, 16);
+INSERT INTO `auth_role_resource_relation` VALUES (17, 1, 17);
+INSERT INTO `auth_role_resource_relation` VALUES (18, 1, 18);
+INSERT INTO `auth_role_resource_relation` VALUES (19, 1, 19);
+INSERT INTO `auth_role_resource_relation` VALUES (20, 1, 20);
+INSERT INTO `auth_role_resource_relation` VALUES (21, 1, 21);
+INSERT INTO `auth_role_resource_relation` VALUES (22, 1, 22);
+INSERT INTO `auth_role_resource_relation` VALUES (23, 1, 23);
+INSERT INTO `auth_role_resource_relation` VALUES (24, 1, 24);
+INSERT INTO `auth_role_resource_relation` VALUES (25, 1, 25);
+INSERT INTO `auth_role_resource_relation` VALUES (26, 1, 26);
+INSERT INTO `auth_role_resource_relation` VALUES (27, 1, 27);
+INSERT INTO `auth_role_resource_relation` VALUES (28, 1, 28);
+INSERT INTO `auth_role_resource_relation` VALUES (29, 1, 29);
+INSERT INTO `auth_role_resource_relation` VALUES (30, 1, 30);
+INSERT INTO `auth_role_resource_relation` VALUES (31, 1, 31);
+INSERT INTO `auth_role_resource_relation` VALUES (32, 1, 32);
+INSERT INTO `auth_role_resource_relation` VALUES (33, 1, 33);
+INSERT INTO `auth_role_resource_relation` VALUES (34, 1, 34);
+INSERT INTO `auth_role_resource_relation` VALUES (35, 1, 35);
+INSERT INTO `auth_role_resource_relation` VALUES (36, 1, 36);
+INSERT INTO `auth_role_resource_relation` VALUES (37, 1, 37);
+INSERT INTO `auth_role_resource_relation` VALUES (38, 1, 38);
+INSERT INTO `auth_role_resource_relation` VALUES (39, 1, 39);
+INSERT INTO `auth_role_resource_relation` VALUES (40, 1, 40);
+INSERT INTO `auth_role_resource_relation` VALUES (41, 1, 41);
+INSERT INTO `auth_role_resource_relation` VALUES (42, 1, 42);
 
 -- ----------------------------
 -- Table structure for auth_user
@@ -263,9 +310,9 @@ CREATE TABLE `auth_user`  (
 -- ----------------------------
 -- Records of auth_user
 -- ----------------------------
-INSERT INTO `auth_user` VALUES (1, 'admin', '$2a$10$E0A60hzJ.yBHJhyZ970Oze205OGuu4LIrjDSPQvcGBDl40O0oaiqC', 'https://www.52bess.com/uploads/avatar.png', 'admin@qq.com', '12345678901', '管理员', '管理员', '2021-02-24 21:22:48', '2021-10-19 14:43:51', 1, 1);
-INSERT INTO `auth_user` VALUES (2, 'test', '$2a$10$E0A60hzJ.yBHJhyZ970Oze205OGuu4LIrjDSPQvcGBDl40O0oaiqC', 'https://www.52bess.com/uploads/avatar.png', 'test@qq.com', '12345678902', '测试员', '测试员', '2021-03-21 13:42:10', '2021-04-24 12:45:54', 1, 1);
-INSERT INTO `auth_user` VALUES (3, 'user1', '$2a$10$U9qlXI22XmUjzAgZiH0kMOalOkBTM23LvmAownM1GNXNQTRhO4Mtu', 'https://www.52bess.com/uploads/avatar.png', 'user1@qq.com', '111', '普通用户1', '普通用户1', '2021-04-04 18:18:44', '2021-04-04 18:18:44', 1, 1);
+INSERT INTO `auth_user` VALUES (1, 'admin', '$2a$10$E0A60hzJ.yBHJhyZ970Oze205OGuu4LIrjDSPQvcGBDl40O0oaiqC', 'https://www.besscroft.com/uploads/avatar.png', 'admin@qq.com', '12345678901', '管理员', '管理员', '2021-02-24 21:22:48', '2021-12-12 18:35:37', 1, 1);
+INSERT INTO `auth_user` VALUES (2, 'test', '$2a$10$E0A60hzJ.yBHJhyZ970Oze205OGuu4LIrjDSPQvcGBDl40O0oaiqC', 'https://www.besscroft.com/uploads/avatar.png', 'test@qq.com', '12345678902', '测试员', '测试员', '2021-03-21 13:42:10', '2021-04-24 12:45:54', 1, 1);
+INSERT INTO `auth_user` VALUES (3, 'user1', '$2a$10$U9qlXI22XmUjzAgZiH0kMOalOkBTM23LvmAownM1GNXNQTRhO4Mtu', 'https://www.besscroft.com/uploads/avatar.png', 'user1@qq.com', '111', '普通用户1', '普通用户1', '2021-04-04 18:18:44', '2021-04-04 18:18:44', 1, 1);
 
 -- ----------------------------
 -- Table structure for auth_user_role_relation
@@ -276,13 +323,13 @@ CREATE TABLE `auth_user_role_relation`  (
   `admin_id` bigint(20) NULL DEFAULT NULL COMMENT '用户ID',
   `role_id` bigint(20) NULL DEFAULT NULL COMMENT '角色ID',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限管理模块用户角色关系表' ROW_FORMAT = DYNAMIC;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '权限管理模块用户角色关系表' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of auth_user_role_relation
 -- ----------------------------
 INSERT INTO `auth_user_role_relation` VALUES (1, 1, 1);
-INSERT INTO `auth_user_role_relation` VALUES (2, 2, 2);
+INSERT INTO `auth_user_role_relation` VALUES (3, 2, 2);
 
 -- ----------------------------
 -- Table structure for hibernate_sequence
@@ -290,12 +337,12 @@ INSERT INTO `auth_user_role_relation` VALUES (2, 2, 2);
 DROP TABLE IF EXISTS `hibernate_sequence`;
 CREATE TABLE `hibernate_sequence`  (
   `next_val` bigint(20) NULL DEFAULT NULL
-) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of hibernate_sequence
 -- ----------------------------
-INSERT INTO `hibernate_sequence` VALUES (1);
+INSERT INTO `hibernate_sequence` VALUES (46);
 
 -- ----------------------------
 -- Table structure for web_log
@@ -319,10 +366,5 @@ CREATE TABLE `web_log`  (
 -- ----------------------------
 -- Records of web_log
 -- ----------------------------
-INSERT INTO `web_log` VALUES ('1a711aed360543dba2ee341154acfea0', NULL, '获取当前后台系统登录用户的一些信息', 'http://localhost:8080/user/info', 'GET', 'com.besscroft.lfs.controller.UserController.getInfo()', '127.0.0.1', '[]', '{\"code\":200,\"data\":{\"roles\":[\"超级管理员\"],\"icon\":\"https://www.52bess.com/uploads/avatar.png\",\"menus\":[{\"hidden\":true,\"path\":\"/dashboard\",\"component\":\"Layout\",\"meta\":{\"icon\":\"el-icon-s-platform\",\"title\":\"首页\",\"noCache\":false},\"name\":\"Dashboard\"},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/auth\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/auth/authPermission\",\"component\":\"/auth/authPermission/index\",\"meta\":{\"icon\":\"el-icon-check\",\"title\":\"权限管理\",\"noCache\":false},\"name\":\"authPermission\"},{\"hidden\":true,\"path\":\"/auth/authMenu\",\"component\":\"/auth/authMenu/index\",\"meta\":{\"icon\":\"el-icon-menu\",\"title\":\"菜单管理\",\"noCache\":false},\"name\":\"authMenu\"},{\"hidden\":true,\"path\":\"/auth/authUser\",\"component\":\"/auth/authUser/index\",\"meta\":{\"icon\":\"el-icon-user-solid\",\"title\":\"用户管理\",\"noCache\":false},\"name\":\"authUser\"},{\"hidden\":true,\"path\":\"/auth/authResourceSort\",\"component\":\"/auth/authResourceSort/index\",\"meta\":{\"icon\":\"el-icon-finished\",\"title\":\"资源类别管理\",\"noCache\":false},\"name\":\"authResourceSort\"},{\"hidden\":true,\"path\":\"/auth/authResource\",\"component\":\"/auth/authResource/index\",\"meta\":{\"icon\":\"el-icon-s-promotion\",\"title\":\"资源管理\",\"noCache\":false},\"name\":\"authResource\"},{\"hidden\":true,\"path\":\"/auth/authRole\",\"component\":\"/auth/authRole/index\",\"meta\":{\"icon\":\"el-icon-s-custom\",\"title\":\"角色管理\",\"noCache\":false},\"name\":\"authRole\"}],\"meta\":{\"icon\":\"el-icon-success\",\"title\":\"权限管理\",\"noCache\":false},\"name\":\"auth\",\"alwaysShow\":true},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/order\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/order/orderReturn\",\"component\":\"/order/orderReturn\",\"meta\":{\"icon\":\"el-icon-s-claim\",\"title\":\"售后订单\",\"noCache\":false},\"name\":\"orderReturn\"},{\"hidden\":true,\"path\":\"/order/orderList\",\"component\":\"/order/orderList/index\",\"meta\":{\"icon\":\"el-icon-s-order\",\"title\":\"订单列表\",\"noCache\":false},\"name\":\"orderList\"},{\"hidden\":true,\"path\":\"/order/orderReason\",\"component\":\"/order/orderReason/index\",\"meta\":{\"icon\":\"el-icon-notebook-1\",\"title\":\"售后原因\",\"noCache\":false},\"name\":\"orderReason\"},{\"hidden\":true,\"path\":\"/order/orderTimeTask\",\"component\":\"/order/orderTimeTask/index\",\"meta\":{\"icon\":\"el-icon-timer\",\"title\":\"定时任务\",\"noCache\":false},\"name\":\"orderTimeTask\"}],\"meta\":{\"icon\":\"el-icon-s-order\",\"title\":\"订单管理\",\"noCache\":false},\"name\":\"order\",\"alwaysShow\":true},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/product\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/product/productUpdate\",\"component\":\"/product/productUpdate/index\",\"meta\":{\"icon\":\"el-icon-sold-out\",\"title\":\"修改商品\",\"noCache\":false},\"name\":\"productUpdate\"},{\"hidden\":true,\"path\":\"/product/productType\",\"component\":\"/product/productType/index\",\"meta\":{\"icon\":\"el-icon-price-tag\",\"title\":\"类型管理\",\"noCache\":false},\"name\":\"productType\"},{\"hidden\":true,\"path\":\"/product/productBrand\",\"component\":\"/product/productBrand/index\",\"meta\":{\"icon\":\"el-icon-postcard\",\"title\":\"品牌管理\",\"noCache\":false},\"name\":\"productBrand\"},{\"hidden\":true,\"path\":\"/product/productAdd\",\"component\":\"/product/productAdd/index\",\"meta\":{\"icon\":\"el-icon-sell\",\"title\":\"添加商品\",\"noCache\":false},\"name\":\"productAdd\"},{\"hidden\":true,\"path\":\"/product/productSort\",\"component\":\"/product/productSort/index\",\"meta\":{\"icon\":\"el-icon-discount\",\"title\":\"分类管理\",\"noCache\":false},\"name\":\"productSort\"},{\"hidden\":true,\"path\":\"/product/productList\",\"component\":\"/product/productList/index\",\"meta\":{\"icon\":\"el-icon-s-goods\",\"title\":\"商品列表\",\"noCache\":false},\"name\":\"productList\"}],\"meta\":{\"icon\":\"el-icon-s-goods\",\"title\":\"商品管理\",\"noCache\":false},\"name\":\"product\",\"alwaysShow\":true},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/market\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/market/marketCoupon\",\"component\":\"/market/marketCoupon/index\",\"meta\":{\"icon\":\"el-icon-s-ticket\",\"title\":\"优惠券管理\",\"noCache\":false},\"name\":\"marketCoupon\"},{\"hidden\":true,\"path\":\"/market/marketBit\",\"component\":\"/market/marketBit/index\",\"meta\":{\"icon\":\"el-icon-s-finance\",\"title\":\"虚拟币管理\",\"noCache\":false},\"name\":\"marketBit\"},{\"hidden\":true,\"path\":\"/market/marketAD\",\"component\":\"/market/marketAD/index\",\"meta\":{\"icon\":\"el-icon-data-line\",\"title\":\"广告管理\",\"noCache\":false},\"name\":\"marketAD\"},{\"hidden\":true,\"path\":\"/market/marketSpike\",\"component\":\"/market/marketSpike/index\",\"meta\":{\"icon\":\"el-icon-alarm-clock\",\"title\":\"秒杀管理\",\"noCache\":false},\"name\":\"marketSpike\"}],\"meta\":{\"icon\":\"el-icon-s-marketing\",\"title\":\"营销管理\",\"noCache\":false},\"name\":\"market\",\"alwaysShow\":true},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/user\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/user/userList\",\"component\":\"/user/userList/index\",\"meta\":{\"icon\":\"el-icon-user\",\"title\":\"会员列表\",\"noCache\":false},\"name\":\"userList\"}],\"meta\":{\"icon\":\"el-icon-user-solid\",\"title\":\"会员管理\",\"noCache\":false},\"name\":\"user\",\"alwaysShow\":true},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/system\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/system/version\",\"component\":\"/system/version/index\",\"meta\":{\"icon\":\"el-icon-s-promotion\",\"title\":\"版本日志\",\"noCache\":false},\"name\":\"version\"}],\"meta\":{\"icon\":\"el-icon-s-tools\",\"title\":\"系统管理\",\"noCache\":false},\"name\":\"system\",\"alwaysShow\":true}],\"username\":\"admin\"},\"message\":\"操作成功\"}', '2021-09-25 16:08:22', 57);
-INSERT INTO `web_log` VALUES ('201f539ec71c436bbe149ed9466187ba', NULL, '登录以后返回token', 'http://localhost:8080/user/login', 'POST', 'com.besscroft.lfs.controller.UserController.login()', '127.0.0.1', '[{\"password\":\"666666\",\"username\":\"admin\"}]', '{\"code\":200,\"data\":{\"token\":\"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImNyZWF0ZWQiOjE2MzI1NTczMDA4ODIsImV4cCI6MTYzMzE2MjEwMH0.aVw9Zwn6ZqPZ7xDKVsD2z1wt_73BwJCzbU2kHxetE4_c2lq9WChh1ncVJaIEiUjoTTJXxYajXduw_58zZNPErA\",\"tokenHead\":\"Bearer \"},\"message\":\"调用成功\"}', '2021-09-25 16:08:21', 692);
-INSERT INTO `web_log` VALUES ('562fb879557f473ca841b681b4d2b6fd', NULL, '登录以后返回token', 'http://localhost:8080/user/login', 'POST', 'com.besscroft.lfs.controller.UserController.login()', '127.0.0.1', '[{\"password\":\"666666\",\"username\":\"admin\"}]', '{\"code\":200,\"data\":{\"token\":\"eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImNyZWF0ZWQiOjE2MzQ2MjQ5Njk5NjcsImV4cCI6MTYzNTIyOTc2OX0.HPHAwN2LUm41N0sxupS9shjZBI1yEnsfHX4fPmmiw-bceRiUxlO2MlDxHa0MkeH6bwqThWvhJPn_lGZIkhvyxQ\",\"tokenHead\":\"Bearer \"},\"message\":\"调用成功\"}', '2021-10-19 14:29:31', 697);
-INSERT INTO `web_log` VALUES ('c4fd744ff62446c5b388c82576d994cc', NULL, '获取当前后台系统登录用户的一些信息', 'http://localhost:8080/user/info', 'GET', 'com.besscroft.lfs.controller.UserController.getInfo()', '127.0.0.1', '[]', '{\"code\":200,\"data\":{\"roles\":[\"超级管理员\"],\"icon\":\"https://www.52bess.com/uploads/avatar.png\",\"menus\":[{\"hidden\":true,\"path\":\"/dashboard\",\"component\":\"Layout\",\"meta\":{\"icon\":\"el-icon-s-platform\",\"title\":\"首页\",\"noCache\":false},\"name\":\"Dashboard\"},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/auth\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/auth/authMenu\",\"component\":\"/auth/authMenu/index\",\"meta\":{\"icon\":\"el-icon-menu\",\"title\":\"菜单管理\",\"noCache\":false},\"name\":\"authMenu\"},{\"hidden\":true,\"path\":\"/auth/authUser\",\"component\":\"/auth/authUser/index\",\"meta\":{\"icon\":\"el-icon-user-solid\",\"title\":\"用户管理\",\"noCache\":false},\"name\":\"authUser\"},{\"hidden\":true,\"path\":\"/auth/authResourceSort\",\"component\":\"/auth/authResourceSort/index\",\"meta\":{\"icon\":\"el-icon-finished\",\"title\":\"资源类别管理\",\"noCache\":false},\"name\":\"authResourceSort\"},{\"hidden\":true,\"path\":\"/auth/authResource\",\"component\":\"/auth/authResource/index\",\"meta\":{\"icon\":\"el-icon-s-promotion\",\"title\":\"资源管理\",\"noCache\":false},\"name\":\"authResource\"},{\"hidden\":true,\"path\":\"/auth/authRole\",\"component\":\"/auth/authRole/index\",\"meta\":{\"icon\":\"el-icon-s-custom\",\"title\":\"角色管理\",\"noCache\":false},\"name\":\"authRole\"},{\"hidden\":true,\"path\":\"/auth/authPermission\",\"component\":\"/auth/authPermission/index\",\"meta\":{\"icon\":\"el-icon-check\",\"title\":\"权限管理\",\"noCache\":false},\"name\":\"authPermission\"}],\"meta\":{\"icon\":\"el-icon-success\",\"title\":\"权限管理\",\"noCache\":false},\"name\":\"auth\",\"alwaysShow\":true},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/order\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/order/orderReturn\",\"component\":\"/order/orderReturn\",\"meta\":{\"icon\":\"el-icon-s-claim\",\"title\":\"售后订单\",\"noCache\":false},\"name\":\"orderReturn\"},{\"hidden\":true,\"path\":\"/order/orderList\",\"component\":\"/order/orderList/index\",\"meta\":{\"icon\":\"el-icon-s-order\",\"title\":\"订单列表\",\"noCache\":false},\"name\":\"orderList\"},{\"hidden\":true,\"path\":\"/order/orderReason\",\"component\":\"/order/orderReason/index\",\"meta\":{\"icon\":\"el-icon-notebook-1\",\"title\":\"售后原因\",\"noCache\":false},\"name\":\"orderReason\"},{\"hidden\":true,\"path\":\"/order/orderTimeTask\",\"component\":\"/order/orderTimeTask/index\",\"meta\":{\"icon\":\"el-icon-timer\",\"title\":\"定时任务\",\"noCache\":false},\"name\":\"orderTimeTask\"}],\"meta\":{\"icon\":\"el-icon-s-order\",\"title\":\"订单管理\",\"noCache\":false},\"name\":\"order\",\"alwaysShow\":true},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/product\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/product/productType\",\"component\":\"/product/productType/index\",\"meta\":{\"icon\":\"el-icon-price-tag\",\"title\":\"类型管理\",\"noCache\":false},\"name\":\"productType\"},{\"hidden\":true,\"path\":\"/product/productBrand\",\"component\":\"/product/productBrand/index\",\"meta\":{\"icon\":\"el-icon-postcard\",\"title\":\"品牌管理\",\"noCache\":false},\"name\":\"productBrand\"},{\"hidden\":true,\"path\":\"/product/productAdd\",\"component\":\"/product/productAdd/index\",\"meta\":{\"icon\":\"el-icon-sell\",\"title\":\"添加商品\",\"noCache\":false},\"name\":\"productAdd\"},{\"hidden\":true,\"path\":\"/product/productSort\",\"component\":\"/product/productSort/index\",\"meta\":{\"icon\":\"el-icon-discount\",\"title\":\"分类管理\",\"noCache\":false},\"name\":\"productSort\"},{\"hidden\":true,\"path\":\"/product/productList\",\"component\":\"/product/productList/index\",\"meta\":{\"icon\":\"el-icon-s-goods\",\"title\":\"商品列表\",\"noCache\":false},\"name\":\"productList\"},{\"hidden\":true,\"path\":\"/product/productUpdate\",\"component\":\"/product/productUpdate/index\",\"meta\":{\"icon\":\"el-icon-sold-out\",\"title\":\"修改商品\",\"noCache\":false},\"name\":\"productUpdate\"}],\"meta\":{\"icon\":\"el-icon-s-goods\",\"title\":\"商品管理\",\"noCache\":false},\"name\":\"product\",\"alwaysShow\":true},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/market\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/market/marketCoupon\",\"component\":\"/market/marketCoupon/index\",\"meta\":{\"icon\":\"el-icon-s-ticket\",\"title\":\"优惠券管理\",\"noCache\":false},\"name\":\"marketCoupon\"},{\"hidden\":true,\"path\":\"/market/marketBit\",\"component\":\"/market/marketBit/index\",\"meta\":{\"icon\":\"el-icon-s-finance\",\"title\":\"虚拟币管理\",\"noCache\":false},\"name\":\"marketBit\"},{\"hidden\":true,\"path\":\"/market/marketAD\",\"component\":\"/market/marketAD/index\",\"meta\":{\"icon\":\"el-icon-data-line\",\"title\":\"广告管理\",\"noCache\":false},\"name\":\"marketAD\"},{\"hidden\":true,\"path\":\"/market/marketSpike\",\"component\":\"/market/marketSpike/index\",\"meta\":{\"icon\":\"el-icon-alarm-clock\",\"title\":\"秒杀管理\",\"noCache\":false},\"name\":\"marketSpike\"}],\"meta\":{\"icon\":\"el-icon-s-marketing\",\"title\":\"营销管理\",\"noCache\":false},\"name\":\"market\",\"alwaysShow\":true},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/user\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/user/userList\",\"component\":\"/user/userList/index\",\"meta\":{\"icon\":\"el-icon-user\",\"title\":\"会员列表\",\"noCache\":false},\"name\":\"userList\"}],\"meta\":{\"icon\":\"el-icon-user-solid\",\"title\":\"会员管理\",\"noCache\":false},\"name\":\"user\",\"alwaysShow\":true},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/system\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/system/version\",\"component\":\"/system/version/index\",\"meta\":{\"icon\":\"el-icon-s-promotion\",\"title\":\"版本日志\",\"noCache\":false},\"name\":\"version\"}],\"meta\":{\"icon\":\"el-icon-s-tools\",\"title\":\"系统管理\",\"noCache\":false},\"name\":\"system\",\"alwaysShow\":true}],\"username\":\"admin\"},\"message\":\"操作成功\"}', '2021-10-19 14:43:51', 32);
-INSERT INTO `web_log` VALUES ('fd515d98c3234e3ebdefce2041237e09', NULL, '获取当前后台系统登录用户的一些信息', 'http://localhost:8080/user/info', 'GET', 'com.besscroft.lfs.controller.UserController.getInfo()', '127.0.0.1', '[]', '{\"code\":200,\"data\":{\"roles\":[\"超级管理员\"],\"icon\":\"https://www.52bess.com/uploads/avatar.png\",\"menus\":[{\"hidden\":true,\"path\":\"/dashboard\",\"component\":\"Layout\",\"meta\":{\"icon\":\"el-icon-s-platform\",\"title\":\"首页\",\"noCache\":false},\"name\":\"Dashboard\"},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/auth\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/auth/authMenu\",\"component\":\"/auth/authMenu/index\",\"meta\":{\"icon\":\"el-icon-menu\",\"title\":\"菜单管理\",\"noCache\":false},\"name\":\"authMenu\"},{\"hidden\":true,\"path\":\"/auth/authUser\",\"component\":\"/auth/authUser/index\",\"meta\":{\"icon\":\"el-icon-user-solid\",\"title\":\"用户管理\",\"noCache\":false},\"name\":\"authUser\"},{\"hidden\":true,\"path\":\"/auth/authResourceSort\",\"component\":\"/auth/authResourceSort/index\",\"meta\":{\"icon\":\"el-icon-finished\",\"title\":\"资源类别管理\",\"noCache\":false},\"name\":\"authResourceSort\"},{\"hidden\":true,\"path\":\"/auth/authResource\",\"component\":\"/auth/authResource/index\",\"meta\":{\"icon\":\"el-icon-s-promotion\",\"title\":\"资源管理\",\"noCache\":false},\"name\":\"authResource\"},{\"hidden\":true,\"path\":\"/auth/authRole\",\"component\":\"/auth/authRole/index\",\"meta\":{\"icon\":\"el-icon-s-custom\",\"title\":\"角色管理\",\"noCache\":false},\"name\":\"authRole\"},{\"hidden\":true,\"path\":\"/auth/authPermission\",\"component\":\"/auth/authPermission/index\",\"meta\":{\"icon\":\"el-icon-check\",\"title\":\"权限管理\",\"noCache\":false},\"name\":\"authPermission\"}],\"meta\":{\"icon\":\"el-icon-success\",\"title\":\"权限管理\",\"noCache\":false},\"name\":\"auth\",\"alwaysShow\":true},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/order\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/order/orderReturn\",\"component\":\"/order/orderReturn\",\"meta\":{\"icon\":\"el-icon-s-claim\",\"title\":\"售后订单\",\"noCache\":false},\"name\":\"orderReturn\"},{\"hidden\":true,\"path\":\"/order/orderList\",\"component\":\"/order/orderList/index\",\"meta\":{\"icon\":\"el-icon-s-order\",\"title\":\"订单列表\",\"noCache\":false},\"name\":\"orderList\"},{\"hidden\":true,\"path\":\"/order/orderReason\",\"component\":\"/order/orderReason/index\",\"meta\":{\"icon\":\"el-icon-notebook-1\",\"title\":\"售后原因\",\"noCache\":false},\"name\":\"orderReason\"},{\"hidden\":true,\"path\":\"/order/orderTimeTask\",\"component\":\"/order/orderTimeTask/index\",\"meta\":{\"icon\":\"el-icon-timer\",\"title\":\"定时任务\",\"noCache\":false},\"name\":\"orderTimeTask\"}],\"meta\":{\"icon\":\"el-icon-s-order\",\"title\":\"订单管理\",\"noCache\":false},\"name\":\"order\",\"alwaysShow\":true},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/product\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/product/productType\",\"component\":\"/product/productType/index\",\"meta\":{\"icon\":\"el-icon-price-tag\",\"title\":\"类型管理\",\"noCache\":false},\"name\":\"productType\"},{\"hidden\":true,\"path\":\"/product/productBrand\",\"component\":\"/product/productBrand/index\",\"meta\":{\"icon\":\"el-icon-postcard\",\"title\":\"品牌管理\",\"noCache\":false},\"name\":\"productBrand\"},{\"hidden\":true,\"path\":\"/product/productAdd\",\"component\":\"/product/productAdd/index\",\"meta\":{\"icon\":\"el-icon-sell\",\"title\":\"添加商品\",\"noCache\":false},\"name\":\"productAdd\"},{\"hidden\":true,\"path\":\"/product/productSort\",\"component\":\"/product/productSort/index\",\"meta\":{\"icon\":\"el-icon-discount\",\"title\":\"分类管理\",\"noCache\":false},\"name\":\"productSort\"},{\"hidden\":true,\"path\":\"/product/productList\",\"component\":\"/product/productList/index\",\"meta\":{\"icon\":\"el-icon-s-goods\",\"title\":\"商品列表\",\"noCache\":false},\"name\":\"productList\"},{\"hidden\":true,\"path\":\"/product/productUpdate\",\"component\":\"/product/productUpdate/index\",\"meta\":{\"icon\":\"el-icon-sold-out\",\"title\":\"修改商品\",\"noCache\":false},\"name\":\"productUpdate\"}],\"meta\":{\"icon\":\"el-icon-s-goods\",\"title\":\"商品管理\",\"noCache\":false},\"name\":\"product\",\"alwaysShow\":true},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/market\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/market/marketCoupon\",\"component\":\"/market/marketCoupon/index\",\"meta\":{\"icon\":\"el-icon-s-ticket\",\"title\":\"优惠券管理\",\"noCache\":false},\"name\":\"marketCoupon\"},{\"hidden\":true,\"path\":\"/market/marketBit\",\"component\":\"/market/marketBit/index\",\"meta\":{\"icon\":\"el-icon-s-finance\",\"title\":\"虚拟币管理\",\"noCache\":false},\"name\":\"marketBit\"},{\"hidden\":true,\"path\":\"/market/marketAD\",\"component\":\"/market/marketAD/index\",\"meta\":{\"icon\":\"el-icon-data-line\",\"title\":\"广告管理\",\"noCache\":false},\"name\":\"marketAD\"},{\"hidden\":true,\"path\":\"/market/marketSpike\",\"component\":\"/market/marketSpike/index\",\"meta\":{\"icon\":\"el-icon-alarm-clock\",\"title\":\"秒杀管理\",\"noCache\":false},\"name\":\"marketSpike\"}],\"meta\":{\"icon\":\"el-icon-s-marketing\",\"title\":\"营销管理\",\"noCache\":false},\"name\":\"market\",\"alwaysShow\":true},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/user\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/user/userList\",\"component\":\"/user/userList/index\",\"meta\":{\"icon\":\"el-icon-user\",\"title\":\"会员列表\",\"noCache\":false},\"name\":\"userList\"}],\"meta\":{\"icon\":\"el-icon-user-solid\",\"title\":\"会员管理\",\"noCache\":false},\"name\":\"user\",\"alwaysShow\":true},{\"redirect\":\"noRedirect\",\"hidden\":true,\"path\":\"/system\",\"component\":\"Layout\",\"children\":[{\"hidden\":true,\"path\":\"/system/version\",\"component\":\"/system/version/index\",\"meta\":{\"icon\":\"el-icon-s-promotion\",\"title\":\"版本日志\",\"noCache\":false},\"name\":\"version\"}],\"meta\":{\"icon\":\"el-icon-s-tools\",\"title\":\"系统管理\",\"noCache\":false},\"name\":\"system\",\"alwaysShow\":true}],\"username\":\"admin\"},\"message\":\"操作成功\"}', '2021-10-19 14:29:31', 43);
 
 SET FOREIGN_KEY_CHECKS = 1;

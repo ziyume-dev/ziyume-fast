@@ -7,7 +7,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * 日志对象
@@ -62,7 +62,7 @@ public class WebLog implements Serializable {
     /** 请求时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @ApiModelProperty(value = "请求时间", dataType = "Date")
-    private Date startTime;
+    private LocalDateTime startTime;
 
     /** 消耗时间(毫秒) */
     @ApiModelProperty(value = "消耗时间(毫秒)", dataType = "Date")
