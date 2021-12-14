@@ -24,6 +24,7 @@ mvnw.cmd
 lfs-web/node_modules
 logs
 lfs-web/yarn.lock
+lfs-web/dist
 
 ### NetBeans ###
 /nbproject/private/
