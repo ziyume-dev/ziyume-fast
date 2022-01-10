@@ -7,7 +7,6 @@ import com.besscroft.lfs.filter.AuthenticationFilter;
 import com.besscroft.lfs.filter.DynamicSecurityFilter;
 import com.besscroft.lfs.handler.LfsDeniedHandler;
 import com.besscroft.lfs.handler.LfsEntryPoint;
-import com.besscroft.lfs.service.impl.UserServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnBean;
 import org.springframework.context.annotation.Bean;
@@ -28,9 +27,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
  * @Time 2021/7/2 16:04
  */
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-
-    @Autowired
-    private UserServiceImpl userDetailsService;
 
     @Autowired(required = false)
     private DynamicSecurityService dynamicSecurityService;
@@ -86,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         // 指定UserDetailService和加密器
-        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService()).passwordEncoder(passwordEncoder());
     }
 
     @Bean
