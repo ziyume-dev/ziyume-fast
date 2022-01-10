@@ -2,10 +2,7 @@ package com.besscroft.lfs.aspectj;
 
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.util.IdUtil;
-import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
-import com.besscroft.lfs.constant.AuthConstants;
-import com.besscroft.lfs.dto.UserDto;
 import com.besscroft.lfs.entity.WebLog;
 import com.besscroft.lfs.service.LogService;
 import org.aspectj.lang.JoinPoint;
@@ -26,7 +23,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 /**
  * web操作日志处理切面
