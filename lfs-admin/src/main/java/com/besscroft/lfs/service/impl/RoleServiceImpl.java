@@ -3,7 +3,7 @@ package com.besscroft.lfs.service.impl;
 import com.besscroft.lfs.entity.AuthRole;
 import com.besscroft.lfs.repository.RoleRepository;
 import com.besscroft.lfs.service.RoleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -18,10 +18,10 @@ import java.util.Objects;
  * @Time 2021/7/8 18:09
  */
 @Service
+@RequiredArgsConstructor
 public class RoleServiceImpl implements RoleService {
 
-    @Autowired
-    private RoleRepository roleRepository;
+    private final RoleRepository roleRepository;
 
     @Override
     public List<AuthRole> listAll() {

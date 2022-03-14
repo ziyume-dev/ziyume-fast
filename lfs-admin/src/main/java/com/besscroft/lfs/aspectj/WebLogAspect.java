@@ -1,28 +1,21 @@
 package com.besscroft.lfs.aspectj;
 
 import cn.hutool.core.lang.UUID;
-import cn.hutool.core.util.IdUtil;
 import cn.hutool.json.JSONUtil;
-import com.besscroft.lfs.entity.WebLog;
-import com.besscroft.lfs.service.LogService;
+import lombok.RequiredArgsConstructor;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
-import java.time.LocalDateTime;
 
 /**
  * web操作日志处理切面
@@ -33,6 +26,7 @@ import java.time.LocalDateTime;
 @Aspect
 @Component
 @Order(1)
+@RequiredArgsConstructor
 public class WebLogAspect {
 
     private static final String KEY = "requestId";
@@ -44,9 +38,6 @@ public class WebLogAspect {
 
     /** 用来记录请求进入的时间，防止多线程时出错，这里用了ThreadLocal */
     ThreadLocal<Long> START_TIME = new ThreadLocal<>();
-
-    @Autowired
-    private LogService logService;
 
     /** 配置织入点，以自定义 @webLog 注解为切点 */
     @Pointcut("@annotation(com.besscroft.lfs.annotation.WebLog)")
@@ -69,46 +60,9 @@ public class WebLogAspect {
         Object result = proceedingJoinPoint.proceed();
         // 获取当前请求对象
         ServletRequestAttributes requestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = requestAttributes.getRequest();
-        // 创建日志对象
-        WebLog webLog = new WebLog();
-        try {
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            String currentUserName = "";
-            if (!(authentication instanceof AnonymousAuthenticationToken)) {
-                currentUserName = authentication.getName();
-                // 设置操作用户
-                webLog.setUsername(currentUserName);
-            }
-        } catch (Exception e) {
-            LOGGER.error("暂未登录或token已经过期");
-        }
-        // 设置id
-        webLog.setId(IdUtil.simpleUUID());
-        // 设置日志描述信息
-        webLog.setDescription(getAspectLogDescription(proceedingJoinPoint));
-        // 请求地址
-        webLog.setUrl(request.getRequestURL().toString());
-        // 请求方法
-        webLog.setHttpMethod(request.getMethod());
-        // 请求方法路径:全限定名+方法名
-        webLog.setClassMethod(proceedingJoinPoint.getSignature().getDeclaringTypeName() + "." +  proceedingJoinPoint.getSignature().getName() + "()");
-        // 请求者ip地址
-        webLog.setIp(request.getRemoteAddr());
-        // 请求入参
-        webLog.setRequestArgs(JSONUtil.toJsonStr(proceedingJoinPoint.getArgs()));
-        // 响应出参
-        webLog.setResponseArgs(JSONUtil.toJsonStr(result));
-        // 请求时间
-        webLog.setStartTime(LocalDateTime.now());
-        // 消耗时间
-        webLog.setSpendTime(System.currentTimeMillis() - START_TIME.get());
-        // 打印响应参数
-        LOGGER.info("Response Args:{}", JSONUtil.toJsonStr(result));
+        assert requestAttributes != null;
         // 执行时间
         LOGGER.info("Time Consuming:{}", System.currentTimeMillis() - START_TIME.get());
-        // 将日志信息存入数据库
-        logService.saveWebLog(webLog);
         // 出口移除请求ID
         MDC.remove(KEY);
         return result;
@@ -164,7 +118,7 @@ public class WebLogAspect {
         String targetName = joinPoint.getTarget().getClass().getName();
         String methodName = joinPoint.getSignature().getName();
         Object[] arguments = joinPoint.getArgs();
-        Class targetClass = Class.forName(targetName);
+        Class<?> targetClass = Class.forName(targetName);
         Method[] methods = targetClass.getMethods();
         StringBuilder description = new StringBuilder("");
         for (Method method : methods) {

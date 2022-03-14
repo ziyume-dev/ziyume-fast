@@ -23,7 +23,7 @@ public interface ResourceRepository extends JpaRepository<AuthResource, Long>, J
             "inner join auth_role_resource_relation arrr on ar.id = arrr.resource_id\n" +
             "inner join auth_role re on arrr.role_id = re.id \n" +
             "inner join auth_user_role_relation aurr on re.id = aurr.role_id\n" +
-            "inner join auth_user au on aurr.admin_id = au.id\n" +
+            "inner join auth_user au on aurr.user_id = au.id\n" +
             "where au.id =:userId", nativeQuery = true)
     List<AuthResource> findAllByUserId(Long userId);
 

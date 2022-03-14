@@ -2,13 +2,11 @@ package com.besscroft.lfs.service.impl;
 
 import com.besscroft.lfs.entity.AuthResource;
 import com.besscroft.lfs.entity.AuthResourceSort;
-import com.besscroft.lfs.entity.AuthUser;
 import com.besscroft.lfs.model.ResourceParam;
 import com.besscroft.lfs.repository.ResourceRepository;
 import com.besscroft.lfs.repository.ResourceSortRepository;
 import com.besscroft.lfs.service.ResourceService;
-import com.besscroft.lfs.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -24,21 +22,15 @@ import java.util.Objects;
  * @Time 2021/7/7 16:53
  */
 @Service
+@RequiredArgsConstructor
 public class ResourceServiceImpl implements ResourceService {
 
-    @Autowired
-    private ResourceRepository resourceRepository;
-
-    @Autowired
-    private ResourceSortRepository resourceSortRepository;
-
-    @Autowired
-    private UserService userService;
+    private final ResourceRepository resourceRepository;
+    private final ResourceSortRepository resourceSortRepository;
 
     @Override
     public List<AuthResource> getResourceList(Long userId) {
-        List<AuthResource> resourceList = resourceRepository.findAllByUserId(userId);
-        return resourceList;
+        return resourceRepository.findAllByUserId(userId);
     }
 
     @Override
@@ -99,11 +91,10 @@ public class ResourceServiceImpl implements ResourceService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateResourceTree(List<Long> resourceIds, Long id) {
-        AuthUser currentAdmin = userService.getCurrentAdmin();
         int i = resourceRepository.deleteRoleResourceRelation(id);
         if (i > 0) {
-            for (int j = 0; j < resourceIds.size(); j++) {
-                resourceRepository.insertRoleResourceRelation(resourceIds.get(j), id);
+            for (Long resourceId : resourceIds) {
+                resourceRepository.insertRoleResourceRelation(resourceId, id);
             }
         }
         return true;

@@ -3,6 +3,8 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
+**/package-lock.json
+**/yarn.lock
 
 ### STS ###
 .apt_generated

@@ -17,17 +17,6 @@ import java.util.List;
 public interface RoleRepository extends JpaRepository<AuthRole, Long>, JpaSpecificationExecutor<AuthRole> {
 
     /**
-     * 根据用户id查询所有角色
-     * @param userId 用户id
-     * @return 角色集合
-     */
-    @Query(value = "select r.* from auth_role r " +
-            "inner join auth_user_role_relation urr on r.id = urr.role_id " +
-            "inner join auth_user u on urr.admin_id = u.id " +
-            "where u.id =:userId", nativeQuery = true)
-    List<AuthRole> findAllByUserId(Long userId);
-
-    /**
      * 查询所有角色
      * @return 角色集合
      */
@@ -71,7 +60,7 @@ public interface RoleRepository extends JpaRepository<AuthRole, Long>, JpaSpecif
     @Query(value = "delete from" +
             "           auth_user_role_relation" +
             "           where" +
-            "               admin_id =:userId", nativeQuery = true)
+            "               user_id =:userId", nativeQuery = true)
     int deleteUserRoleRelationById(Long userId);
 
     /**
@@ -83,7 +72,7 @@ public interface RoleRepository extends JpaRepository<AuthRole, Long>, JpaSpecif
     @Modifying
     @Query(value = "insert into" +
             "           auth_user_role_relation" +
-            "            (admin_id, role_id)" +
+            "            (user_id, role_id)" +
             "        values" +
             "            (?1, ?2)", nativeQuery = true)
     int insertUserRoleRelation(Long userId, Long roleId);
