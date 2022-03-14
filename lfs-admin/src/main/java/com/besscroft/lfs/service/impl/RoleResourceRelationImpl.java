@@ -3,7 +3,7 @@ package com.besscroft.lfs.service.impl;
 import com.besscroft.lfs.model.RoleResourceRelation;
 import com.besscroft.lfs.repository.RoleResourceRelationRepository;
 import com.besscroft.lfs.service.RoleResourceRelationService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,10 +13,10 @@ import java.util.List;
  * @Time 2021/7/8 18:17
  */
 @Service
+@RequiredArgsConstructor
 public class RoleResourceRelationImpl implements RoleResourceRelationService {
 
-    @Autowired
-    private RoleResourceRelationRepository roleResourceRelationRepository;
+    private final RoleResourceRelationRepository roleResourceRelationRepository;
 
     @Override
     public List<RoleResourceRelation> selectAll() {

@@ -3,7 +3,7 @@ package com.besscroft.lfs.service.impl;
 import com.besscroft.lfs.entity.AuthResourceSort;
 import com.besscroft.lfs.repository.ResourceSortRepository;
 import com.besscroft.lfs.service.ResourceSortService;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -18,10 +18,10 @@ import java.util.Objects;
  * @Time 2021/12/10 16:06
  */
 @Service
+@RequiredArgsConstructor
 public class ResourceSortServiceImpl implements ResourceSortService {
 
-    @Autowired
-    private ResourceSortRepository resourceSortRepository;
+    private final ResourceSortRepository resourceSortRepository;
 
     @Override
     public Page<AuthResourceSort> getResourcePageList(Integer pageNum, Integer pageSize, String keyword) {

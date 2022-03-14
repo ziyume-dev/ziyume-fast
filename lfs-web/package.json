@@ -1,6 +1,6 @@
 {
   "name": "SpringBoot-LFS",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "SpringBoot-LFS 的前端",
   "author": "BessCroft <besscroft@foxmail.com>",
   "scripts": {

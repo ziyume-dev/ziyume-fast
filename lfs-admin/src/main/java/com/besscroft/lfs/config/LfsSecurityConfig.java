@@ -4,6 +4,7 @@ import com.besscroft.lfs.component.DynamicSecurityService;
 import com.besscroft.lfs.entity.AuthResource;
 import com.besscroft.lfs.service.ResourceService;
 import com.besscroft.lfs.service.UserService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,34 +22,34 @@ import java.util.concurrent.ConcurrentHashMap;
  * @Time 2021/7/8 17:45
  */
 @Configuration
+@RequiredArgsConstructor
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class LfsSecurityConfig extends SecurityConfig {
 
-    @Autowired
+    private final ResourceService resourceService;
     private UserService userService;
 
     @Autowired
-    private ResourceService resourceService;
+    public void setUserService(UserService userService) {
+        this.userService = userService;
+    }
 
     @Bean
     public UserDetailsService userDetailsService() {
         //获取登录用户信息
-        return username -> userService.loadUserByUsername(username);
+        return userService::loadUserByUsername;
     }
 
     @Bean
     public DynamicSecurityService dynamicSecurityService() {
-        return new DynamicSecurityService() {
-            @Override
-            public Map<String, ConfigAttribute> loadDataSource() {
-                Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
-                List<AuthResource> resourceList = resourceService.listAll();
-                for (AuthResource resource : resourceList) {
-                    map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
-                }
-                return map;
+        return () -> {
+            Map<String, ConfigAttribute> map = new ConcurrentHashMap<>();
+            List<AuthResource> resourceList = resourceService.listAll();
+            for (AuthResource resource : resourceList) {
+                map.put(resource.getUrl(), new org.springframework.security.access.SecurityConfig(resource.getId() + ":" + resource.getName()));
             }
+            return map;
         };
     }
 

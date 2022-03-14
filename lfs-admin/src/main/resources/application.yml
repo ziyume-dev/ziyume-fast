@@ -4,6 +4,8 @@ server:
     context-path: /
 
 spring:
+  main:
+    allow-bean-definition-overriding: true
   application:
     name: SpringBoot-LFS
   profiles:

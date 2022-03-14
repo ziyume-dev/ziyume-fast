@@ -9,11 +9,12 @@ import com.besscroft.lfs.entity.AuthResource;
 import com.besscroft.lfs.entity.AuthRole;
 import com.besscroft.lfs.entity.AuthUser;
 import com.besscroft.lfs.model.LFSUser;
-import com.besscroft.lfs.repository.RoleRepository;
 import com.besscroft.lfs.repository.UserRepository;
+import com.besscroft.lfs.service.MenuService;
 import com.besscroft.lfs.service.ResourceService;
 import com.besscroft.lfs.service.UserService;
 import com.besscroft.lfs.utils.JWTUtils;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,15 +34,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.time.LocalDateTime;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @Author Bess Croft
@@ -49,27 +47,22 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final ResourceService resourceService;
+    private final JWTUtils jwtUtils;
+    private final PasswordEncoder passwordEncoder;
+
+    private MenuService menuService;
 
     @Autowired
-    private ResourceService resourceService;
-
-    @Autowired
-    private JWTUtils jwtUtils;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    private HttpServletRequest request;
-
-    @Autowired
-    private RoleRepository repository;
+    public void setUserService(MenuService menuService) {
+        this.menuService = menuService;
+    }
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -110,7 +103,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     public AuthUser getCurrentAdmin() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentUserName = "";
+        String currentUserName;
         if (!(authentication instanceof AnonymousAuthenticationToken)) {
             currentUserName = authentication.getName();
             log.info("currentUserName:{}", JSONUtil.toJsonStr(currentUserName));
@@ -126,12 +119,31 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<AuthRole> getRoleList(Long userId) {
-        return repository.findAllByUserId(userId);
+    @Transactional(rollbackFor = Exception.class)
+    public Map<String, Object> getUserInfo() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        AuthUser currentAdmin = getCurrentAdminByUserName(username);
+        Map<String, Object> data = new HashMap<>();
+        data.put("username", currentAdmin.getUsername());
+        data.put("menus", menuService.getMenuList(currentAdmin.getId()));
+        data.put("icon", currentAdmin.getIcon());
+        List<AuthRole> roleList = getRoleList(currentAdmin.getId());
+        if(CollUtil.isNotEmpty(roleList)){
+            List<String> roles = roleList.stream().map(AuthRole::getName).collect(Collectors.toList());
+            data.put("roles",roles);
+        }
+        // 设置登录时间
+        setLoginTime(new Date(), currentAdmin.getId());
+        return data;
     }
 
     @Override
-    @Transactional
+    public List<AuthRole> getRoleList(Long userId) {
+        return userRepository.findById(userId).get().getRoles();
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean setLoginTime(Date loginTime, Long id) {
         return userRepository.updateLoginTime(loginTime, id) > 0;
     }
@@ -158,8 +170,9 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean changeSwitch(boolean flag, Long id) {
-        Integer status;
+        int status;
         if (flag == true) {
             status = 1;
         } else {
@@ -176,6 +189,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public boolean addUser(AuthUser authUser) {
         // 设置用户注册的时间
         authUser.setCreateTime(LocalDateTime.now());
@@ -222,10 +236,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 String fileName = URLEncoder.encode("用户信息", "UTF-8").replaceAll("\\+", "%20");
                 response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
                 EasyExcel.write(response.getOutputStream(), AuthUserExcelDto.class).autoCloseStream(true).sheet("用户信息").doWrite(excelDtos);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
             } catch (IOException e) {
-                e.printStackTrace();
+                log.error("excel 导出失败.", e);
             }
         }
     }

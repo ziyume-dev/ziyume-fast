@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @Author Bess Croft
@@ -42,6 +43,12 @@ public interface UserService {
      * @return 用户
      */
     AuthUser getCurrentAdminByUserName(String username);
+
+    /**
+     * 获取认证后的用户信息
+     * @return
+     */
+    Map<String, Object> getUserInfo();
 
     /**
      * 获取用户所有的角色

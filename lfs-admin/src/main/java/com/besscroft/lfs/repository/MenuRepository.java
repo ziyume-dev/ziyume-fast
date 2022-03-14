@@ -15,9 +15,9 @@ import java.util.List;
 public interface MenuRepository extends JpaRepository<AuthMenu, Long>, JpaSpecificationExecutor<AuthMenu> {
 
     /**
-     * 获取当前用户的父菜单
+     * 获取当前用户的所有菜单
      * @param userId 用户id
-     * @return 父菜单集合
+     * @return 菜单集合
      */
     @Query(value = "select" +
             "            m.*" +
@@ -25,51 +25,10 @@ public interface MenuRepository extends JpaRepository<AuthMenu, Long>, JpaSpecif
             "                 inner join auth_role_menu_relation rm on m.id = rm.menu_id" +
             "                 inner join auth_role r on rm.role_id = r.id" +
             "                 inner join auth_user_role_relation ur on r.id = ur.role_id" +
-            "                 inner join auth_user u on ur.admin_id = u.id" +
-            "        where u.id =:userId and m.hidden = 1 and m.parent_id = 0" +
+            "                 inner join auth_user u on ur.user_id = u.id" +
+            "        where u.id =:userId" +
             "        order by m.sort", nativeQuery = true)
-    List<AuthMenu> findParentAllByUserId(Long userId);
-
-    /**
-     * 根据父菜单id获取当前用户的子菜单
-     * @param userId 用户id
-     * @param menuId 菜单id
-     * @return 子菜单集合
-     */
-    @Query(value = "select" +
-            "            m.*" +
-            "        from auth_menu m" +
-            "                 inner join auth_role_menu_relation rm on m.id = rm.menu_id" +
-            "                 inner join auth_role r on rm.role_id = r.id" +
-            "                 inner join auth_user_role_relation ur on r.id = ur.role_id" +
-            "                 inner join auth_user u on ur.admin_id = u.id" +
-            "        where u.id =:userId and m.hidden = 1 and m.parent_id =:menuId" +
-            "        order by m.sort", nativeQuery = true)
-    List<AuthMenu> findChildAllByUserIdAndMenuId(Long userId, Long menuId);
-
-    /**
-     * 获取所有父菜单
-     * @return 所有父菜单集合
-     */
-    @Query(value = "select " +
-            "           id, parent_id, create_time, title, parent_title, level, sort, name, path, icon, hidden, component" +
-            "       from" +
-            "           auth_menu" +
-            "       where" +
-            "           parent_id = 0", nativeQuery = true)
-    List<AuthMenu> getParentMenu();
-
-    /**
-     * 根据父菜单id获取所有的子菜单
-     * @param parentId 父菜单id
-     * @return 父菜单对应的子菜单集合
-     */
-    @Query(value = "select id, parent_id, create_time, title, parent_title, level, sort, name, path, icon, hidden, component" +
-            "       from" +
-            "           auth_menu" +
-            "       where" +
-            "           parent_id =:parentId", nativeQuery = true)
-    List<AuthMenu> getChildList(Long parentId);
+    List<AuthMenu> findAllByUserId(Long userId);
 
     /**
      * 修改菜单显示状态
@@ -125,5 +84,12 @@ public interface MenuRepository extends JpaRepository<AuthMenu, Long>, JpaSpecif
             "       values" +
             "           (?2 , ?1)", nativeQuery = true)
     int insertRoleMenuRelation(Long menuId, Long roleId);
+
+    /**
+     * 根据父菜单id获取所有菜单
+     * @param parentId 父菜单id
+     * @return
+     */
+    List<AuthMenu> findAllByParentId(Long parentId);
 
 }
