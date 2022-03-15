@@ -18,7 +18,7 @@ SpringBoot-LFS 是一个基于 SpringBoot + Vue + Element UI 的快速启动框�
 
 ## 文档
 
-> 编写中。。。
+[文档中心](https://developer.besscroft.com/)
 
 ## 环境搭建
 
@@ -37,7 +37,7 @@ SpringBoot-LFS 支持安装在 LNMP、宝塔面板 等集成环境中, Docker、
 
 [提出新想法 & 提交 Bug](https://github.com/besscroft/SpringBoot-LFS/issues/new) | [Fork & Pull Request](https://github.com/besscroft/SpringBoot-LFS/fork)
 
-aurora-mall 欢迎各种贡献，包括但不限于改进，新功能，文档和代码改进，问题和错误报告。
+SpringBoot-LFS 欢迎各种贡献，包括但不限于改进，新功能，文档和代码改进，问题和错误报告。
 
 ### 在线开发
 
@@ -48,11 +48,11 @@ aurora-mall 欢迎各种贡献，包括但不限于改进，新功能，文档�
 或者克隆到本地开发:
 
 ```bash
-https://github.com/besscroft/SpringBoot-LFS.git
+git clone https://github.com/besscroft/SpringBoot-LFS.git
 ```
 ### 项目构建（管理平台的前端）
 
-其实我更推荐[yarn](https://github.com/yarnpkg/yarn)
+推荐 [yarn](https://github.com/yarnpkg/yarn)
 
 ```bash
 # 克隆项目
