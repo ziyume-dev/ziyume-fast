@@ -6,7 +6,7 @@ function resolve(dir) {
   return path.join(__dirname, dir)
 }
 
-const name = defaultSettings.title || 'SpringBoot-LFS' // page title
+const name = defaultSettings.title || 'springboot-lfs' // page title
 
 // 如果设置为80端口，请用root用户运行命令行，或者管理员身份For example, Mac: sudo npm run
 // 你可以通过以下方法更改端口：

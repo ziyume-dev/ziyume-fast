@@ -11,6 +11,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -56,10 +57,8 @@ public class ResourceSortController {
     @PostMapping("/addResourceSort")
     public AjaxResult addResourceSort(@RequestBody AuthResourceSort authResourceSort) {
         boolean b = resourceSortService.addResourceSort(authResourceSort);
-        if (b) {
-            return AjaxResult.success("新增成功！");
-        }
-        return AjaxResult.error("哎呀，新增失败了！");
+        Assert.isTrue(b, "哎呀，新增失败了！");
+        return AjaxResult.success("新增成功！");
     }
 
     @WebLog(description = "更新资源")
@@ -67,10 +66,8 @@ public class ResourceSortController {
     @PutMapping("/updateResourceSort")
     public AjaxResult updateResourceSort(@RequestBody AuthResourceSort authResourceSort) {
         boolean b = resourceSortService.updateResourceSort(authResourceSort);
-        if (b) {
-            return AjaxResult.success("更新成功！");
-        }
-        return AjaxResult.error("哎呀，更新失败了！");
+        Assert.isTrue(b, "哎呀，更新失败了！");
+        return AjaxResult.success("更新成功！");
     }
 
     @WebLog(description = "删除资源")
@@ -79,10 +76,8 @@ public class ResourceSortController {
     @DeleteMapping("/delResourceSort/{id}")
     public AjaxResult delResourceSort(@PathVariable("id") List<Long> ids) {
         boolean b = resourceSortService.delResourceSort(ids);
-        if (b) {
-            return AjaxResult.success("删除成功！");
-        }
-        return AjaxResult.error("哎呀，删除失败了");
+        Assert.isTrue(b, "哎呀，删除失败了！");
+        return AjaxResult.success("删除成功！");
     }
 
 }

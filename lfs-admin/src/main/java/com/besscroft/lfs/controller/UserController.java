@@ -18,6 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,9 +48,7 @@ public class UserController {
     @PostMapping("/login")
     public CommonResult login(@Validated @RequestBody LoginParam loginParam) {
         String token = userService.login(loginParam.getUsername(), loginParam.getPassword());
-        if (token == null) {
-            return CommonResult.validateFailed("用户名或密码错误");
-        }
+        Assert.notNull(token, "用户名或密码错误");
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
@@ -111,11 +110,8 @@ public class UserController {
     @PutMapping("/updateUser")
     public AjaxResult updateUser(@Validated @RequestBody AuthUser authUser) {
         boolean b = userService.updateUser(authUser);
-        if (b) {
-            return AjaxResult.success("更新成功！");
-        } else {
-            return AjaxResult.error("更新失败！");
-        }
+        Assert.isTrue(b, "更新权限管理模块用户失败！");
+        return AjaxResult.success("更新成功！");
     }
 
     @WebLog(description = "用户账户启用状态更新")
@@ -128,12 +124,8 @@ public class UserController {
     public AjaxResult changeSwitch(@RequestParam("status") boolean status,
                                    @RequestParam("id") Long id) {
         boolean b = userService.changeSwitch(status, id);
-        if (b && status) {
-            return AjaxResult.success("启用成功");
-        } else if (b) {
-            return AjaxResult.success("禁用成功");
-        }
-        return AjaxResult.error("哎呀，更新失败了！");
+        Assert.isTrue(b, "哎呀，更新失败了！");
+        return AjaxResult.success("更新成功！");
     }
 
     @WebLog(description = "删除权限管理模块用户")
@@ -142,10 +134,8 @@ public class UserController {
     @DeleteMapping("/delUser/{id}")
     public AjaxResult delUser(@PathVariable("id") Long id) {
         boolean b = userService.delUser(id);
-        if (b) {
-            return AjaxResult.success("删除成功！");
-        }
-        return AjaxResult.error("哎呀，删除失败了！");
+        Assert.isTrue(b, "哎呀，删除失败了！");
+        return AjaxResult.success("删除成功！");
     }
 
     @WebLog(description = "新增权限管理模块用户")
@@ -153,10 +143,8 @@ public class UserController {
     @PostMapping("/addUser")
     public AjaxResult addUser(@RequestBody AuthUser authUser) {
         boolean b = userService.addUser(authUser);
-        if (b) {
-            return AjaxResult.success("添加成功！");
-        }
-        return AjaxResult.error("添加失败！");
+        Assert.isTrue(b, "哎呀，添加失败！");
+        return AjaxResult.success("添加成功！");
     }
 
     @ApiOperation("导出权限管理模块用户")

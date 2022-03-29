@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: 'SpringBoot-LFS',
+  title: 'springboot-lfs',
 
   /**
    * @type {boolean} true | false
