@@ -104,6 +104,14 @@ public class CommonResult<T> {
     }
 
     /**
+     * 失败返回结果
+     * @param message 提示信息
+     */
+    public static <T> CommonResult<T> failed(int code, String message) {
+        return new CommonResult<T>(HttpStatus.ERROR, message, null);
+    }
+
+    /**
      * 参数验证失败返回结果
      * @param <T>
      * @return

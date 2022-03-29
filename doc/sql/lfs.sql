@@ -5,13 +5,13 @@
  Source Server Type    : MySQL
  Source Server Version : 50737
  Source Host           : localhost:3306
- Source Schema         : springboot-lfs
+ Source Schema         : lfs
 
  Target Server Type    : MySQL
  Target Server Version : 50737
  File Encoding         : 65001
 
- Date: 14/03/2022 11:58:45
+ Date: 29/03/2022 16:07:35
 */
 
 SET NAMES utf8mb4;

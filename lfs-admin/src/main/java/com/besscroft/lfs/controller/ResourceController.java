@@ -12,6 +12,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -57,10 +58,8 @@ public class ResourceController {
     @PostMapping("/addResource")
     public AjaxResult addResource(@RequestBody AuthResource authResource) {
         boolean b = resourceService.addResource(authResource);
-        if (b) {
-            return AjaxResult.success("新增成功！");
-        }
-        return AjaxResult.error("哎呀，新增失败了！");
+        Assert.isTrue(b, "哎呀，新增失败了！");
+        return AjaxResult.success("新增成功！");
     }
 
     @WebLog(description = "更新资源")
@@ -68,10 +67,8 @@ public class ResourceController {
     @PutMapping("/updateResource")
     public AjaxResult updateResource(@RequestBody AuthResource authResource) {
         boolean b = resourceService.updateResource(authResource);
-        if (b) {
-            return AjaxResult.success("更新成功！");
-        }
-        return AjaxResult.error("哎呀，更新失败了！");
+        Assert.isTrue(b, "哎呀，更新失败了！");
+        return AjaxResult.success("更新成功！");
     }
 
     @WebLog(description = "删除资源")
@@ -80,10 +77,8 @@ public class ResourceController {
     @DeleteMapping("/delResource/{id}")
     public AjaxResult delResource(@PathVariable("id") List<Long> ids) {
         boolean b = resourceService.delResource(ids);
-        if (b) {
-            return AjaxResult.success("删除成功！");
-        }
-        return AjaxResult.error("哎呀，删除失败了");
+        Assert.isTrue(b, "哎呀，删除失败了！");
+        return AjaxResult.success("删除成功！");
     }
 
     @WebLog(description = "获取所有资源的资源树")
@@ -112,10 +107,8 @@ public class ResourceController {
     public AjaxResult updateResourceTree(@RequestBody List<Long> data,
                                          @RequestParam("id") Long id) {
         boolean b = resourceService.updateResourceTree(data, id);
-        if (b) {
-            return AjaxResult.success("更新成功！");
-        }
-        return AjaxResult.error("哎呀，更新失败了呢！");
+        Assert.isTrue(b, "哎呀，更新失败了呢！");
+        return AjaxResult.success("更新成功！");
     }
 
 }

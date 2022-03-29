@@ -13,6 +13,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -78,10 +79,8 @@ public class MenuController {
     @PutMapping("/updateMenu")
     public AjaxResult updateMenu(@Validated @RequestBody AuthMenu authMenu) {
         boolean b = menuService.updateMenu(authMenu);
-        if (b) {
-            return AjaxResult.success("更新成功！");
-        }
-        return AjaxResult.error("更新失败！");
+        Assert.isTrue(b, "哎呀，更新失败了呢！");
+        return AjaxResult.success("更新成功！");
     }
 
     @WebLog(description = "菜单是否显示状态更新")
@@ -95,10 +94,8 @@ public class MenuController {
                                    @RequestParam("id") Long id) {
         AuthUser currentAdmin = userService.getCurrentAdmin();
         boolean b = menuService.changeSwitch(hidden, id, currentAdmin.getId());
-        if (b) {
-            return AjaxResult.success("修改成功");
-        }
-        return AjaxResult.success("修改失败");
+        Assert.isTrue(b, "哎呀，修改失败了呢！");
+        return AjaxResult.success("修改成功");
     }
 
     @WebLog(description = "删除菜单")
@@ -107,10 +104,8 @@ public class MenuController {
     @DeleteMapping("/delMenu/{id}")
     public AjaxResult delMenu(@PathVariable("id") List<Long> ids) {
         boolean b = menuService.delMenu(ids);
-        if (b) {
-            return AjaxResult.success("删除成功！");
-        }
-        return AjaxResult.error("哎呀，删除失败了！");
+        Assert.isTrue(b, "哎呀，删除失败了！");
+        return AjaxResult.success("删除成功！");
     }
 
     @WebLog(description = "新增菜单")
@@ -118,10 +113,8 @@ public class MenuController {
     @PostMapping("/addMenu")
     public AjaxResult addUser(@RequestBody AuthMenu authMenu) {
         boolean b = menuService.addMenu(authMenu);
-        if (b) {
-            return AjaxResult.success("添加成功！");
-        }
-        return AjaxResult.error("添加失败！");
+        Assert.isTrue(b, "哎呀，添加失败了！");
+        return AjaxResult.success("添加成功！");
     }
 
     @WebLog(description = "根据角色id获取菜单树")
@@ -151,10 +144,8 @@ public class MenuController {
     public AjaxResult updateMenuTree(@RequestBody List<Long> data,
                                      @RequestParam("id") Long id) {
         boolean b = menuService.updateMenuTree(data, id);
-        if (b) {
-            return AjaxResult.success("更新成功！");
-        }
-        return AjaxResult.error("哎呀，更新失败了呢！");
+        Assert.isTrue(b, "哎呀，更新失败了呢！");
+        return AjaxResult.success("更新成功！");
     }
 
 }
