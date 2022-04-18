@@ -4,9 +4,7 @@ FROM openjdk:8-jdk-alpine
 RUN mkdir -p /root/lfs
 # 拷贝jar包，并重命名
 COPY lfs-admin/target/lfs-admin-1.0.jar /root/lfs/lfs-admin.jar
-# 切换工作目录
-WORKDIR /root/lfs
 # 指定docker容器启动时运行jar包
-ENTRYPOINT ["nohup", "java", "-jar", "-Dspring.config.location=/root/lfs/application-docker.yml", "/lfs-admin.jar", "&"]
+ENTRYPOINT ["nohup", "java", "-jar", "-Dspring.config.location=/root/lfs/application-docker.yml", "/root/lfs/lfs-admin.jar", "&"]
 # 指定维护者的名字
 MAINTAINER besscroft
