@@ -12,8 +12,7 @@ COPY lfs-admin/target/lfs-admin-1.0.jar /lfs-admin.jar
 # 设置环境变量
 ENV JAVA_OPTS=""
 ENV SPRING_CONFIG=""
-ENV CONN_CONFIG=""
 # 指定docker容器启动时运行jar包
-ENTRYPOINT nohup java $JAVA_OPTS -jar $SPRING_CONFIG $CONN_CONFIG /lfs-admin.jar &
+ENTRYPOINT nohup java $JAVA_OPTS -jar $SPRING_CONFIG /lfs-admin.jar &
 # 指定维护者的名字
 MAINTAINER besscroft
