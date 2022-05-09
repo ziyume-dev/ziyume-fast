@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.besscroft.lfs</groupId>
-        <artifactId>springboot-lfs</artifactId>
+        <artifactId>pisces-lfs</artifactId>
         <version>1.0</version>
     </parent>
 

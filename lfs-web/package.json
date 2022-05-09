@@ -1,7 +1,7 @@
 {
-  "name": "springboot-lfs",
+  "name": "pisces-lfs",
   "version": "1.0.0",
-  "description": "springboot-lfs 的前端",
+  "description": "pisces-lfs 的前端",
   "author": "BessCroft <besscroft@foxmail.com>",
   "scripts": {
     "dev": "vue-cli-service serve",

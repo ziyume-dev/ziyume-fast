@@ -7,6 +7,6 @@ spring:
   main:
     allow-bean-definition-overriding: true
   application:
-    name: SpringBoot-LFS
+    name: pisces-lfs
   profiles:
     active: '@spring.active@'

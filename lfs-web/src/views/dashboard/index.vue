@@ -11,7 +11,7 @@
         <el-button style="float: right; padding: 3px 0" type="text">更新公告</el-button>
       </div>
       <div>
-        <a href="https://github.com/besscroft/springboot-lfs" target="_blank">springboot-lfs</a> 是一个基于 SpringBoot + Vue + Element UI 的快速启动框架，可基于此框架快速构建系统！ 框架提供了基础的基于 RBAC 思想开发的权限管理模块，可以让您专注于业务开发。
+        <a href="https://github.com/besscroft/pisces-lfs" target="_blank">Pisces Lfs</a> 是一个基于 SpringBoot + Vue + Element UI 的快速启动框架，可基于此框架快速构建系统！ 框架提供了基础的基于 RBAC 思想开发的权限管理模块，可以让您专注于业务开发。
         <br />
         <br />
         预览版现已发布！
