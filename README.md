@@ -71,12 +71,6 @@ npm install --registry=https://registry.npm.taobao.org
 npm run dev
 ```
 
-#### 联系我
-
-电子邮件：besscroft@foxmail.com
-
-QQ群：<a target="_blank" href="https://qm.qq.com/cgi-bin/qm/qr?k=QGRHYDL2XE46mQMgl54WtIUl5pSuHVKP&jump_from=webapi"><img border="0" src="http://pub.idqqimg.com/wpa/images/group.png" alt="GitGitGo" title="GitGitGo"></a>
-
 如果您有任何建议，欢迎反馈！
 
 我的开源项目都部署在 `DigitalOcean` ，如果你愿意走我的邀请链接注册，可以获得100美元的信用额度。
