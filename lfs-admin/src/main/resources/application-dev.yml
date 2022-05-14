@@ -72,17 +72,25 @@ jwt:
   # JWT负载头
   tokenHead: 'Bearer '
 
+# OpenApi 配置
+springdoc:
+  swagger-ui:
+    # 文档访问路径
+    path: "/swagger-ui.html"
+  packages-to-scan: com.besscroft.lfs
+  api-docs:
+    # 是否开启
+    enabled: true
+
 whitelist:
   urls: #配置白名单路径
-    - "/doc.html"
-    - "/swagger-resources/**"
-    - "/swagger/**"
-    - "/**/v2/api-docs"
     - "/**/*.js"
     - "/**/*.css"
     - "/**/*.png"
     - "/**/*.ico"
-    - "/webjars/springfox-swagger-ui/**"
+    - "/swagger-ui.html"
+    - "/swagger-ui/index.html"
+    - "/v3/**"
     - "/actuator/**"
     - "/druid/**"
     - "/user/login"

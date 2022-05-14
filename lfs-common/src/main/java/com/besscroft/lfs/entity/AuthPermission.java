@@ -1,8 +1,7 @@
 package com.besscroft.lfs.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,59 +23,59 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "auth_permission")
-@ApiModel(value = "权限管理模块权限对象")
+@Schema(title = "权限管理模块权限对象")
 public class AuthPermission implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ApiModelProperty(value = "权限id", dataType = "Long")
+    @Schema(title = "权限id", type = "Long")
     private Long id;
 
     /** 父级权限id */
-    @ApiModelProperty(value = "父级权限id", dataType = "Long")
+    @Schema(title = "父级权限id", type = "Long")
     @Column(name = "pid")
     private Long pid;
 
     /** 名称 */
-    @ApiModelProperty(value = "名称", dataType = "String")
+    @Schema(title = "名称", type = "String")
     @Column(name = "name")
     private String name;
 
     /** 权限值 */
-    @ApiModelProperty(value = "权限值", dataType = "String")
+    @Schema(title = "权限值", type = "String")
     @Column(name = "value")
     private String value;
 
     /** 图标 */
-    @ApiModelProperty(value = "图标", dataType = "String")
+    @Schema(title = "图标", type = "String")
     @Column(name = "icon")
     private String icon;
 
     /** 权限类型：0->目录；1->菜单；2->按钮（接口绑定权限） */
-    @ApiModelProperty(value = "父级ID", dataType = "Long")
+    @Schema(title = "父级ID", type = "Long")
     @Column(name = "type")
     private Integer type;
 
     /** 前端资源路径 */
-    @ApiModelProperty(value = "父级ID", dataType = "Long")
+    @Schema(title = "父级ID", type = "Long")
     @Column(name = "uri")
     private String uri;
 
     /** 启用状态；0->禁用；1->启用 */
-    @ApiModelProperty(value = "启用状态", dataType = "Integer")
+    @Schema(title = "启用状态", type = "Integer")
     @Column(name = "status")
     private Integer status;
 
     /** 创建时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @ApiModelProperty(value = "创建时间", dataType = "Date")
+    @Schema(title = "创建时间", type = "Date")
     @Column(name = "create_time")
     private LocalDateTime createTime;
 
     /** 排序 */
-    @ApiModelProperty(value = "排序", dataType = "Long")
+    @Schema(title = "排序", type = "Long")
     @Column(name = "sort")
     private Long sort;
 

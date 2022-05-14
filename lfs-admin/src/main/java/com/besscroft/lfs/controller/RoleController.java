@@ -3,11 +3,12 @@ package com.besscroft.lfs.controller;
 import com.besscroft.lfs.annotation.WebLog;
 import com.besscroft.lfs.entity.AuthRole;
 import com.besscroft.lfs.result.AjaxResult;
+import com.besscroft.lfs.result.CommonResult;
 import com.besscroft.lfs.service.RoleService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -22,7 +23,7 @@ import java.util.List;
  * @Time 2021/12/10 16:01
  */
 @Slf4j
-@Api(tags = "管理系统角色接口")
+@Tag(name = "管理系统角色接口")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/role")
@@ -31,29 +32,29 @@ public class RoleController {
     private final RoleService roleService;
 
     @WebLog(description = "查询后台管理角色列表")
-    @ApiOperation("查询后台管理角色列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "第几页",required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "pageSize", value = "多少条",required = true, dataType = "Integer")
+    @Operation(summary = "查询后台管理角色列表")
+    @Parameters({
+            @Parameter(name = "pageNum", description = "第几页", required = true),
+            @Parameter(name = "pageSize", description = "多少条", required = true)
     })
     @GetMapping("/list")
-    public AjaxResult list(@RequestParam("pageNum") Integer pageNum,
-                           @RequestParam("pageSize") Integer pageSize) {
+    public CommonResult<Page<AuthRole>> list(@RequestParam("pageNum") Integer pageNum,
+                             @RequestParam("pageSize") Integer pageSize) {
         Page<AuthRole> pageList = roleService.getRolePageList(pageNum, pageSize, null);
-        return AjaxResult.success(pageList);
+        return CommonResult.success(pageList);
     }
 
     @WebLog(description = "查询角色详情")
-    @ApiOperation("查询角色详情")
-    @ApiImplicitParam(name = "id", value = "角色id",required = true, dataType = "Long")
+    @Operation(summary = "查询角色详情")
+    @Parameter(name = "id", description = "角色id", required = true)
     @GetMapping("/getRole/{id}")
-    public AjaxResult getRole(@PathVariable("id") Long id) {
+    public CommonResult<AuthRole> getRole(@PathVariable("id") Long id) {
         AuthRole role = roleService.getRoleById(id);
-        return AjaxResult.success(role);
+        return CommonResult.success(role);
     }
 
     @WebLog(description = "新增角色")
-    @ApiOperation("新增角色")
+    @Operation(summary = "新增角色")
     @PostMapping("/addRole")
     public AjaxResult addRole(@RequestBody AuthRole authRole) {
         boolean b = roleService.addRole(authRole);
@@ -62,7 +63,7 @@ public class RoleController {
     }
 
     @WebLog(description = "修改角色")
-    @ApiOperation("修改角色")
+    @Operation(summary = "修改角色")
     @PutMapping("/updateRole")
     public AjaxResult updateRole(@RequestBody AuthRole authRole) {
         boolean b = roleService.updateRole(authRole);
@@ -71,8 +72,8 @@ public class RoleController {
     }
 
     @WebLog(description = "删除角色")
-    @ApiOperation("删除角色")
-    @ApiImplicitParam(name = "id", value = "角色id",required = true, dataType = "Long")
+    @Operation(summary = "删除角色")
+    @Parameter(name = "id", description = "角色id", required = true)
     @DeleteMapping("/delRole/{id}")
     public AjaxResult delRole(@PathVariable("id") List<Long> ids) {
         boolean b = roleService.delRoleById(ids);
@@ -81,10 +82,10 @@ public class RoleController {
     }
 
     @WebLog(description = "角色是否可用状态更新")
-    @ApiOperation("角色是否可用状态更新")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "status", value = "可用状态",required = true, dataType = "Boolean"),
-            @ApiImplicitParam(name = "id", value = "角色id",required = true, dataType = "Long")
+    @Operation(summary = "角色是否可用状态更新")
+    @Parameters({
+            @Parameter(name = "status", description = "可用状态", required = true),
+            @Parameter(name = "id", description = "角色id", required = true)
     })
     @PutMapping("/changeSwitch")
     public AjaxResult changeSwitch(@RequestParam("status") boolean status,
@@ -95,18 +96,18 @@ public class RoleController {
     }
 
     @WebLog(description = "查询所有可用角色")
-    @ApiOperation("查询所有可用角色")
+    @Operation(summary = "查询所有可用角色")
     @GetMapping("/getRoleAll")
-    public AjaxResult getRoleAll() {
+    public CommonResult<List<AuthRole>> getRoleAll() {
         List<AuthRole> roles = roleService.listAll();
-        return AjaxResult.success(roles);
+        return CommonResult.success(roles);
     }
 
     @WebLog(description = "更新用户的角色")
-    @ApiOperation("更新用户的角色")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "userId", value = "用户id", required = true, dataType = "Long"),
-            @ApiImplicitParam(name = "roleId", value = "角色id", required = true, dataType = "Long")
+    @Operation(summary = "更新用户的角色")
+    @Parameters({
+            @Parameter(name = "userId", description = "用户id", required = true),
+            @Parameter(name = "roleId", description = "角色id", required = true)
     })
     @PutMapping("/updateRoleById")
     public AjaxResult updateRoleById(@RequestParam("userId") Long userId,
@@ -117,12 +118,12 @@ public class RoleController {
     }
 
     @WebLog(description = "根据用户id查询角色")
-    @ApiOperation("根据用户id查询角色")
-    @ApiImplicitParam(name = "id", value = "用户id", readOnly = true, dataType = "Long")
+    @Operation(summary = "根据用户id查询角色")
+    @Parameter(name = "id", description = "用户id", required = true)
     @GetMapping("/getRoleById/{id}")
-    public AjaxResult getRoleById(@PathVariable("id") Long id) {
+    public CommonResult<AuthRole> getRoleById(@PathVariable("id") Long id) {
         AuthRole role = roleService.getRoleById(id);
-        return AjaxResult.success(role);
+        return CommonResult.success(role);
     }
 
 }

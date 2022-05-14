@@ -9,10 +9,10 @@ import com.besscroft.lfs.entity.AuthUser;
 import com.besscroft.lfs.result.AjaxResult;
 import com.besscroft.lfs.result.CommonResult;
 import com.besscroft.lfs.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -32,7 +32,7 @@ import java.util.Map;
  * @Time 2021/7/2 15:12
  */
 @Slf4j
-@Api(tags = "管理系统用户接口")
+@Tag(name = "管理系统用户接口")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/user")
@@ -44,9 +44,9 @@ public class UserController {
     private final UserService userService;
 
     @WebLog(description = "登录以后返回token")
-    @ApiOperation(value = "登录以后返回token")
+    @Operation(summary = "登录以后返回token")
     @PostMapping("/login")
-    public CommonResult login(@Validated @RequestBody LoginParam loginParam) {
+    public CommonResult<Map<String, String>> login(@Validated @RequestBody LoginParam loginParam) {
         String token = userService.login(loginParam.getUsername(), loginParam.getPassword());
         Assert.notNull(token, "用户名或密码错误");
         Map<String, String> tokenMap = new HashMap<>();
@@ -56,19 +56,19 @@ public class UserController {
     }
 
     @WebLog(description = "获取当前后台系统登录用户的一些信息")
-    @ApiOperation(value = "获取当前后台系统登录用户的一些信息")
+    @Operation(summary = "获取当前后台系统登录用户的一些信息")
     @GetMapping("/info")
-    public AjaxResult getInfo() {
+    public CommonResult<Map<String, Object>> getInfo() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         if(StrUtil.hasEmpty(username)){
-            return AjaxResult.error(HttpStatus.UNAUTHORIZED, "暂未登录或token已经过期");
+            return CommonResult.failed(HttpStatus.UNAUTHORIZED, "暂未登录或token已经过期");
         }
         Map<String, Object> userInfo = userService.getUserInfo();
-        return AjaxResult.success(userInfo);
+        return CommonResult.success(userInfo);
     }
 
     @WebLog(description = "后台管理系统登出功能")
-    @ApiOperation("后台管理系统登出功能")
+    @Operation(summary = "后台管理系统登出功能")
     @PostMapping(value = "/logout")
     public AjaxResult logout() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -83,30 +83,30 @@ public class UserController {
     }
 
     @WebLog(description = "查询权限管理模块用户列表")
-    @ApiOperation("查询权限管理模块用户列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "第几页",required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "pageSize", value = "多少条",required = true, dataType = "Integer")
+    @Operation(summary = "查询权限管理模块用户列表")
+    @Parameters({
+            @Parameter(name = "pageNum", description = "第几页", required = true),
+            @Parameter(name = "pageSize", description = "多少条", required = true)
     })
     @GetMapping("/list")
-    public AjaxResult list(@RequestParam("pageNum") Integer pageNum,
+    public CommonResult<Page<AuthUser>> list(@RequestParam("pageNum") Integer pageNum,
                            @RequestParam("pageSize") Integer pageSize) {
         Page<AuthUser> pageList = userService.getUserPageList(pageNum, pageSize, null);
-        return AjaxResult.success(pageList);
+        return CommonResult.success(pageList);
     }
 
     @WebLog(description = "查询权限管理模块用户详情")
-    @ApiOperation("查询权限管理模块用户详情")
-    @ApiImplicitParam(name = "id", value = "用户id",required = true, dataType = "Long")
+    @Operation(summary = "查询权限管理模块用户详情")
+    @Parameter(name = "id", description = "用户id", required = true)
     @GetMapping("/getUser/{id}")
-    public AjaxResult getUser(@PathVariable("id") Long id) {
+    public CommonResult<AuthUser> getUser(@PathVariable("id") Long id) {
         AuthUser user = userService.getUserById(id);
         user.setPassword("");
-        return AjaxResult.success(user);
+        return CommonResult.success(user);
     }
 
     @WebLog(description = "修改权限管理模块用户")
-    @ApiOperation("修改权限管理模块用户")
+    @Operation(summary = "修改权限管理模块用户")
     @PutMapping("/updateUser")
     public AjaxResult updateUser(@Validated @RequestBody AuthUser authUser) {
         boolean b = userService.updateUser(authUser);
@@ -115,10 +115,10 @@ public class UserController {
     }
 
     @WebLog(description = "用户账户启用状态更新")
-    @ApiOperation("用户账户启用状态更新")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "status", value = "启用状态",required = true, dataType = "Boolean"),
-            @ApiImplicitParam(name = "id", value = "用户id",required = true, dataType = "Long")
+    @Operation(summary = "用户账户启用状态更新")
+    @Parameters({
+            @Parameter(name = "status", description = "启用状态", required = true),
+            @Parameter(name = "id", description = "用户id", required = true)
     })
     @PutMapping("/changeSwitch")
     public AjaxResult changeSwitch(@RequestParam("status") boolean status,
@@ -129,8 +129,8 @@ public class UserController {
     }
 
     @WebLog(description = "删除权限管理模块用户")
-    @ApiOperation("删除权限管理模块用户")
-    @ApiImplicitParam(name = "id", value = "用户id",required = true, dataType = "Long")
+    @Operation(summary = "删除权限管理模块用户")
+    @Parameter(name = "id", description = "用户id", required = true)
     @DeleteMapping("/delUser/{id}")
     public AjaxResult delUser(@PathVariable("id") Long id) {
         boolean b = userService.delUser(id);
@@ -139,7 +139,7 @@ public class UserController {
     }
 
     @WebLog(description = "新增权限管理模块用户")
-    @ApiOperation("新增权限管理模块用户")
+    @Operation(summary = "新增权限管理模块用户")
     @PostMapping("/addUser")
     public AjaxResult addUser(@RequestBody AuthUser authUser) {
         boolean b = userService.addUser(authUser);
@@ -147,7 +147,7 @@ public class UserController {
         return AjaxResult.success("添加成功！");
     }
 
-    @ApiOperation("导出权限管理模块用户")
+    @Operation(summary = "导出权限管理模块用户")
     @PostMapping("/exportUser")
     public void export(@RequestBody List<Long> data, HttpServletResponse response) {
         userService.export(data, response);

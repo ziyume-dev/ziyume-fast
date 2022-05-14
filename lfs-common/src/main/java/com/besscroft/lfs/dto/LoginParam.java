@@ -1,6 +1,6 @@
 package com.besscroft.lfs.dto;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -16,11 +16,11 @@ import java.io.Serializable;
 public class LoginParam implements Serializable {
 
     @NotEmpty
-    @ApiModelProperty(value = "用户名",required = true)
+    @Schema(title = "用户名",required = true)
     private String username;
 
     @NotEmpty
-    @ApiModelProperty(value = "密码",required = true)
+    @Schema(title = "密码",required = true)
     private String password;
 
 }

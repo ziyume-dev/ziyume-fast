@@ -4,12 +4,13 @@ import com.besscroft.lfs.annotation.WebLog;
 import com.besscroft.lfs.entity.AuthMenu;
 import com.besscroft.lfs.entity.AuthUser;
 import com.besscroft.lfs.result.AjaxResult;
+import com.besscroft.lfs.result.CommonResult;
 import com.besscroft.lfs.service.MenuService;
 import com.besscroft.lfs.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -25,7 +26,7 @@ import java.util.List;
  * @Time 2021/12/10 16:00
  */
 @Slf4j
-@Api(tags = "管理系统菜单接口")
+@Tag(name = "管理系统菜单接口")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/menu")
@@ -35,47 +36,47 @@ public class MenuController {
     private final UserService userService;
 
     @WebLog(description = "获取当前用户管理系统菜单")
-    @ApiOperation(value = "获取当前用户管理系统菜单")
+    @Operation(summary = "获取当前用户管理系统菜单")
     @GetMapping(value = "/getMenu")
-    public AjaxResult getRouter() {
+    public CommonResult<List<AuthMenu>> getRouter() {
         AuthUser currentAdmin = userService.getCurrentAdmin();
         List<AuthMenu> list = menuService.getMenuListById(currentAdmin.getId());
         log.info("菜单：{}",list);
-        return AjaxResult.success(list);
+        return CommonResult.success(list);
     }
 
     @WebLog(description = "查询后台管理菜单列表")
-    @ApiOperation("查询后台管理菜单列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "第几页",required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "pageSize", value = "多少条",required = true, dataType = "Integer")
+    @Operation(summary = "查询后台管理菜单列表")
+    @Parameters({
+            @Parameter(name = "pageNum", description = "第几页", required = true),
+            @Parameter(name = "pageSize", description = "多少条", required = true)
     })
     @GetMapping("/list")
-    public AjaxResult list(@RequestParam("pageNum") Integer pageNum,
+    public CommonResult<Page<AuthMenu>> list(@RequestParam("pageNum") Integer pageNum,
                            @RequestParam("pageSize") Integer pageSize) {
         Page<AuthMenu> pageList = menuService.getMenuPageList(pageNum, pageSize, null);
-        return AjaxResult.success(pageList);
+        return CommonResult.success(pageList);
     }
 
     @WebLog(description = "获取所有父菜单")
-    @ApiOperation("获取所有父菜单")
+    @Operation(summary = "获取所有父菜单")
     @GetMapping("/getParentMenu")
-    public AjaxResult getParentMenu() {
+    public CommonResult<List<AuthMenu>> getParentMenu() {
         List<AuthMenu> list = menuService.getParentMenu();
-        return AjaxResult.success(list);
+        return CommonResult.success(list);
     }
 
     @WebLog(description = "查询菜单详情")
-    @ApiOperation("查询菜单详情")
-    @ApiImplicitParam(name = "id", value = "菜单id",required = true, dataType = "Long")
+    @Operation(summary = "查询菜单详情")
+    @Parameter(name = "id", description = "菜单id", required = true)
     @GetMapping("/getMenu/{id}")
-    public AjaxResult getMenu(@PathVariable("id") Long id) {
+    public CommonResult<AuthMenu> getMenu(@PathVariable("id") Long id) {
         AuthMenu menu = menuService.getMenuById(id);
-        return AjaxResult.success(menu);
+        return CommonResult.success(menu);
     }
 
     @WebLog(description = "修改菜单")
-    @ApiOperation("修改菜单")
+    @Operation(summary = "修改菜单")
     @PutMapping("/updateMenu")
     public AjaxResult updateMenu(@Validated @RequestBody AuthMenu authMenu) {
         boolean b = menuService.updateMenu(authMenu);
@@ -84,10 +85,10 @@ public class MenuController {
     }
 
     @WebLog(description = "菜单是否显示状态更新")
-    @ApiOperation("菜单是否显示状态更新")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "hidden", value = "显示状态",required = true, dataType = "Boolean"),
-            @ApiImplicitParam(name = "id", value = "菜单id",required = true, dataType = "Long")
+    @Operation(summary = "菜单是否显示状态更新")
+    @Parameters({
+            @Parameter(name = "hidden", description = "显示状态", required = true),
+            @Parameter(name = "id", description = "菜单id", required = true)
     })
     @PutMapping("/changeSwitch")
     public AjaxResult changeSwitch(@RequestParam("hidden") boolean hidden,
@@ -99,8 +100,8 @@ public class MenuController {
     }
 
     @WebLog(description = "删除菜单")
-    @ApiOperation("删除菜单")
-    @ApiImplicitParam(name = "id", value = "菜单id",required = true, dataType = "Long")
+    @Operation(summary = "删除菜单")
+    @Parameter(name = "id", description = "菜单id", required = true)
     @DeleteMapping("/delMenu/{id}")
     public AjaxResult delMenu(@PathVariable("id") List<Long> ids) {
         boolean b = menuService.delMenu(ids);
@@ -109,7 +110,7 @@ public class MenuController {
     }
 
     @WebLog(description = "新增菜单")
-    @ApiOperation("新增菜单")
+    @Operation(summary = "新增菜单")
     @PostMapping("/addMenu")
     public AjaxResult addUser(@RequestBody AuthMenu authMenu) {
         boolean b = menuService.addMenu(authMenu);
@@ -118,27 +119,27 @@ public class MenuController {
     }
 
     @WebLog(description = "根据角色id获取菜单树")
-    @ApiOperation("根据角色id获取菜单树")
-    @ApiImplicitParam(name = "id", value = "角色id", required = true, dataType = "Long")
+    @Operation(summary = "根据角色id获取菜单树")
+    @Parameter(name = "id", description = "角色id", required = true)
     @GetMapping("/getMenuTreeById/{id}")
-    public AjaxResult getMenuTreeById(@PathVariable("id") Long id) {
+    public CommonResult<List<Long>> getMenuTreeById(@PathVariable("id") Long id) {
         List<Long> tree = menuService.getMenuTreeById(id);
-        return AjaxResult.success(tree);
+        return CommonResult.success(tree);
     }
 
     @WebLog(description = "获取所有菜单的菜单树")
-    @ApiOperation("获取所有菜单的菜单树")
+    @Operation(summary = "获取所有菜单的菜单树")
     @GetMapping("/getAllMenuTree")
-    public AjaxResult getAllMenuTree() {
+    public CommonResult<List<AuthMenu>> getAllMenuTree() {
         List<AuthMenu> tree = menuService.getAllMenuTree();
-        return AjaxResult.success(tree);
+        return CommonResult.success(tree);
     }
 
     @WebLog(description = "更新菜单树")
-    @ApiOperation("更新菜单树")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "data", value = "菜单树数据",required = true, dataType = "Long"),
-            @ApiImplicitParam(name = "id", value = "角色id",required = true, dataType = "Long")
+    @Operation(summary = "更新菜单树")
+    @Parameters({
+            @Parameter(name = "data", description = "菜单树数据", required = true),
+            @Parameter(name = "id", description = "角色id", required = true)
     })
     @PutMapping("/updateMenuTree")
     public AjaxResult updateMenuTree(@RequestBody List<Long> data,

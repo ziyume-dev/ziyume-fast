@@ -4,11 +4,12 @@ import com.besscroft.lfs.annotation.WebLog;
 import com.besscroft.lfs.entity.AuthResource;
 import com.besscroft.lfs.model.ResourceParam;
 import com.besscroft.lfs.result.AjaxResult;
+import com.besscroft.lfs.result.CommonResult;
 import com.besscroft.lfs.service.ResourceService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -23,7 +24,7 @@ import java.util.List;
  * @Time 2021/12/10 16:00
  */
 @Slf4j
-@Api(tags = "管理系统资源接口")
+@Tag(name = "管理系统资源接口")
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/resource")
@@ -32,29 +33,29 @@ public class ResourceController {
     private final ResourceService resourceService;
 
     @WebLog(description = "查询后台管理资源列表")
-    @ApiOperation("查询后台管理资源列表")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "pageNum", value = "第几页",required = true, dataType = "Integer"),
-            @ApiImplicitParam(name = "pageSize", value = "多少条",required = true, dataType = "Integer")
+    @Operation(summary = "查询后台管理资源列表")
+    @Parameters({
+            @Parameter(name = "pageNum", description = "第几页", required = true),
+            @Parameter(name = "pageSize", description = "多少条", required = true)
     })
     @GetMapping("/list")
-    public AjaxResult list(@RequestParam("pageNum") Integer pageNum,
-                           @RequestParam("pageSize") Integer pageSize) {
+    public CommonResult<Page<AuthResource>> list(@RequestParam("pageNum") Integer pageNum,
+                             @RequestParam("pageSize") Integer pageSize) {
         Page<AuthResource> pageList = resourceService.getResourcePageList(pageNum, pageSize, null);
-        return AjaxResult.success(pageList);
+        return CommonResult.success(pageList);
     }
 
     @WebLog(description = "获取资源详情")
-    @ApiOperation("获取资源详情")
-    @ApiImplicitParam(name = "id", value = "资源id",required = true, dataType = "Long")
+    @Operation(summary = "获取资源详情")
+    @Parameter(name = "id", description = "资源id", required = true)
     @GetMapping("/getResource/{id}")
-    public AjaxResult getResource(@PathVariable("id") Long id) {
+    public CommonResult<AuthResource> getResource(@PathVariable("id") Long id) {
         AuthResource resource = resourceService.getResourceById(id);
-        return AjaxResult.success(resource);
+        return CommonResult.success(resource);
     }
 
     @WebLog(description = "新增资源")
-    @ApiOperation("新增资源")
+    @Operation(summary = "新增资源")
     @PostMapping("/addResource")
     public AjaxResult addResource(@RequestBody AuthResource authResource) {
         boolean b = resourceService.addResource(authResource);
@@ -63,7 +64,7 @@ public class ResourceController {
     }
 
     @WebLog(description = "更新资源")
-    @ApiOperation("更新资源")
+    @Operation(summary = "更新资源")
     @PutMapping("/updateResource")
     public AjaxResult updateResource(@RequestBody AuthResource authResource) {
         boolean b = resourceService.updateResource(authResource);
@@ -72,8 +73,8 @@ public class ResourceController {
     }
 
     @WebLog(description = "删除资源")
-    @ApiOperation("删除资源")
-    @ApiImplicitParam(name = "id", value = "资源id",required = true, dataType = "Long")
+    @Operation(summary = "删除资源")
+    @Parameter(name = "id", description = "资源id", required = true)
     @DeleteMapping("/delResource/{id}")
     public AjaxResult delResource(@PathVariable("id") List<Long> ids) {
         boolean b = resourceService.delResource(ids);
@@ -82,26 +83,26 @@ public class ResourceController {
     }
 
     @WebLog(description = "获取所有资源的资源树")
-    @ApiOperation("获取所有资源的资源树")
+    @Operation(summary = "获取所有资源的资源树")
     @GetMapping("/getAllResourceTree")
-    public AjaxResult getAllResourceTree() {
+    public CommonResult<List<ResourceParam>> getAllResourceTree() {
         List<ResourceParam> tree = resourceService.getAllResourceTree();
-        return AjaxResult.success(tree);
+        return CommonResult.success(tree);
     }
 
     @WebLog(description = "根据角色id获取资源树数组")
-    @ApiOperation("根据角色id获取资源树数组")
+    @Operation(summary = "根据角色id获取资源树数组")
     @GetMapping("/getResourceTreeById/{id}")
-    public AjaxResult getResourceTreeById(@PathVariable("id") Long id) {
+    public CommonResult<List<Long>> getResourceTreeById(@PathVariable("id") Long id) {
         List<Long> tree = resourceService.getResourceTreeById(id);
-        return AjaxResult.success(tree);
+        return CommonResult.success(tree);
     }
 
     @WebLog(description = "更新资源树")
-    @ApiOperation("更新资源树")
-    @ApiImplicitParams({
-            @ApiImplicitParam(name = "data", value = "资源树数据",required = true, dataType = "Long"),
-            @ApiImplicitParam(name = "id", value = "角色id",required = true, dataType = "Long")
+    @Operation(summary = "更新资源树")
+    @Parameters({
+            @Parameter(name = "data", description = "资源树数据", required = true),
+            @Parameter(name = "id", description = "角色id", required = true)
     })
     @PutMapping("/updateResourceTree")
     public AjaxResult updateResourceTree(@RequestBody List<Long> data,

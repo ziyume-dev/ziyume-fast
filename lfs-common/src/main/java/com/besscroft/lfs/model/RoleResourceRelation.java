@@ -1,6 +1,6 @@
 package com.besscroft.lfs.model;
 
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 import javax.persistence.Entity;
@@ -15,7 +15,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "auth_role_resource_relation")
-@ApiModel(value = "权限管理模块角色资源关系表")
+@Schema(title = "权限管理模块角色资源关系表")
 @Data
 public class RoleResourceRelation implements Serializable {
 

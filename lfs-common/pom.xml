@@ -18,6 +18,11 @@
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>com.besscroft.lfs</groupId>
+            <artifactId>lfs-doc</artifactId>
+            <version>1.0</version>
+        </dependency>
         <!-- 数据库相关 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -26,11 +31,6 @@
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>com.github.xiaoymin</groupId>
-            <artifactId>knife4j-spring-boot-starter</artifactId>
         </dependency>
 
         <!-- 权限验证 -->
