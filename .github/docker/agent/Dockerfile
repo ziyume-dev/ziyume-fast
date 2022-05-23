@@ -1,5 +1,5 @@
 # 该镜像需要依赖的基础镜像
-FROM apache:skywalking-java-agent:8.10.0-alpine
+FROM apache/skywalking-java-agent:8.10.0-alpine
 # 设置环境变量
 ENV TZ=Asia/Shanghai JAVA_OPTS="-Xms512m -Xmx512m" SPRING_CONFIG="-Dspring.config.location=/root/lfs/application-docker.yml"
 # 设置时区
