@@ -27,9 +27,7 @@ public class DynamicAccessDecisionManager implements AccessDecisionManager {
         if (CollUtil.isEmpty(configAttributes)) {
             return;
         }
-        Iterator<ConfigAttribute> iterator = configAttributes.iterator();
-        while (iterator.hasNext()) {
-            ConfigAttribute configAttribute = iterator.next();
+        for (ConfigAttribute configAttribute : configAttributes) {
             // 将访问所需资源或用户拥有资源进行比对
             String needAuthority = configAttribute.getAttribute();
             for (GrantedAuthority grantedAuthority : authentication.getAuthorities()) {

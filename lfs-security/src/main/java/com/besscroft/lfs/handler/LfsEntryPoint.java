@@ -22,7 +22,7 @@ import java.io.PrintWriter;
 public class LfsEntryPoint implements AuthenticationEntryPoint {
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException, ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
         log.error(e.getMessage());
         response.setContentType("application/json;charset=utf-8");
         PrintWriter out = response.getWriter();

@@ -166,14 +166,15 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateUser(AuthUser authUser) {
-        return userRepository.save(authUser) != null;
+        userRepository.save(authUser);
+        return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean changeSwitch(boolean flag, Long id) {
         int status;
-        if (flag == true) {
+        if (flag) {
             status = 1;
         } else {
             status = 0;
@@ -199,7 +200,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         authUser.setPassword(new BCryptPasswordEncoder().encode(authUser.getPassword()));
         // 设置删除状态
         authUser.setDel(1);
-        return userRepository.save(authUser) != null;
+        userRepository.save(authUser);
+        return true;
     }
 
     @Override

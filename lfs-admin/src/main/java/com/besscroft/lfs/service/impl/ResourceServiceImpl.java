@@ -52,13 +52,15 @@ public class ResourceServiceImpl implements ResourceService {
     @Transactional(rollbackFor = Exception.class)
     public boolean addResource(AuthResource authResource) {
         authResource.setCreateTime(LocalDateTime.now());
-        return resourceRepository.save(authResource) != null;
+        resourceRepository.save(authResource);
+        return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateResource(AuthResource authResource) {
-        return resourceRepository.save(authResource) != null;
+        resourceRepository.save(authResource);
+        return true;
     }
 
     @Override

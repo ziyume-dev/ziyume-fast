@@ -72,7 +72,8 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public boolean updateMenu(AuthMenu authMenu) {
-        return menuRepository.save(authMenu) != null;
+        menuRepository.save(authMenu);
+        return true;
     }
 
     @Override

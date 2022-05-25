@@ -36,13 +36,15 @@ public class ResourceSortServiceImpl implements ResourceSortService {
     @Override
     public boolean addResourceSort(AuthResourceSort authResourceSort) {
         authResourceSort.setCreateTime(LocalDateTime.now());
-        return resourceSortRepository.save(authResourceSort) != null;
+        resourceSortRepository.save(authResourceSort);
+        return true;
     }
 
     @Override
     public boolean updateResourceSort(AuthResourceSort authResourceSort) {
         authResourceSort.setCreateTime(LocalDateTime.now());
-        return resourceSortRepository.save(authResourceSort) != null;
+        resourceSortRepository.save(authResourceSort);
+        return true;
     }
 
     @Override
