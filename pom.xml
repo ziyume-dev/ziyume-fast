@@ -21,10 +21,12 @@
         <module>lfs-admin</module>
         <module>lfs-security</module>
         <module>lfs-doc</module>
+        <module>lfs-monitor</module>
     </modules>
 
     <properties>
         <java.version>1.8</java.version>
+        <spring-boot.version>2.6.7</spring-boot.version>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <jjwt.version>0.9.1</jjwt.version>
@@ -63,7 +65,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-log4j2</artifactId>
-            <version>2.6.2</version>
         </dependency>
 
         <dependency>
@@ -86,6 +87,14 @@
 
     <dependencyManagement>
         <dependencies>
+            <!-- spring boot 依赖 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
             <!-- 权限验证 -->
             <dependency>
                 <groupId>io.jsonwebtoken</groupId>
@@ -144,6 +153,17 @@
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+            <!-- Spring Boot Admin 支持，原则上与 SpringBoot 版本保持一致 -->
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-server</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.codecentric</groupId>
+                <artifactId>spring-boot-admin-starter-client</artifactId>
+                <version>${spring-boot.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
