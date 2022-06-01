@@ -2,7 +2,7 @@ name: "Java CI with Multi-arch Docker Image"
 
 on:
   push:
-    branches: [ main ]
+    tags: 'v*'
 
 jobs:
   docker:
@@ -10,6 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Get Version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: ${{ github.ref }}
+          draft: false
+          prerelease: false
       - name: Setup Java
         uses: actions/setup-java@v3
         with:
@@ -36,7 +49,7 @@ jobs:
           file: ./.github/docker/jar/lfs-admin/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/lfs-admin:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/lfs-admin:${{ steps.get_version.outputs.VERSION }}
       - name: Build and push monitor
         id: docker_build_monitor
         uses: docker/build-push-action@v2
@@ -45,4 +58,4 @@ jobs:
           file: ./.github/docker/jar/lfs-monitor/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/lfs-monitor:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/lfs-monitor:${{ steps.get_version.outputs.VERSION }}
