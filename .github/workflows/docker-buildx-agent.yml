@@ -2,7 +2,11 @@ name: "Java Agent CI with Multi-arch Docker Image"
 
 on:
   push:
-    tags: 'v*'
+    branches:
+      - 'master'
+      - 'release-*'
+    tags:
+      - 'v*'
 
 jobs:
   docker:
