@@ -2,8 +2,6 @@ name: "Java CI with Multi-arch Docker Image"
 
 on:
   push:
-    branches:
-      - 'main'
     tags:
       - 'v*'
 
