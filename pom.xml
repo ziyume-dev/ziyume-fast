@@ -19,7 +19,6 @@
     <modules>
         <module>lfs-common</module>
         <module>lfs-admin</module>
-        <module>lfs-security</module>
         <module>lfs-doc</module>
         <module>lfs-monitor</module>
     </modules>
