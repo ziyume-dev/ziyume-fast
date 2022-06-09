@@ -10,7 +10,7 @@ RUN set -eux; \
 ENV SW_AGENT_COLLECTOR_BACKEND_SERVICES="-Dskywalking.collector.backend_service=127.0.0.1:11800" \
     SW_AGENT_NAME="-Dskywalking.agent.service_name=Pisces-Lfs::lfs-monitor"
 # 拷贝jar包，并重命名
-COPY ./lfs-monitor/target/lfs-monitor-1.0.jar /lfs-monitor.jar
+COPY ./lfs-monitor/target/lfs-monitor.jar /lfs-monitor.jar
 # 指定docker容器启动时运行jar包
 ENTRYPOINT exec java ${JAVA_OPTS} -javaagent:/skywalking/agent/skywalking-agent.jar ${SW_AGENT_COLLECTOR_BACKEND_SERVICES} ${SW_AGENT_NAME} -jar ${SPRING_CONFIG} /lfs-monitor.jar
 # 指定维护者的名字

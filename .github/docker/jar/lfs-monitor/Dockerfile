@@ -7,7 +7,7 @@ RUN set -eux; \
     ln -snf /usr/share/zoneinfo/$TZ /etc/localtime; \
     echo $TZ > /etc/timezone \
 # 拷贝jar包，并重命名
-COPY ./lfs-monitor/target/lfs-monitor-1.0.jar /lfs-monitor.jar
+COPY ./lfs-monitor/target/lfs-monitor.jar /lfs-monitor.jar
 # 指定docker容器启动时运行jar包
 ENTRYPOINT exec java ${JAVA_OPTS} -jar ${SPRING_CONFIG} /lfs-monitor.jar
 # 指定维护者的名字

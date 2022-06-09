@@ -9,7 +9,7 @@ RUN set -eux; \
 # 创建文件夹
 RUN mkdir -p /root/lfs
 # 拷贝jar包，并重命名
-COPY ./lfs-admin/target/lfs-admin-1.0.jar /lfs-admin.jar
+COPY ./lfs-admin/target/lfs-admin.jar /lfs-admin.jar
 # 指定docker容器启动时运行jar包
 ENTRYPOINT exec java ${JAVA_OPTS} -jar ${SPRING_CONFIG} /lfs-admin.jar
 # 指定维护者的名字
