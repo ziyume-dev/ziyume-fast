@@ -9,7 +9,7 @@ pisces-lfs 是一个基于 SpringBoot + Vue + Element UI 的快速启动框架�
 
 ### 预览地址
 
-[演示站](https://lfs.besscroft.com/) `dev` 分支最新源码。
+[演示站](https://lfs.besscroft.com/)
 
 ```
 账号：admin
