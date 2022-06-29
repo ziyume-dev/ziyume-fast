@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie'
 
-const TokenKey = 'springboot_lfs_token'
+const TokenKey = 'pisces_lfs_token'
 
 export function getToken() {
   return Cookies.get(TokenKey)

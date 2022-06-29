@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/lfs/(.*)",
+      "destination": "/api/proxy"
+    }
+  ]
+}
