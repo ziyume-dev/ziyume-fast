@@ -28,7 +28,7 @@ public interface RoleRepository extends JpaRepository<AuthRole, Long>, JpaSpecif
      * @return
      */
     @Query(value = "select" +
-            "           id, name, description, admin_count, create_time, status, sort, del" +
+            "           id, name, description, user_count, create_time, status, sort, del" +
             "       from" +
             "           auth_role" +
             "       where" +

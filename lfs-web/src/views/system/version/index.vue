@@ -58,6 +58,25 @@ export default {
         // }
         {
           name: "1",
+          title: "v.1.2.0",
+          titleIcon: "el-icon-s-promotion",
+          titleType: "success",
+          titleTagInfo: "数据库更新",
+          titleTag: "Preview",
+          titleTime: "2022-07-05",
+          detail: [
+            {
+              id: 1,
+              body: "[update] 数据库从 mysql 更改为 postgresql"
+            },
+            {
+              id: 2,
+              body: "[fix] 修复了一些问题，提升了性能"
+            }
+          ]
+        },
+        {
+          name: "2",
           title: "v.1.0.0",
           titleIcon: "el-icon-s-promotion",
           titleType: "success",

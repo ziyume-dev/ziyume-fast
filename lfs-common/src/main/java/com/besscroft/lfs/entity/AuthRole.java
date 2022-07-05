@@ -45,8 +45,8 @@ public class AuthRole implements Serializable {
 
     /** 用户数量 */
     @Schema(title = "用户数量", type = "Long")
-    @Column(name = "admin_count")
-    private Long adminCount;
+    @Column(name = "user_count")
+    private Long userCount;
 
     /** 创建时间 */
     @Schema(title = "创建时间", type = "Date")

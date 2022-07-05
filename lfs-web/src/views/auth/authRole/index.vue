@@ -40,7 +40,7 @@
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="角色名称" align="center" prop="name" width="150"/>
         <el-table-column label="描述" align="center" prop="description" />
-        <el-table-column label="用户数量" align="center" prop="adminCount" />
+        <el-table-column label="用户数量" align="center" prop="userCount" />
         <el-table-column label="创建时间" align="center" prop="createTime" />
         <el-table-column label="排序" align="center" prop="sort" />
         <el-table-column label="帐号启用状态" align="center" prop="hidden" width="160">
@@ -177,7 +177,7 @@ const defaultAdminRole = {
   id: null,
   name: null,
   description: null,
-  adminCount: null,
+  userCount: null,
   createTime: null,
   status: null,
   sort: null

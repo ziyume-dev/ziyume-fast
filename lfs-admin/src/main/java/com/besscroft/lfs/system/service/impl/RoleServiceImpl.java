@@ -45,8 +45,6 @@ public class RoleServiceImpl implements RoleService {
         authRole.setDel(1);
         // 设置时间
         authRole.setCreateTime(LocalDateTime.now());
-        // 设置用户数量
-        authRole.setAdminCount(0L);
         roleRepository.save(authRole);
         return true;
     }
