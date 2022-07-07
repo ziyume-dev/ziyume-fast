@@ -4,7 +4,7 @@
 
 ### 简介
 
-pisces-lfs 是一个基于 SpringBoot + Vue + Element UI 的快速启动框架，可基于此框架快速构建系统！
+pisces-lfs 是一个基于 SpringBoot + PostgreSQL + Vue + Element UI 的快速启动框架，可基于此框架快速构建系统！
 框架提供了基础的基于 RBAC 思想开发的权限管理模块，可以让您专注于业务开发。
 
 ### 预览地址
@@ -27,7 +27,8 @@ pisces-lfs 是一个基于 SpringBoot + Vue + Element UI 的快速启动框架�
 pisces-lfs 的需要以下程序才能正常的安装和运行：
 
 - Git
-- MySQL 5.x+
+- nodejs 14.x LTS +
+- PostgreSQL 12.x+
 - open/oracleJDK1.8+
 - nginx 1.16+
 
