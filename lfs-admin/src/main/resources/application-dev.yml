@@ -58,7 +58,7 @@ spring:
           result-set-close-after-log-enabled: false
   # JPA相关配置
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
       ddl-auto: none
