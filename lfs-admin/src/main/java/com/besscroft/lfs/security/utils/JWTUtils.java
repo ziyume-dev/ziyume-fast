@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -45,7 +46,7 @@ public class JWTUtils {
     /**
      * 根据负责生成JWT的token
      */
-    public String generateToken(Map<String, Object> claims) {
+    public String generateToken(@NonNull Map<String, Object> claims) {
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(generateExpirationDate())
@@ -56,7 +57,7 @@ public class JWTUtils {
     /**
      * 从token中获取JWT中的负载
      */
-    public Claims getClaimsFromToken(String token) {
+    public Claims getClaimsFromToken(@NonNull String token) {
         // 如果是空字符串直接返回null
         if (!StringUtils.hasLength(token)) {
             return null;
@@ -85,7 +86,7 @@ public class JWTUtils {
     /**
      * 从token中获取登录用户名
      */
-    public String getUserNameFromToken(String token) {
+    public String getUserNameFromToken(@NonNull String token) {
         String username;
         try {
             Claims claims = getClaimsFromToken(token);
@@ -102,7 +103,7 @@ public class JWTUtils {
      * @param token       客户端传入的token
      * @param userDetails 从数据库中查询出来的用户信息
      */
-    public boolean validateToken(String token, UserDetails userDetails) {
+    public boolean validateToken(@NonNull String token, @NonNull UserDetails userDetails) {
         String username = getUserNameFromToken(token);
         return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
     }
@@ -110,7 +111,7 @@ public class JWTUtils {
     /**
      * 判断token是否已经失效
      */
-    private boolean isTokenExpired(String token) {
+    private boolean isTokenExpired(@NonNull String token) {
         Date expiredDate = getExpiredDateFromToken(token);
         return expiredDate.before(new Date());
     }
@@ -118,7 +119,7 @@ public class JWTUtils {
     /**
      * 从token中获取过期时间
      */
-    private Date getExpiredDateFromToken(String token) {
+    private Date getExpiredDateFromToken(@NonNull String token) {
         Claims claims = getClaimsFromToken(token);
         return claims.getExpiration();
     }
@@ -126,7 +127,7 @@ public class JWTUtils {
     /**
      * 根据用户信息生成token
      */
-    public String generateToken(UserDetails userDetails) {
+    public String generateToken(@NonNull UserDetails userDetails) {
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
         claims.put(CLAIM_KEY_CREATED, new Date());
@@ -138,7 +139,7 @@ public class JWTUtils {
      *
      * @param oldToken 带tokenHead的token
      */
-    public String refreshHeadToken(String oldToken) {
+    public String refreshHeadToken(@NonNull String oldToken) {
         if (StrUtil.isEmpty(oldToken)) {
             return null;
         }
@@ -169,7 +170,7 @@ public class JWTUtils {
      * @param token 原token
      * @param time 指定时间（秒）
      */
-    private boolean tokenRefreshJustBefore(String token, int time) {
+    private boolean tokenRefreshJustBefore(@NonNull String token, @NonNull int time) {
         Claims claims = getClaimsFromToken(token);
         Date created = claims.get(CLAIM_KEY_CREATED, Date.class);
         Date refreshDate = new Date();

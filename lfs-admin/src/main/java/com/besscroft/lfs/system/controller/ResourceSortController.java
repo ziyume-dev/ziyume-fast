@@ -39,7 +39,7 @@ public class ResourceSortController {
     })
     @GetMapping("/list")
     public CommonResult<Page<AuthResourceSort>> list(@RequestParam("pageNum") Integer pageNum,
-                           @RequestParam("pageSize") Integer pageSize) {
+                                                     @RequestParam("pageSize") Integer pageSize) {
         Page<AuthResourceSort> pageList = resourceSortService.getResourcePageList(pageNum, pageSize, null);
         return CommonResult.success(pageList);
     }

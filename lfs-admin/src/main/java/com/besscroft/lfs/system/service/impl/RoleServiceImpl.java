@@ -6,6 +6,7 @@ import com.besscroft.lfs.system.service.RoleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,13 +35,13 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public AuthRole getRoleById(Long id) {
+    public AuthRole getRoleById(@NonNull Long id) {
         return roleRepository.findById(id).orElse(null);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addRole(AuthRole authRole) {
+    public boolean addRole(@NonNull AuthRole authRole) {
         // 假删除：0->删除状态；1->可用状态
         authRole.setDel(1);
         // 设置时间
@@ -51,7 +52,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateRole(AuthRole authRole) {
+    public boolean updateRole(@NonNull AuthRole authRole) {
         // 设置时间
         authRole.setCreateTime(LocalDateTime.now());
         roleRepository.save(authRole);
@@ -60,14 +61,14 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean delRoleById(List<Long> ids) {
+    public boolean delRoleById(@NonNull List<Long> ids) {
         roleRepository.deleteAllByIdInBatch(ids);
         return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean changeSwitch(boolean status, Long id) {
+    public boolean changeSwitch(boolean status, @NonNull Long id) {
         if (status) {
             return roleRepository.changeSwitch(1, id) > 0;
         }
@@ -76,7 +77,7 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateRoleById(Long userId, Long roleId) {
+    public boolean updateRoleById(@NonNull Long userId, @NonNull Long roleId) {
         // 先删除原有的
         int i = roleRepository.deleteUserRoleRelationById(userId);
         if (i > 0) {

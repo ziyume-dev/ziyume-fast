@@ -2,6 +2,7 @@ package com.besscroft.lfs.security.model;
 
 import com.besscroft.lfs.entity.AuthResource;
 import com.besscroft.lfs.entity.AuthUser;
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,7 +21,7 @@ public class LFSUser implements UserDetails {
 
     private List<AuthResource> authResources;
 
-    public LFSUser(AuthUser authUser, List<AuthResource> authResources) {
+    public LFSUser(@NonNull AuthUser authUser, @NonNull List<AuthResource> authResources) {
         this.authUser = authUser;
         this.authResources = authResources;
     }

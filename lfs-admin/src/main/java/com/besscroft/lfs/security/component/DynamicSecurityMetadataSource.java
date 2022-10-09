@@ -2,6 +2,7 @@ package com.besscroft.lfs.security.component;
 
 import cn.hutool.core.util.URLUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
@@ -35,7 +36,7 @@ public class DynamicSecurityMetadataSource implements FilterInvocationSecurityMe
     }
 
     @Override
-    public Collection<ConfigAttribute> getAttributes(Object o) throws IllegalArgumentException {
+    public Collection<ConfigAttribute> getAttributes(@NonNull Object o) throws IllegalArgumentException {
         if (configAttributeMap == null) this.loadDataSource();
         List<ConfigAttribute> configAttributes = new ArrayList<>();
         // 获取当前访问的路径

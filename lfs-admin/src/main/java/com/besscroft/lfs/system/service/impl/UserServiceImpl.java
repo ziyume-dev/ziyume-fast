@@ -20,6 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -50,16 +51,14 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService, UserDetailsService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
-
     private final UserRepository userRepository;
     private final ResourceService resourceService;
     private final JWTUtils jwtUtils;
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
     private final MenuService menuService;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(@NonNull String username) throws UsernameNotFoundException {
         // 先调用DAO层查询用户实体对象
         AuthUser user = userRepository.findByUsername(username);
         // 若没查询到一定要抛出该异常，这样才能被Spring Security的错误处理器处理
@@ -73,7 +72,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public String login(String username, String password) {
+    public String login(@NonNull String username, @NonNull String password) {
         String token = null;
         // 密码需要客户端加密后传递
         try {
@@ -108,7 +107,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public AuthUser getCurrentAdminByUserName(String username) {
+    public AuthUser getCurrentAdminByUserName(@NonNull String username) {
         return userRepository.findByUsername(username);
     }
 
@@ -132,18 +131,18 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public List<AuthRole> getRoleList(Long userId) {
+    public List<AuthRole> getRoleList(@NonNull Long userId) {
         return userRepository.findById(userId).get().getRoles();
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean setLoginTime(Date loginTime, Long id) {
+    public boolean setLoginTime(Date loginTime, @NonNull Long id) {
         return userRepository.updateLoginTime(loginTime, id) > 0;
     }
 
     @Override
-    public boolean logout(Long adminId) {
+    public boolean logout(@NonNull Long adminId) {
         return true;
     }
 
@@ -153,20 +152,20 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public AuthUser getUserById(Long id) {
+    public AuthUser getUserById(@NonNull Long id) {
         return userRepository.findById(id).orElse(null);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateUser(AuthUser authUser) {
+    public boolean updateUser(@NonNull AuthUser authUser) {
         userRepository.save(authUser);
         return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean changeSwitch(boolean flag, Long id) {
+    public boolean changeSwitch(boolean flag, @NonNull Long id) {
         int status;
         if (flag) {
             status = 1;
@@ -178,14 +177,14 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean delUser(Long id) {
+    public boolean delUser(@NonNull Long id) {
         userRepository.deleteById(id);
         return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addUser(AuthUser authUser) {
+    public boolean addUser(@NonNull AuthUser authUser) {
         // 设置用户注册的时间
         authUser.setCreateTime(LocalDateTime.now());
         // 设置用户登录时间与注册时间一致
@@ -199,7 +198,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public void export(List<Long> ids, HttpServletResponse response) {
+    public void export(@NonNull List<Long> ids, HttpServletResponse response) {
         List<AuthUser> userList = userRepository.findAllById(ids);
         if (CollUtil.isNotEmpty(userList)) {
             List<AuthUserExcelDto> excelDtos = UserConverterMapper.INSTANCE.authUserToAuthUserExcelListDto(userList);

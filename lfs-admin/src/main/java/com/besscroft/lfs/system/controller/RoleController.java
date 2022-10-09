@@ -39,7 +39,7 @@ public class RoleController {
     })
     @GetMapping("/list")
     public CommonResult<Page<AuthRole>> list(@RequestParam("pageNum") Integer pageNum,
-                             @RequestParam("pageSize") Integer pageSize) {
+                                             @RequestParam("pageSize") Integer pageSize) {
         Page<AuthRole> pageList = roleService.getRolePageList(pageNum, pageSize, null);
         return CommonResult.success(pageList);
     }

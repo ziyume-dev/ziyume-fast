@@ -9,6 +9,7 @@ import com.besscroft.lfs.system.service.ResourceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,7 +30,7 @@ public class ResourceServiceImpl implements ResourceService {
     private final ResourceSortRepository resourceSortRepository;
 
     @Override
-    public List<AuthResource> getResourceList(Long userId) {
+    public List<AuthResource> getResourceList(@NonNull Long userId) {
         return resourceRepository.findAllByUserId(userId);
     }
 
@@ -44,13 +45,13 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public AuthResource getResourceById(Long id) {
+    public AuthResource getResourceById(@NonNull Long id) {
         return resourceRepository.findById(id).orElse(null);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addResource(AuthResource authResource) {
+    public boolean addResource(@NonNull AuthResource authResource) {
         authResource.setCreateTime(LocalDateTime.now());
         resourceRepository.save(authResource);
         return true;
@@ -58,14 +59,14 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateResource(AuthResource authResource) {
+    public boolean updateResource(@NonNull AuthResource authResource) {
         resourceRepository.save(authResource);
         return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean delResource(List<Long> ids) {
+    public boolean delResource(@NonNull List<Long> ids) {
         resourceRepository.deleteAllById(ids);
         return true;
     }
@@ -86,13 +87,13 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public List<Long> getResourceTreeById(Long id) {
+    public List<Long> getResourceTreeById(@NonNull Long id) {
         return resourceRepository.selectResourceTreeById(id);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateResourceTree(List<Long> resourceIds, Long id) {
+    public boolean updateResourceTree(@NonNull List<Long> resourceIds, @NonNull Long id) {
         int i = resourceRepository.deleteRoleResourceRelation(id);
         if (i > 0) {
             for (Long resourceId : resourceIds) {

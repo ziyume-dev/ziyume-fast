@@ -53,7 +53,7 @@ public class MenuController {
     })
     @GetMapping("/list")
     public CommonResult<Page<AuthMenu>> list(@RequestParam("pageNum") Integer pageNum,
-                           @RequestParam("pageSize") Integer pageSize) {
+                                             @RequestParam("pageSize") Integer pageSize) {
         Page<AuthMenu> pageList = menuService.getMenuPageList(pageNum, pageSize, null);
         return CommonResult.success(pageList);
     }

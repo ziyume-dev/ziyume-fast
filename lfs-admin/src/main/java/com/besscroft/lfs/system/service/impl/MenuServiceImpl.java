@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,7 +32,7 @@ public class MenuServiceImpl implements MenuService {
     private final MenuRepository menuRepository;
 
     @Override
-    public List<RouterVo> getMenuList(Long userId) {
+    public List<RouterVo> getMenuList(@NonNull Long userId) {
         List<AuthMenu> menuList = menuRepository.findAllByUserId(userId);
         List<AuthMenu> menus = getMenus(menuList);
         log.info("menus:{}", menus);
@@ -39,13 +40,13 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<AuthMenu> getMenuListById(Long adminId) {
+    public List<AuthMenu> getMenuListById(@NonNull Long adminId) {
         List<AuthMenu> authMenuList = menuRepository.findAllByUserId(adminId);
         return getMenus(authMenuList);
     }
 
     @Override
-    public Page<AuthMenu> getMenuPageList(Integer pageNum, Integer pageSize, String keyword) {
+    public Page<AuthMenu> getMenuPageList(@NonNull Integer pageNum, @NonNull Integer pageSize, String keyword) {
         return menuRepository.findAll(PageRequest.of(Objects.equals(pageNum, 0) ? 0 : pageNum - 1, pageSize));
     }
 
@@ -55,20 +56,20 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public AuthMenu getMenuById(Long id) {
+    public AuthMenu getMenuById(@NonNull Long id) {
         return menuRepository.findById(id).orElse(null);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateMenu(AuthMenu authMenu) {
+    public boolean updateMenu(@NonNull AuthMenu authMenu) {
         menuRepository.save(authMenu);
         return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean changeSwitch(boolean hidden, Long id, Long adminId) {
+    public boolean changeSwitch(boolean hidden, @NonNull Long id, Long adminId) {
         if (hidden) {
             return menuRepository.changeSwitch(1, id) > 0;
         }
@@ -77,21 +78,21 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean delMenu(List<Long> ids) {
+    public boolean delMenu(@NonNull List<Long> ids) {
         menuRepository.deleteAllByIdInBatch(ids);
         return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addMenu(AuthMenu authMenu) {
+    public boolean addMenu(@NonNull AuthMenu authMenu) {
         authMenu.setCreateTime(LocalDateTime.now());
         menuRepository.save(authMenu);
         return true;
     }
 
     @Override
-    public List<Long> getMenuTreeById(Long id) {
+    public List<Long> getMenuTreeById(@NonNull Long id) {
         return menuRepository.selectMenuTreeById(id);
     }
 
@@ -103,7 +104,7 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateMenuTree(List<Long> menuIds, Long id) {
+    public boolean updateMenuTree(@NonNull List<Long> menuIds, @NonNull Long id) {
         int i = menuRepository.deleteRoleMenuRelation(id);
         if (i > 0) {
             for (Long menuId : menuIds) {
@@ -118,7 +119,7 @@ public class MenuServiceImpl implements MenuService {
      * @param menuList
      * @return
      */
-    private List<AuthMenu> getMenus(List<AuthMenu> menuList) {
+    private List<AuthMenu> getMenus(@NonNull List<AuthMenu> menuList) {
         List<AuthMenu> parentMenus = menuList.stream().filter(menu -> menu.getParentId() == 0).collect(Collectors.toList());
         List<AuthMenu> menus = menuList.stream().filter(menu -> menu.getParentId() != 0).collect(Collectors.toList());
         parentMenus.forEach(menu -> {
@@ -134,7 +135,7 @@ public class MenuServiceImpl implements MenuService {
      * @param menuList 子菜单集合
      * @return
      */
-    private List<AuthMenu> getChildMenu(Long menuId, List<AuthMenu> menuList) {
+    private List<AuthMenu> getChildMenu(@NonNull Long menuId, @NonNull List<AuthMenu> menuList) {
         List<AuthMenu> menus = menuList.stream().filter(menu -> menu.getParentId() == menuId).collect(Collectors.toList());
         menus.forEach(menu -> {
             List<AuthMenu> childMenu = getChildMenu(menu.getId(), menuList);
@@ -148,7 +149,7 @@ public class MenuServiceImpl implements MenuService {
      * @param menuList 菜单集合
      * @return
      */
-    private List<RouterVo> getRouter(List<AuthMenu> menuList) {
+    private List<RouterVo> getRouter(@NonNull List<AuthMenu> menuList) {
         List<RouterVo> routerVoList = new LinkedList<>();
         menuList.forEach(menuDto -> {
             RouterVo routerVo = new RouterVo();
@@ -173,7 +174,7 @@ public class MenuServiceImpl implements MenuService {
      * @param menuList 子菜单集合
      * @return
      */
-    private List<RouterVo> getChildRouter(List<AuthMenu> menuList) {
+    private List<RouterVo> getChildRouter(@NonNull List<AuthMenu> menuList) {
         List<RouterVo> list = new ArrayList<>();
         menuList.forEach(child -> {
             RouterVo router = new RouterVo();

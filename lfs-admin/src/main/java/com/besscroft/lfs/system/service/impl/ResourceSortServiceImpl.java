@@ -6,6 +6,7 @@ import com.besscroft.lfs.system.service.ResourceSortService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -29,26 +30,26 @@ public class ResourceSortServiceImpl implements ResourceSortService {
     }
 
     @Override
-    public AuthResourceSort getResourceSortById(Long id) {
+    public AuthResourceSort getResourceSortById(@NonNull Long id) {
         return resourceSortRepository.findById(id).orElse(null);
     }
 
     @Override
-    public boolean addResourceSort(AuthResourceSort authResourceSort) {
+    public boolean addResourceSort(@NonNull AuthResourceSort authResourceSort) {
         authResourceSort.setCreateTime(LocalDateTime.now());
         resourceSortRepository.save(authResourceSort);
         return true;
     }
 
     @Override
-    public boolean updateResourceSort(AuthResourceSort authResourceSort) {
+    public boolean updateResourceSort(@NonNull AuthResourceSort authResourceSort) {
         authResourceSort.setCreateTime(LocalDateTime.now());
         resourceSortRepository.save(authResourceSort);
         return true;
     }
 
     @Override
-    public boolean delResourceSort(List<Long> ids) {
+    public boolean delResourceSort(@NonNull List<Long> ids) {
         resourceSortRepository.deleteAllById(ids);
         return true;
     }

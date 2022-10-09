@@ -40,7 +40,6 @@ public class UserController {
 
     @Value("${jwt.tokenHead}")
     private String tokenHead;
-
     private final UserService userService;
 
     @WebLog(description = "登录以后返回token")
