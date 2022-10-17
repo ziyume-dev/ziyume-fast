@@ -3,6 +3,7 @@ package com.besscroft.lfs.system.service.impl;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.json.JSONUtil;
 import com.alibaba.excel.EasyExcel;
+import com.besscroft.lfs.constant.CacheConstants;
 import com.besscroft.lfs.converter.UserConverterMapper;
 import com.besscroft.lfs.dto.AuthUserExcelDto;
 import com.besscroft.lfs.entity.AuthResource;
@@ -14,10 +15,12 @@ import com.besscroft.lfs.system.service.MenuService;
 import com.besscroft.lfs.system.service.ResourceService;
 import com.besscroft.lfs.system.service.UserService;
 import com.besscroft.lfs.security.utils.JWTUtils;
+import com.github.benmanes.caffeine.cache.Cache;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.lang.NonNull;
@@ -56,8 +59,10 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final JWTUtils jwtUtils;
     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final MenuService menuService;
+    private final Cache<String, Object> caffeineCache;
 
     @Override
+    @Cacheable(value = "loadUserByUsername", key = "#username")
     public UserDetails loadUserByUsername(@NonNull String username) throws UsernameNotFoundException {
         // 先调用DAO层查询用户实体对象
         AuthUser user = userRepository.findByUsername(username);
@@ -101,9 +106,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             currentUserName = authentication.getName();
             log.info("currentUserName:{}", JSONUtil.toJsonStr(currentUserName));
         } else {
-            throw new RuntimeException("暂未登录或token已经过期");
+            throw new RuntimeException("暂未登录或token已经过期！");
         }
-        return userRepository.findByUsername(currentUserName);
+        String userKey = String.join(":", CacheConstants.USER_CACHE, currentUserName);
+        AuthUser user = (AuthUser) caffeineCache.asMap().get(userKey);
+        if (Objects.nonNull(user)) return user;
+        user = userRepository.findByUsername(currentUserName);
+        if (Objects.nonNull(user)) {
+            caffeineCache.put(userKey, user);
+            return user;
+        }
+        throw new RuntimeException("用户异常！");
     }
 
     @Override

@@ -66,6 +66,11 @@ spring:
     properties:
       hibernate:
         format_sql: true
+  # 缓存
+  cache:
+    type: CAFFEINE
+    caffeine:
+      spec: maximumSize=500,initialCapacity=100,expireAfterAccess=600s
 
 jwt:
   # JWT存储的请求头

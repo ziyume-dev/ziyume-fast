@@ -39,6 +39,7 @@
         <oshi-core.version>5.0.1</oshi-core.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <easyexcel.version>2.2.11</easyexcel.version>
+        <caffeine.version>3.1.1</caffeine.version>
     </properties>
 
     <dependencies>
@@ -84,6 +85,16 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <!-- 缓存 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
         </dependency>
     </dependencies>
 
@@ -160,6 +171,12 @@
                 <groupId>de.codecentric</groupId>
                 <artifactId>spring-boot-admin-starter-client</artifactId>
                 <version>${spring-boot.version}</version>
+            </dependency>
+            <!-- 缓存 -->
+            <dependency>
+                <groupId>com.github.ben-manes.caffeine</groupId>
+                <artifactId>caffeine</artifactId>
+                <version>${caffeine.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
