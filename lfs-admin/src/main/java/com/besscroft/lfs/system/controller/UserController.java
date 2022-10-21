@@ -89,7 +89,7 @@ public class UserController {
     })
     @GetMapping("/list")
     public CommonResult<Page<AuthUser>> list(@RequestParam("pageNum") Integer pageNum,
-                           @RequestParam("pageSize") Integer pageSize) {
+                                             @RequestParam("pageSize") Integer pageSize) {
         Page<AuthUser> pageList = userService.getUserPageList(pageNum, pageSize, null);
         return CommonResult.success(pageList);
     }
@@ -108,8 +108,7 @@ public class UserController {
     @Operation(summary = "修改权限管理模块用户")
     @PutMapping("/updateUser")
     public AjaxResult updateUser(@Validated @RequestBody AuthUser authUser) {
-        boolean b = userService.updateUser(authUser);
-        Assert.isTrue(b, "更新权限管理模块用户失败！");
+        userService.updateUser(authUser);
         return AjaxResult.success("更新成功！");
     }
 
@@ -122,8 +121,7 @@ public class UserController {
     @PutMapping("/changeSwitch")
     public AjaxResult changeSwitch(@RequestParam("status") boolean status,
                                    @RequestParam("id") Long id) {
-        boolean b = userService.changeSwitch(status, id);
-        Assert.isTrue(b, "哎呀，更新失败了！");
+        userService.changeSwitch(status, id);
         return AjaxResult.success("更新成功！");
     }
 
@@ -132,8 +130,7 @@ public class UserController {
     @Parameter(name = "id", description = "用户id", required = true)
     @DeleteMapping("/delUser/{id}")
     public AjaxResult delUser(@PathVariable("id") Long id) {
-        boolean b = userService.delUser(id);
-        Assert.isTrue(b, "哎呀，删除失败了！");
+        userService.delUser(id);
         return AjaxResult.success("删除成功！");
     }
 
@@ -141,8 +138,7 @@ public class UserController {
     @Operation(summary = "新增权限管理模块用户")
     @PostMapping("/addUser")
     public AjaxResult addUser(@RequestBody AuthUser authUser) {
-        boolean b = userService.addUser(authUser);
-        Assert.isTrue(b, "哎呀，添加失败！");
+        userService.addUser(authUser);
         return AjaxResult.success("添加成功！");
     }
 

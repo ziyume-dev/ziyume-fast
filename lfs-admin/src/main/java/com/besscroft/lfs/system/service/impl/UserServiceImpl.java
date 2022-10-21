@@ -4,6 +4,7 @@ import cn.hutool.core.collection.CollUtil;
 import cn.hutool.json.JSONUtil;
 import com.alibaba.excel.EasyExcel;
 import com.besscroft.lfs.constant.CacheConstants;
+import com.besscroft.lfs.constant.CommonConstants;
 import com.besscroft.lfs.converter.UserConverterMapper;
 import com.besscroft.lfs.dto.AuthUserExcelDto;
 import com.besscroft.lfs.entity.AuthResource;
@@ -68,7 +69,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         AuthUser user = userRepository.findByUsername(username);
         // 若没查询到一定要抛出该异常，这样才能被Spring Security的错误处理器处理
         if (user == null) {
-            throw new UsernameNotFoundException("用户名或密码错误");
+            throw new UsernameNotFoundException("用户名或密码错误！");
+        }
+        // 判断是否禁用
+        if (Objects.equals(user.getStatus(), CommonConstants.DELETE)) {
+            throw new UsernameNotFoundException("用户已禁用！");
         }
         // 查询权限集合
         List<AuthResource> resourceList = resourceService.getResourceList(user.getId());
@@ -150,8 +155,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean setLoginTime(Date loginTime, @NonNull Long id) {
-        return userRepository.updateLoginTime(loginTime, id) > 0;
+    public void setLoginTime(Date loginTime, @NonNull Long id) {
+        userRepository.updateLoginTime(loginTime, id);
     }
 
     @Override
@@ -171,33 +176,27 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateUser(@NonNull AuthUser authUser) {
+    public void updateUser(@NonNull AuthUser authUser) {
         userRepository.save(authUser);
-        return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean changeSwitch(boolean flag, @NonNull Long id) {
-        int status;
-        if (flag) {
-            status = 1;
-        } else {
-            status = 0;
-        }
-        return userRepository.changeSwitch(status, id) > 0;
+    public void changeSwitch(boolean flag, @NonNull Long id) {
+        int status = 0;
+        if (flag) status = 1;
+        userRepository.changeSwitch(status, id);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean delUser(@NonNull Long id) {
+    public void delUser(@NonNull Long id) {
         userRepository.deleteById(id);
-        return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addUser(@NonNull AuthUser authUser) {
+    public void addUser(@NonNull AuthUser authUser) {
         // 设置用户注册的时间
         authUser.setCreateTime(LocalDateTime.now());
         // 设置用户登录时间与注册时间一致
@@ -207,7 +206,6 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         // 设置删除状态
         authUser.setDel(1);
         userRepository.save(authUser);
-        return true;
     }
 
     @Override

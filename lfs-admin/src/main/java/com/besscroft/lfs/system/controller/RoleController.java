@@ -12,7 +12,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -57,8 +56,7 @@ public class RoleController {
     @Operation(summary = "新增角色")
     @PostMapping("/addRole")
     public AjaxResult addRole(@RequestBody AuthRole authRole) {
-        boolean b = roleService.addRole(authRole);
-        Assert.isTrue(b, "哎呀，新增失败了！");
+        roleService.addRole(authRole);
         return AjaxResult.success("新增成功！");
     }
 
@@ -66,8 +64,7 @@ public class RoleController {
     @Operation(summary = "修改角色")
     @PutMapping("/updateRole")
     public AjaxResult updateRole(@RequestBody AuthRole authRole) {
-        boolean b = roleService.updateRole(authRole);
-        Assert.isTrue(b, "哎呀，更新失败了！");
+        roleService.updateRole(authRole);
         return AjaxResult.success("更新成功！");
     }
 
@@ -76,8 +73,7 @@ public class RoleController {
     @Parameter(name = "id", description = "角色id", required = true)
     @DeleteMapping("/delRole/{id}")
     public AjaxResult delRole(@PathVariable("id") List<Long> ids) {
-        boolean b = roleService.delRoleById(ids);
-        Assert.isTrue(b, "哎呀，删除失败了！");
+        roleService.delRoleById(ids);
         return AjaxResult.success("删除成功！");
     }
 
@@ -90,8 +86,7 @@ public class RoleController {
     @PutMapping("/changeSwitch")
     public AjaxResult changeSwitch(@RequestParam("status") boolean status,
                                    @RequestParam("id") Long id) {
-        boolean b = roleService.changeSwitch(status, id);
-        Assert.isTrue(b, "哎呀，状态更新失败了！");
+        roleService.changeSwitch(status, id);
         return AjaxResult.success("状态更新成功！");
     }
 
@@ -112,8 +107,7 @@ public class RoleController {
     @PutMapping("/updateRoleById")
     public AjaxResult updateRoleById(@RequestParam("userId") Long userId,
                                      @RequestParam("roleId") Long roleId) {
-        boolean b = roleService.updateRoleById(userId, roleId);
-        Assert.isTrue(b, "哎呀，更新失败了呢！");
+        roleService.updateRoleById(userId, roleId);
         return AjaxResult.success("更新角色绑定成功！");
     }
 

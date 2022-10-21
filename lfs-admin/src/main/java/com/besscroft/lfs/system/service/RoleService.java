@@ -38,21 +38,21 @@ public interface RoleService {
      * @param authRole 角色实体
      * @return
      */
-    boolean addRole(AuthRole authRole);
+    void addRole(AuthRole authRole);
 
     /**
      * 更新角色信息
      * @param authRole 角色实体
      * @return
      */
-    boolean updateRole(AuthRole authRole);
+    void updateRole(AuthRole authRole);
 
     /**
      * 根据角色id进行假删除
      * @param ids 角色id集合
      * @return
      */
-    boolean delRoleById(List<Long> ids);
+    void delRoleById(List<Long> ids);
 
     /**
      * 角色是否可用状态更新
@@ -60,7 +60,7 @@ public interface RoleService {
      * @param id 角色id
      * @return
      */
-    boolean changeSwitch(boolean status, Long id);
+    void changeSwitch(boolean status, Long id);
 
     /**
      * 根据用户id和角色id修改用户和角色的对应关系
@@ -68,6 +68,6 @@ public interface RoleService {
      * @param roleId 角色id
      * @return
      */
-    boolean updateRoleById(Long userId, Long roleId);
+    void updateRoleById(Long userId, Long roleId);
 
 }

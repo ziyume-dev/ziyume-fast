@@ -53,7 +53,7 @@ public interface MenuService {
      * @param authMenu 菜单实体
      * @return
      */
-    boolean updateMenu(AuthMenu authMenu);
+    void updateMenu(AuthMenu authMenu);
 
     /**
      * 修改菜单显示状态
@@ -62,21 +62,21 @@ public interface MenuService {
      * @param adminId 用户id
      * @return
      */
-    boolean changeSwitch(boolean hidden, Long id, Long adminId);
+    void changeSwitch(boolean hidden, Long id, Long adminId);
 
     /**
      * 根据id删除菜单
      * @param ids id集合
      * @return
      */
-    boolean delMenu(List<Long> ids);
+    void delMenu(List<Long> ids);
 
     /**
      * 新增菜单
      * @param authMenu 菜单实体
      * @return
      */
-    boolean addMenu(AuthMenu authMenu);
+    void addMenu(AuthMenu authMenu);
 
     /**
      * 根据角色id获取菜单树数组
@@ -97,6 +97,6 @@ public interface MenuService {
      * @param id 角色id
      * @return
      */
-    boolean updateMenuTree(List<Long> menuIds, Long id);
+    void updateMenuTree(List<Long> menuIds, Long id);
 
 }

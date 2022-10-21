@@ -46,21 +46,21 @@ public interface ResourceService {
      * @param authResource 资源实体
      * @return
      */
-    boolean addResource(AuthResource authResource);
+    void addResource(AuthResource authResource);
 
     /**
      * 更新资源信息
      * @param authResource 资源实体
      * @return
      */
-    boolean updateResource(AuthResource authResource);
+    void updateResource(AuthResource authResource);
 
     /**
      * 根据id删除资源
      * @param ids 资源id集合
      * @return
      */
-    boolean delResource(List<Long> ids);
+    void delResource(List<Long> ids);
 
     /**
      * 获取所有资源的资源树
@@ -81,6 +81,6 @@ public interface ResourceService {
      * @param id 角色id
      * @return
      */
-    boolean updateResourceTree(List<Long> resourceIds, Long id);
+    void updateResourceTree(List<Long> resourceIds, Long id);
 
 }

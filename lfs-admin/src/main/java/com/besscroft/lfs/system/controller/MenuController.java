@@ -14,7 +14,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -79,8 +78,7 @@ public class MenuController {
     @Operation(summary = "修改菜单")
     @PutMapping("/updateMenu")
     public AjaxResult updateMenu(@Validated @RequestBody AuthMenu authMenu) {
-        boolean b = menuService.updateMenu(authMenu);
-        Assert.isTrue(b, "哎呀，更新失败了呢！");
+        menuService.updateMenu(authMenu);
         return AjaxResult.success("更新成功！");
     }
 
@@ -94,8 +92,7 @@ public class MenuController {
     public AjaxResult changeSwitch(@RequestParam("hidden") boolean hidden,
                                    @RequestParam("id") Long id) {
         AuthUser currentAdmin = userService.getCurrentAdmin();
-        boolean b = menuService.changeSwitch(hidden, id, currentAdmin.getId());
-        Assert.isTrue(b, "哎呀，修改失败了呢！");
+        menuService.changeSwitch(hidden, id, currentAdmin.getId());
         return AjaxResult.success("修改成功");
     }
 
@@ -104,8 +101,7 @@ public class MenuController {
     @Parameter(name = "id", description = "菜单id", required = true)
     @DeleteMapping("/delMenu/{id}")
     public AjaxResult delMenu(@PathVariable("id") List<Long> ids) {
-        boolean b = menuService.delMenu(ids);
-        Assert.isTrue(b, "哎呀，删除失败了！");
+        menuService.delMenu(ids);
         return AjaxResult.success("删除成功！");
     }
 
@@ -113,8 +109,7 @@ public class MenuController {
     @Operation(summary = "新增菜单")
     @PostMapping("/addMenu")
     public AjaxResult addUser(@RequestBody AuthMenu authMenu) {
-        boolean b = menuService.addMenu(authMenu);
-        Assert.isTrue(b, "哎呀，添加失败了！");
+        menuService.addMenu(authMenu);
         return AjaxResult.success("添加成功！");
     }
 
@@ -144,8 +139,7 @@ public class MenuController {
     @PutMapping("/updateMenuTree")
     public AjaxResult updateMenuTree(@RequestBody List<Long> data,
                                      @RequestParam("id") Long id) {
-        boolean b = menuService.updateMenuTree(data, id);
-        Assert.isTrue(b, "哎呀，更新失败了呢！");
+        menuService.updateMenuTree(data, id);
         return AjaxResult.success("更新成功！");
     }
 

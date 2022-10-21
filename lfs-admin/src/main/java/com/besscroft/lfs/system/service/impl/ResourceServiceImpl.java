@@ -51,24 +51,21 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addResource(@NonNull AuthResource authResource) {
+    public void addResource(@NonNull AuthResource authResource) {
         authResource.setCreateTime(LocalDateTime.now());
         resourceRepository.save(authResource);
-        return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateResource(@NonNull AuthResource authResource) {
+    public void updateResource(@NonNull AuthResource authResource) {
         resourceRepository.save(authResource);
-        return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean delResource(@NonNull List<Long> ids) {
+    public void delResource(@NonNull List<Long> ids) {
         resourceRepository.deleteAllById(ids);
-        return true;
     }
 
     @Override
@@ -93,13 +90,12 @@ public class ResourceServiceImpl implements ResourceService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateResourceTree(@NonNull List<Long> resourceIds, @NonNull Long id) {
+    public void updateResourceTree(@NonNull List<Long> resourceIds, @NonNull Long id) {
         int i = resourceRepository.deleteRoleResourceRelation(id);
         if (i > 0) {
             for (Long resourceId : resourceIds) {
                 resourceRepository.insertRoleResourceRelation(resourceId, id);
             }
         }
-        return true;
     }
 }

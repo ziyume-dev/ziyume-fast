@@ -62,7 +62,7 @@ public interface UserService {
      * @param loginTime 登录时间
      * @return
      */
-    boolean setLoginTime(Date loginTime, Long id);
+    void setLoginTime(Date loginTime, Long id);
 
     /**
      * 系统用户退出登录处理
@@ -92,7 +92,7 @@ public interface UserService {
      * @param authUser 用户实体
      * @return
      */
-    boolean updateUser(AuthUser authUser);
+    void updateUser(AuthUser authUser);
 
     /**
      * 用户账户启用状态更新
@@ -100,21 +100,21 @@ public interface UserService {
      * @param id 用户id
      * @return
      */
-    boolean changeSwitch(boolean flag, Long id);
+    void changeSwitch(boolean flag, Long id);
 
     /**
      * 删除权限管理模块用户
      * @param id 用户id
      * @return
      */
-    boolean delUser(Long id);
+    void delUser(Long id);
 
     /**
      * 新增权限管理模块用户
      * @param authUser 用户实体
      * @return
      */
-    boolean addUser(AuthUser authUser);
+    void addUser(AuthUser authUser);
 
     /**
      * 导出选定用户数据方法

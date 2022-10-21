@@ -41,49 +41,45 @@ public class RoleServiceImpl implements RoleService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addRole(@NonNull AuthRole authRole) {
+    public void addRole(@NonNull AuthRole authRole) {
         // 假删除：0->删除状态；1->可用状态
         authRole.setDel(1);
         // 设置时间
         authRole.setCreateTime(LocalDateTime.now());
         roleRepository.save(authRole);
-        return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateRole(@NonNull AuthRole authRole) {
+    public void updateRole(@NonNull AuthRole authRole) {
         // 设置时间
         authRole.setCreateTime(LocalDateTime.now());
         roleRepository.save(authRole);
-        return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean delRoleById(@NonNull List<Long> ids) {
+    public void delRoleById(@NonNull List<Long> ids) {
         roleRepository.deleteAllByIdInBatch(ids);
-        return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean changeSwitch(boolean status, @NonNull Long id) {
+    public void changeSwitch(boolean status, @NonNull Long id) {
         if (status) {
-            return roleRepository.changeSwitch(1, id) > 0;
+            roleRepository.changeSwitch(1, id);
         }
-        return roleRepository.changeSwitch(0, id) > 0;
+        roleRepository.changeSwitch(0, id);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateRoleById(@NonNull Long userId, @NonNull Long roleId) {
+    public void updateRoleById(@NonNull Long userId, @NonNull Long roleId) {
         // 先删除原有的
         int i = roleRepository.deleteUserRoleRelationById(userId);
         if (i > 0) {
-            return roleRepository.insertUserRoleRelation(userId, roleId) > 0;
+            roleRepository.insertUserRoleRelation(userId, roleId);
         }
-        return true;
     }
 
 }

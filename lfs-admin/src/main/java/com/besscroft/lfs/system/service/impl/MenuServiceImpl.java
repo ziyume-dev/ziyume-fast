@@ -62,33 +62,30 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateMenu(@NonNull AuthMenu authMenu) {
+    public void updateMenu(@NonNull AuthMenu authMenu) {
         menuRepository.save(authMenu);
-        return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean changeSwitch(boolean hidden, @NonNull Long id, Long adminId) {
+    public void changeSwitch(boolean hidden, @NonNull Long id, Long adminId) {
         if (hidden) {
-            return menuRepository.changeSwitch(1, id) > 0;
+            menuRepository.changeSwitch(1, id);
         }
-        return menuRepository.changeSwitch(0, id) > 0;
+        menuRepository.changeSwitch(0, id);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean delMenu(@NonNull List<Long> ids) {
+    public void delMenu(@NonNull List<Long> ids) {
         menuRepository.deleteAllByIdInBatch(ids);
-        return true;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addMenu(@NonNull AuthMenu authMenu) {
+    public void addMenu(@NonNull AuthMenu authMenu) {
         authMenu.setCreateTime(LocalDateTime.now());
         menuRepository.save(authMenu);
-        return true;
     }
 
     @Override
@@ -104,14 +101,13 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean updateMenuTree(@NonNull List<Long> menuIds, @NonNull Long id) {
+    public void updateMenuTree(@NonNull List<Long> menuIds, @NonNull Long id) {
         int i = menuRepository.deleteRoleMenuRelation(id);
         if (i > 0) {
             for (Long menuId : menuIds) {
                 menuRepository.insertRoleMenuRelation(menuId, id);
             }
         }
-        return true;
     }
 
     /**

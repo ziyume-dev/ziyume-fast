@@ -1,14 +1,14 @@
 package com.besscroft.lfs.entity;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * 权限管理模块菜单对象
  *
- * @Author Besscroft
+ * @Author Bess Croft
  * @Date 2021/6/9 16:05
  */
 @Data
@@ -26,9 +26,9 @@ import java.util.List;
 @AllArgsConstructor
 @Table(name = "auth_menu")
 @Schema(title = "权限管理模块菜单对象")
-public class AuthMenu implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@Where(clause = "del = 1")
+@SQLDelete(sql = "UPDATE auth_menu SET del = 0 WHERE id = ?")
+public class AuthMenu extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,12 +39,6 @@ public class AuthMenu implements Serializable {
     @Schema(title = "父级ID", type = "Long")
     @Column(name = "parent_id")
     private Long parentId;
-
-    /** 创建时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Schema(title = "创建时间", type = "Date")
-    @Column(name = "create_time")
-    private LocalDateTime createTime;
 
     /** 菜单名称 */
     @Schema(title = "菜单名称", type = "String")
@@ -90,6 +84,11 @@ public class AuthMenu implements Serializable {
     @Schema(title = "组件路径", type = "String")
     @Column(name = "component")
     private String component;
+
+    /** 逻辑删除：0->删除状态；1->可用状态 */
+    @Column(name = "del")
+    @Schema(title = "逻辑删除：0->删除状态；1->可用状态", type = "Integer")
+    private Integer del;
 
     /** 子菜单 **/
     @Schema(title = "子菜单")

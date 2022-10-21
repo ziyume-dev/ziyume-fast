@@ -33,20 +33,20 @@ public interface ResourceSortService {
      * @param authResourceSort 资源类别实体
      * @return
      */
-    boolean addResourceSort(AuthResourceSort authResourceSort);
+    void addResourceSort(AuthResourceSort authResourceSort);
 
     /**
      * 修改资源类别
      * @param authResourceSort 资源类别实体
      * @return
      */
-    boolean updateResourceSort(AuthResourceSort authResourceSort);
+    void updateResourceSort(AuthResourceSort authResourceSort);
 
     /**
      * 删除资源类别
      * @param ids 资源类别id集合
      * @return
      */
-    boolean delResourceSort(List<Long> ids);
+    void delResourceSort(List<Long> ids);
 
 }

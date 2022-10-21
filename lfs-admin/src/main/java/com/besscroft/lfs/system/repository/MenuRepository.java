@@ -92,4 +92,12 @@ public interface MenuRepository extends JpaRepository<AuthMenu, Long>, JpaSpecif
      */
     List<AuthMenu> findAllByParentId(Long parentId);
 
+    /**
+     * 批量逻辑删除菜单
+     * @param ids 菜单id集合
+     */
+    @Modifying
+    @Query(value = "UPDATE auth_menu SET del = 0 WHERE id IN :ids", nativeQuery = true)
+    void deleteAllByIdInBatch(List<Long> ids);
+
 }

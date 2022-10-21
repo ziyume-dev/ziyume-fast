@@ -3,20 +3,18 @@ package com.besscroft.lfs.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * 权限管理模块用户对象
  *
- * @Author Besscroft
+ * @Author Bess Croft
  * @Date 2021/6/9 16:06
  */
 @Data
@@ -24,11 +22,12 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@ToString(exclude = {"roles"})
 @Table(name = "auth_user")
 @Schema(title = "权限管理模块用户对象")
-public class AuthUser implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+@Where(clause = "del = 1")
+@SQLDelete(sql = "UPDATE auth_user SET del = 0 WHERE id = ?")
+public class AuthUser extends BaseEntity {
 
     /** 用户id */
     @Id
@@ -71,12 +70,6 @@ public class AuthUser implements Serializable {
     @Column(name = "note")
     private String note;
 
-    /** 创建时间 */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    @Schema(title = "创建时间", type = "Date")
-    @Column(name = "create_time")
-    private LocalDateTime createTime;
-
     /** 最后登录时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     @Schema(title = "最后登录时间", type = "Date")
@@ -88,9 +81,9 @@ public class AuthUser implements Serializable {
     @Column(name = "status")
     private Integer status;
 
-    /** 假删除：0->删除状态；1->可用状态 */
-    @Schema(title = "假删除", type = "Integer")
+    /** 逻辑删除：0->删除状态；1->可用状态 */
     @Column(name = "del")
+    @Schema(title = "逻辑删除：0->删除状态；1->可用状态", type = "Integer")
     private Integer del;
 
     @OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)

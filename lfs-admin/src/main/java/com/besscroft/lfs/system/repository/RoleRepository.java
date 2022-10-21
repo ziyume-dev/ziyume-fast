@@ -77,4 +77,12 @@ public interface RoleRepository extends JpaRepository<AuthRole, Long>, JpaSpecif
             "            (?1, ?2)", nativeQuery = true)
     int insertUserRoleRelation(Long userId, Long roleId);
 
+    /**
+     * 批量逻辑删除角色
+     * @param ids 角色id集合
+     */
+    @Modifying
+    @Query(value = "UPDATE auth_resource SET del = 0 WHERE id IN :ids", nativeQuery = true)
+    void deleteAllByIdInBatch(List<Long> ids);
+
 }

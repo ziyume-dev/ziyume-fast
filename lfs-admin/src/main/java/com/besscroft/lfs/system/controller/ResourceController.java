@@ -13,7 +13,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -58,8 +57,7 @@ public class ResourceController {
     @Operation(summary = "新增资源")
     @PostMapping("/addResource")
     public AjaxResult addResource(@RequestBody AuthResource authResource) {
-        boolean b = resourceService.addResource(authResource);
-        Assert.isTrue(b, "哎呀，新增失败了！");
+        resourceService.addResource(authResource);
         return AjaxResult.success("新增成功！");
     }
 
@@ -67,8 +65,7 @@ public class ResourceController {
     @Operation(summary = "更新资源")
     @PutMapping("/updateResource")
     public AjaxResult updateResource(@RequestBody AuthResource authResource) {
-        boolean b = resourceService.updateResource(authResource);
-        Assert.isTrue(b, "哎呀，更新失败了！");
+        resourceService.updateResource(authResource);
         return AjaxResult.success("更新成功！");
     }
 
@@ -77,8 +74,7 @@ public class ResourceController {
     @Parameter(name = "id", description = "资源id", required = true)
     @DeleteMapping("/delResource/{id}")
     public AjaxResult delResource(@PathVariable("id") List<Long> ids) {
-        boolean b = resourceService.delResource(ids);
-        Assert.isTrue(b, "哎呀，删除失败了！");
+        resourceService.delResource(ids);
         return AjaxResult.success("删除成功！");
     }
 
@@ -107,8 +103,7 @@ public class ResourceController {
     @PutMapping("/updateResourceTree")
     public AjaxResult updateResourceTree(@RequestBody List<Long> data,
                                          @RequestParam("id") Long id) {
-        boolean b = resourceService.updateResourceTree(data, id);
-        Assert.isTrue(b, "哎呀，更新失败了呢！");
+        resourceService.updateResourceTree(data, id);
         return AjaxResult.success("更新成功！");
     }
 
