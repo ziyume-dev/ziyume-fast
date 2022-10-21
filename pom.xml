@@ -39,7 +39,7 @@
         <oshi-core.version>5.0.1</oshi-core.version>
         <mapstruct.version>1.4.2.Final</mapstruct.version>
         <easyexcel.version>2.2.11</easyexcel.version>
-        <caffeine.version>3.1.1</caffeine.version>
+        <caffeine.version>2.9.3</caffeine.version>
     </properties>
 
     <dependencies>
