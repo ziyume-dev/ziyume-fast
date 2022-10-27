@@ -29,7 +29,7 @@ pisces-lfs 的需要以下程序才能正常的安装和运行：
 - Git
 - nodejs 14.x LTS +
 - PostgreSQL 12.x+
-- open/oracleJDK1.8+
+- open/oracleJDK 17
 - nginx 1.16+
 
 pisces-lfs 支持安装在 LNMP、宝塔面板 等集成环境中, Docker、HeroKu 等容器环境中, 支持大部分能够运行 Java 的平台。

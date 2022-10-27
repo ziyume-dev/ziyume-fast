@@ -5,6 +5,8 @@ import cn.hutool.core.util.StrUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
+import javax.crypto.SecretKey;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,7 +33,7 @@ public class JWTUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JWTUtils.class);
 
-    private static final String CLAIM_KEY_USERNAME = "sub";
+    private static final String CLAIM_KEY_USERNAME = "username";
 
     private static final String CLAIM_KEY_CREATED = "created";
 
@@ -43,14 +46,19 @@ public class JWTUtils {
     @Value("${jwt.tokenHead}")
     private String tokenHead;
 
+    SecretKey secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+
     /**
      * 根据负责生成JWT的token
      */
     public String generateToken(@NonNull Map<String, Object> claims) {
+
         return Jwts.builder()
                 .setClaims(claims)
-                .setExpiration(generateExpirationDate())
-                .signWith(SignatureAlgorithm.HS512, secret)
+                .setSubject(secret)
+                // 过期时间
+                .setExpiration(new Date(System.currentTimeMillis() + expiration * 1000))
+                .signWith(secretKey)
                 .compact();
     }
 
@@ -66,8 +74,10 @@ public class JWTUtils {
         Claims claims = null;
         // 解析失败了会抛出异常，所以我们要捕捉一下。token过期、token非法都会导致解析失败
         try {
-            claims = Jwts.parser()
-                    .setSigningKey(secret)
+            claims = Jwts.parserBuilder()
+                    .requireSubject(secret)
+                    .setSigningKey(secretKey)
+                    .build()
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
@@ -77,20 +87,13 @@ public class JWTUtils {
     }
 
     /**
-     * 生成token的过期时间
-     */
-    private Date generateExpirationDate() {
-        return new Date(System.currentTimeMillis() + expiration * 1000);
-    }
-
-    /**
      * 从token中获取登录用户名
      */
     public String getUserNameFromToken(@NonNull String token) {
         String username;
         try {
             Claims claims = getClaimsFromToken(token);
-            username = claims.getSubject();
+            username = (String) claims.get(CLAIM_KEY_USERNAME);
         } catch (Exception e) {
             username = null;
         }

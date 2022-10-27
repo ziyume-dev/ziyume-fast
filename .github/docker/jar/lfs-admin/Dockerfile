@@ -1,5 +1,5 @@
 # 该镜像需要依赖的基础镜像
-FROM openjdk:8-jdk-alpine
+FROM openjdk:17-jdk-alpine
 # 设置环境变量
 ENV TZ=Asia/Shanghai JAVA_OPTS="-Xms512m -Xmx512m" SPRING_CONFIG="-Dspring.config.location=/root/lfs/application-docker.yml"
 # 设置时区
