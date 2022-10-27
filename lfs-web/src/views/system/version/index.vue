@@ -58,7 +58,65 @@ export default {
         // }
         {
           name: "1",
-          title: "v.1.2.0",
+          title: "v2.0.0-rc0",
+          titleIcon: "el-icon-s-promotion",
+          titleType: "success",
+          titleTagInfo: "新版本发布",
+          titleTag: "Preview",
+          titleTime: "2022-10-27",
+          detail: [
+            {
+              id: 1,
+              body: "[update] JDK 从 1.8 升级为 17"
+            },
+            {
+              id: 2,
+              body: "[build] Docker 基础镜像版本升级"
+            },
+            {
+              id: 3,
+              body: "[remove] 移除 Spring Boot Admin 支持，后续将支持 Grafana"
+            },
+            {
+              id: 4,
+              body: "[update] 升级 SpringBoot 版本为 3.0.0-RC1，依赖从 javax 切换到 jakarta"
+            },
+            {
+              id: 5,
+              body: "[refactor] 重写基于 Spring Security 的权限验证模块"
+            },
+            {
+              id: 6,
+              body: "[refactor] Druid 暂不支持，换成了 Hikari"
+            },
+            {
+              id: 7,
+              body: "[fix] 修复了一些问题，提升了性能"
+            },
+          ]
+        },
+        {
+          name: "2",
+          title: "v1.3.1-fix",
+          titleIcon: "el-icon-s-promotion",
+          titleType: "success",
+          titleTagInfo: "数据库更新",
+          titleTag: "General Availability",
+          titleTime: "2022-10-21",
+          detail: [
+            {
+              id: 1,
+              body: "[doc] JDK 1.8 最后一个支持版本"
+            },
+            {
+              id: 2,
+              body: "[fix] 修复了一些问题，提升了性能"
+            }
+          ]
+        },
+        {
+          name: "3",
+          title: "v1.2.0",
           titleIcon: "el-icon-s-promotion",
           titleType: "success",
           titleTagInfo: "数据库更新",
@@ -76,8 +134,8 @@ export default {
           ]
         },
         {
-          name: "2",
-          title: "v.1.0.0",
+          name: "4",
+          title: "v1.0.0",
           titleIcon: "el-icon-s-promotion",
           titleType: "success",
           titleTagInfo: "预览版发布",

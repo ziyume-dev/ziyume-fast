@@ -1,5 +1,5 @@
 # 该镜像需要依赖的基础镜像
-FROM apache/skywalking-java-agent:8.10.0-java8
+FROM openjdk:17-jdk-alpine
 # 设置环境变量
 ENV TZ=Asia/Shanghai JAVA_OPTS="-Xms512m -Xmx512m -Dfile.encoding=utf-8" SPRING_CONFIG="--spring.application.name=lfs-monitor"
 # 设置时区
