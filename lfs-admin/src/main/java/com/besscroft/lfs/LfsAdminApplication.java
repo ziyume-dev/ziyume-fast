@@ -4,9 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @Slf4j
 @EnableCaching
+@EnableJpaAuditing
 @SpringBootApplication(scanBasePackages = "com.besscroft.lfs")
 public class LfsAdminApplication {
 

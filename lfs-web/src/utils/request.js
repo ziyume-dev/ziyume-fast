@@ -2,6 +2,7 @@ import axios from 'axios'
 import { MessageBox, Message } from 'element-ui'
 import store from '@/store'
 import { getToken } from '@/utils/auth'
+import router from '@/router'
 
 // create an axios instance
 const service = axios.create({
@@ -73,8 +74,14 @@ service.interceptors.response.use(
   },
   error => {
     console.log('err' + error) // for debug
+
+    if (error.response.status === 401) {
+      store.dispatch('user/FedLogOut')
+      router.push({path: '/login'})
+    }
+
     Message({
-      message: error.response.message,
+      message: error.response.data.message || error.response.message,
       type: 'error',
       duration: 5 * 1000
     })

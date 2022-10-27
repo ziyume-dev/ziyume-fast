@@ -12,7 +12,7 @@
  Target Server Version : 140004
  File Encoding         : 65001
 
- Date: 21/10/2022 17:49:21
+ Date: 27/10/2022 16:32:10
 */
 
 
@@ -135,7 +135,7 @@ CREATE TABLE "public"."auth_menu" (
   "creator" varchar(32) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "updater" varchar(32) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "create_time" timestamp(0) DEFAULT CURRENT_TIMESTAMP,
-  "update_time" timestamp(0) DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(0)
 )
 ;
 COMMENT ON COLUMN "public"."auth_menu"."parent_id" IS '父级ID';
@@ -182,7 +182,7 @@ CREATE TABLE "public"."auth_resource" (
   "creator" varchar(32) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "updater" varchar(32) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "create_time" timestamp(0) DEFAULT CURRENT_TIMESTAMP,
-  "update_time" timestamp(0) DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(0)
 )
 ;
 COMMENT ON COLUMN "public"."auth_resource"."name" IS '资源名称';
@@ -254,7 +254,7 @@ CREATE TABLE "public"."auth_resource_sort" (
   "creator" varchar(32) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "updater" varchar(32) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "create_time" timestamp(0) DEFAULT CURRENT_TIMESTAMP,
-  "update_time" timestamp(0) DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(0)
 )
 ;
 COMMENT ON COLUMN "public"."auth_resource_sort"."category_name" IS '资源类别名称';
@@ -292,7 +292,7 @@ CREATE TABLE "public"."auth_role" (
   "creator" varchar(32) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "updater" varchar(32) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "create_time" timestamp(0) DEFAULT CURRENT_TIMESTAMP,
-  "update_time" timestamp(0) DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(0)
 )
 ;
 COMMENT ON COLUMN "public"."auth_role"."name" IS '名称';
@@ -312,7 +312,8 @@ COMMENT ON COLUMN "public"."auth_role"."update_time" IS '更新时间';
 INSERT INTO "public"."auth_role" VALUES (1, '超级管理员', '超级管理员，拥有所有的权限', 1, 1, 0, 1, NULL, NULL, '2022-10-21 15:46:16', '2022-10-21 15:46:16');
 INSERT INTO "public"."auth_role" VALUES (2, '测试员111', '测试账号权限', 2, 1, 0, 1, NULL, NULL, '2022-10-21 15:46:16', '2022-10-21 15:46:16');
 INSERT INTO "public"."auth_role" VALUES (18, '测试11111111', '测温顶起顶起1', NULL, 1, 4, 0, NULL, NULL, '2022-10-21 17:28:48', '2022-10-21 17:28:48');
-INSERT INTO "public"."auth_role" VALUES (14, '测试', '测试2', 0, 0, 1, 1, NULL, NULL, '2022-10-21 15:46:16', '2022-10-21 15:46:16');
+INSERT INTO "public"."auth_role" VALUES (19, '测试22333', '11111', NULL, 0, 12, 1, NULL, 'admin', '2022-10-27 16:28:00', '2022-10-27 16:28:00');
+INSERT INTO "public"."auth_role" VALUES (14, '测试', '测试3', 0, 0, 1, 1, NULL, 'admin', '2022-10-27 16:31:49', '2022-10-27 16:31:49');
 
 -- ----------------------------
 -- Table structure for auth_role_menu_relation
@@ -446,7 +447,7 @@ CREATE TABLE "public"."auth_user" (
   "creator" varchar(32) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "updater" varchar(32) COLLATE "pg_catalog"."default" DEFAULT NULL::character varying,
   "create_time" timestamp(0) DEFAULT CURRENT_TIMESTAMP,
-  "update_time" timestamp(0) DEFAULT CURRENT_TIMESTAMP
+  "update_time" timestamp(0)
 )
 ;
 COMMENT ON COLUMN "public"."auth_user"."username" IS '用户名';
@@ -469,8 +470,8 @@ COMMENT ON COLUMN "public"."auth_user"."update_time" IS '更新时间';
 -- ----------------------------
 INSERT INTO "public"."auth_user" VALUES (2, 'test', '$2a$10$E0A60hzJ.yBHJhyZ970Oze205OGuu4LIrjDSPQvcGBDl40O0oaiqC', 'https://www.besscroft.com/uploads/avatar.png', 'test@qq.com', '12345678902', '测试员', '测试员', '2021-04-24 12:45:54', 1, 1, NULL, NULL, '2022-10-21 15:44:11', '2022-10-21 15:44:11');
 INSERT INTO "public"."auth_user" VALUES (3, 'user1', '$2a$10$U9qlXI22XmUjzAgZiH0kMOalOkBTM23LvmAownM1GNXNQTRhO4Mtu', 'https://www.besscroft.com/uploads/avatar.png', 'user1@qq.com', '111', '普通用户1', '普通用户1', '2021-04-04 18:18:44', 1, 1, NULL, NULL, '2022-10-21 15:44:11', '2022-10-21 15:44:11');
+INSERT INTO "public"."auth_user" VALUES (1, 'admin', '$2a$10$E0A60hzJ.yBHJhyZ970Oze205OGuu4LIrjDSPQvcGBDl40O0oaiqC', 'https://www.besscroft.com/uploads/avatar.png', 'admin@qq.com', '12345678901', '管理员', '管理员', '2022-10-27 16:27:53.553', 1, 1, NULL, NULL, '2022-10-21 15:44:11', '2022-10-21 15:44:11');
 INSERT INTO "public"."auth_user" VALUES (4, '张三', '$2a$10$jnxVO4Oqs2Y6Zem1HYmp0eHwjaoKqvbZeWkT7uDGt9beoxxg9f6q.', NULL, NULL, NULL, NULL, NULL, '2022-10-21 16:30:23.534104', 1, 0, NULL, NULL, '2022-10-21 16:30:24', '2022-10-21 16:30:24');
-INSERT INTO "public"."auth_user" VALUES (1, 'admin', '$2a$10$E0A60hzJ.yBHJhyZ970Oze205OGuu4LIrjDSPQvcGBDl40O0oaiqC', 'https://www.besscroft.com/uploads/avatar.png', 'admin@qq.com', '12345678901', '管理员', '管理员', '2022-10-21 17:48:59.522', 1, 1, NULL, NULL, '2022-10-21 15:44:11', '2022-10-21 15:44:11');
 
 -- ----------------------------
 -- Table structure for auth_user_role_relation
@@ -517,7 +518,7 @@ SELECT setval('"public"."auth_resource_sort_id_seq"', 8, false);
 -- ----------------------------
 ALTER SEQUENCE "public"."auth_role_id_seq"
 OWNED BY "public"."auth_role"."id";
-SELECT setval('"public"."auth_role_id_seq"', 18, true);
+SELECT setval('"public"."auth_role_id_seq"', 20, true);
 
 -- ----------------------------
 -- Alter sequences owned by

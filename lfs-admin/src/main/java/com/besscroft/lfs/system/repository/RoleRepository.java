@@ -17,26 +17,6 @@ import java.util.List;
 public interface RoleRepository extends JpaRepository<AuthRole, Long>, JpaSpecificationExecutor<AuthRole> {
 
     /**
-     * 查询所有角色
-     * @return 角色集合
-     */
-    List<AuthRole> findAll();
-
-    /**
-     * 分页查询角色列表
-     * @param pageable
-     * @return
-     */
-    @Query(value = "select" +
-            "           id, name, description, user_count, create_time, status, sort, del" +
-            "       from" +
-            "           auth_role" +
-            "       where" +
-            "           del = 1" +
-            "       order by id", nativeQuery = true)
-    Page<AuthRole> findAll(Pageable pageable);
-
-    /**
      * 角色可用状态变更
      * @param status 可用状态
      * @param id 角色id

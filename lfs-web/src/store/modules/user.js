@@ -51,7 +51,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       getInfo(state.token).then(response => {
         const data = response.data
-        console.log(data)
         if (data.roles && data.roles.length > 0) {
           commit('SET_ROLES', data.roles)
         } else {

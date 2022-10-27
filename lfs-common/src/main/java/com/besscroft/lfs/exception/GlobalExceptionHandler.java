@@ -12,11 +12,14 @@ import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.ValidationException;
+
+import org.springframework.security.core.AuthenticationException;
 import java.nio.file.AccessDeniedException;
 import java.util.concurrent.CompletionException;
 
@@ -112,10 +115,22 @@ public class GlobalExceptionHandler {
      * Spring Security 权限异常
      */
     @ResponseBody
+    @ResponseStatus(code = org.springframework.http.HttpStatus.FORBIDDEN)
     @ExceptionHandler(value = AccessDeniedException.class)
     public CommonResult<?> accessDeniedExceptionHandler(AccessDeniedException ex) {
         log.warn("权限异常.[异常原因={}]", ex.getMessage(), ex);
         return CommonResult.failed(HttpStatus.FORBIDDEN, ex.getMessage());
+    }
+
+    /**
+     * token 异常
+     */
+    @ResponseBody
+    @ResponseStatus(code = org.springframework.http.HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(value = AuthenticationException.class)
+    public CommonResult<?> tokenDeniedExceptionHandler(AuthenticationException ex) {
+        log.warn("token 异常.[异常原因={}]", ex.getMessage(), ex);
+        return CommonResult.failed(HttpStatus.UNAUTHORIZED, ex.getMessage());
     }
 
     /**

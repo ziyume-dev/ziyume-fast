@@ -1,9 +1,4 @@
 spring:
-  boot:
-    admin:
-      client:
-        # SpringBoot Admin 服务端地址
-        url: http://127.0.0.1:27777
   datasource:
     driverClassName: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/lfs?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
