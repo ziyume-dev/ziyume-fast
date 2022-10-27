@@ -25,8 +25,7 @@
     <properties>
         <revision>2.0.0-rc1</revision>
         <java.version>17</java.version>
-        <maven.compiler.source>17</maven.compiler.source>
-        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
         <spring-boot.version>3.0.0-RC1</spring-boot.version>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -234,8 +233,7 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>${maven-compiler-plugin.version}</version>
                     <configuration>
-                        <source>${java.version}</source>
-                        <target>${java.version}</target>
+                        <release>${java.version}</release>
                         <encoding>${project.build.sourceEncoding}</encoding>
                         <annotationProcessorPaths>
                             <!-- Lombok 在编译时会通过这个插件生成代码 -->
