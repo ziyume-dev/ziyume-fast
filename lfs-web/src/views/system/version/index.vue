@@ -58,6 +58,29 @@ export default {
         // }
         {
           name: "1",
+          title: "v2.0.0-rc1",
+          titleIcon: "el-icon-s-promotion",
+          titleType: "success",
+          titleTagInfo: "数据库更新",
+          titleTag: "Preview",
+          titleTime: "2022-10-27",
+          detail: [
+            {
+              id: 1,
+              body: "[fix] 修复了权限判断问题"
+            },
+            {
+              id: 2,
+              body: "[fix] 修复了时间查询失败的问题"
+            },
+            {
+              id: 3,
+              body: "[fix] 修复了一些问题，提升了性能"
+            }
+          ]
+        },
+        {
+          name: "2",
           title: "v2.0.0-rc0",
           titleIcon: "el-icon-s-promotion",
           titleType: "success",
@@ -96,7 +119,7 @@ export default {
           ]
         },
         {
-          name: "2",
+          name: "3",
           title: "v1.3.1-fix",
           titleIcon: "el-icon-s-promotion",
           titleType: "success",
@@ -111,48 +134,6 @@ export default {
             {
               id: 2,
               body: "[fix] 修复了一些问题，提升了性能"
-            }
-          ]
-        },
-        {
-          name: "3",
-          title: "v1.2.0",
-          titleIcon: "el-icon-s-promotion",
-          titleType: "success",
-          titleTagInfo: "数据库更新",
-          titleTag: "Preview",
-          titleTime: "2022-07-05",
-          detail: [
-            {
-              id: 1,
-              body: "[update] 数据库从 mysql 更改为 postgresql"
-            },
-            {
-              id: 2,
-              body: "[fix] 修复了一些问题，提升了性能"
-            }
-          ]
-        },
-        {
-          name: "4",
-          title: "v1.0.0",
-          titleIcon: "el-icon-s-promotion",
-          titleType: "success",
-          titleTagInfo: "预览版发布",
-          titleTag: "Preview",
-          titleTime: "2021-12-12",
-          detail: [
-            {
-              id: 1,
-              body: "[feat] 预览版现已推出"
-            },
-            {
-              id: 2,
-              body: "[update] 数据库更新"
-            },
-            {
-              id: 3,
-              body: "[fix] 修复了样式处理效果，提升了性能"
             }
           ]
         }

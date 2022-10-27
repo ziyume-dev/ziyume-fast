@@ -3,7 +3,6 @@ package com.besscroft.lfs.system.controller;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.besscroft.lfs.annotation.WebLog;
-import com.besscroft.lfs.constant.HttpStatus;
 import com.besscroft.lfs.dto.LoginParam;
 import com.besscroft.lfs.entity.AuthUser;
 import com.besscroft.lfs.result.AjaxResult;
@@ -18,6 +17,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.util.Assert;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -60,7 +60,7 @@ public class UserController {
     public CommonResult<Map<String, Object>> getInfo() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         if(StrUtil.hasEmpty(username)){
-            return CommonResult.failed(HttpStatus.UNAUTHORIZED, "暂未登录或token已经过期");
+            throw new UsernameNotFoundException("暂未登录或token已经过期");
         }
         Map<String, Object> userInfo = userService.getUserInfo();
         return CommonResult.success(userInfo);
@@ -72,7 +72,7 @@ public class UserController {
     public AjaxResult logout() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         if(StrUtil.hasEmpty(username)){
-            return AjaxResult.error(HttpStatus.UNAUTHORIZED, "暂未登录或token已经过期");
+            throw new UsernameNotFoundException("暂未登录或token已经过期");
         }
         AuthUser currentAdmin = userService.getCurrentAdminByUserName(username);
         if (ObjectUtil.isNotNull(currentAdmin)) {

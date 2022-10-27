@@ -1,6 +1,6 @@
 {
   "name": "pisces-lfs",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "pisces-lfs 的前端",
   "author": "BessCroft <besscroft@foxmail.com>",
   "scripts": {
