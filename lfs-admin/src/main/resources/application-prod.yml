@@ -71,7 +71,7 @@ management:
     web:
       exposure:
         # 监控项配置
-        include: "*"
+        include: info, health
   metrics:
     tags:
       application: ${spring.application.name}

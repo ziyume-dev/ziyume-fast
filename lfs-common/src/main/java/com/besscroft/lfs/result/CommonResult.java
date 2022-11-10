@@ -12,10 +12,16 @@ import lombok.Data;
 @Data
 public class CommonResult<T> {
 
+    /** 状态码 */
     private int code;
 
+    /** 消息 */
     private String message;
 
+    /** 追踪id */
+    private String traceId;
+
+    /** 数据对象 */
     private T data;
 
     /**
@@ -37,115 +43,118 @@ public class CommonResult<T> {
     }
 
     /**
-     * 失败返回结果
+     * 初始化一个新创建的 CommonResult 对象
+     * @param code 状态码
+     * @param message 消息提示
+     * @param data 数据对象
+     * @param traceId 追踪id
+     */
+    public CommonResult(int code, String message, T data, String traceId) {
+        this.code = code;
+        this.message = message;
+        this.data = data;
+        this.traceId = traceId;
+    }
+
+    /**
+     * 成功封装方法
+     * @return 成功消息
      */
     public static CommonResult success() {
-        return success("调用成功");
+        return success("调用成功！");
     }
 
     /**
-     * 成功返回结果
-     *
-     * @param data 获取的数据
-     */
-    public static <T> CommonResult<T> success(T data) {
-        return new CommonResult<T>(HttpStatus.SUCCESS, "调用成功", data);
-    }
-
-    /**
-     * 成功返回结果
-     *
-     * @param message 提示信息
+     * 成功封装方法
+     * @param message 消息提示
+     * @param <T>
+     * @return 成功消息
      */
     public static <T> CommonResult<T> success(String message) {
         return new CommonResult<T>(HttpStatus.SUCCESS, message, null);
     }
 
     /**
-     * 成功返回结果
-     *
-     * @param data 获取的数据
-     * @param  message 提示信息
+     * 成功封装方法
+     * @param data 数据对象
+     * @param <T>
+     * @return 成功消息
+     */
+    public static <T> CommonResult<T> success(T data) {
+        return new CommonResult<T>(HttpStatus.SUCCESS, "调用成功！", data);
+    }
+
+    /**
+     * 成功封装方法
+     * @param message 消息提示
+     * @param data 数据对象
+     * @param <T>
+     * @return 成功消息
      */
     public static <T> CommonResult<T> success(String message, T data) {
         return new CommonResult<T>(HttpStatus.SUCCESS, message, data);
     }
 
     /**
-     * 失败返回结果
+     * 失败封装方法
+     * @return 错误消息
      */
     public static CommonResult failed() {
         return failed("调用失败");
     }
 
     /**
-     * 失败返回结果
-     * @param data
-     * @return
-     */
-    public static <T> CommonResult<T> failed(T data) {
-        return new CommonResult<T>(HttpStatus.ERROR, "调用失败", data);
-    }
-
-    /**
-     * 失败返回结果
-     * @param message 提示信息
+     * 失败封装方法
+     * @param message 消息提示
+     * @param <T>
+     * @return 错误消息
      */
     public static <T> CommonResult<T> failed(String message) {
         return new CommonResult<T>(HttpStatus.ERROR, message, null);
     }
 
     /**
-     * 失败返回结果
-     * @param message 提示信息
+     * 失败封装方法
+     * @param message 消息提示
+     * @param data 数据对象
+     * @param <T>
+     * @return 错误消息
      */
     public static <T> CommonResult<T> failed(String message, T data) {
         return new CommonResult<T>(HttpStatus.ERROR, message, data);
     }
 
     /**
-     * 失败返回结果
-     * @param message 提示信息
+     * 失败封装方法
+     * @param data 数据对象
+     * @param <T>
+     * @return 错误消息
+     */
+    public static <T> CommonResult<T> failed(T data) {
+        return new CommonResult<T>(HttpStatus.ERROR, "调用失败！", data);
+    }
+
+    /**
+     * 失败封装方法
+     * @param code 数据对象
+     * @param message 消息提示
+     * @param <T>
+     * @return 错误消息
      */
     public static <T> CommonResult<T> failed(int code, String message) {
         return new CommonResult<T>(HttpStatus.ERROR, message, null);
     }
 
     /**
-     * 参数验证失败返回结果
+     * 失败封装方法
+     * @param code 数据对象
+     * @param message 消息提示
+     * @param data 数据对象
      * @param <T>
-     * @return
+     * @return 错误消息
      */
-    public static <T> CommonResult<T> validateFailed() {
-        return new CommonResult<T>(HttpStatus.NOT_FOUND, "参数检验失败", null);
-    }
-
-    /**
-     * 参数验证失败返回结果
-     * @param message 提示信息
-     */
-    public static <T> CommonResult<T> validateFailed(String message) {
-        return new CommonResult<T>(HttpStatus.NOT_FOUND, message, null);
-    }
-
-    /**
-     * 未登录返回结果
-     * @param data
-     * @param <T>
-     * @return
-     */
-    public static <T> CommonResult<T> unauthorized(T data) {
-        return new CommonResult<T>(HttpStatus.UNAUTHORIZED, "暂未登录或token已经过期", data);
-    }
-
-    /**
-     * 未授权返回结果
-     * @param data
-     * @param <T>
-     * @return
-     */
-    public static <T> CommonResult<T> forbidden(T data) {
-        return new CommonResult<T>(HttpStatus.FORBIDDEN, "没有相关权限", data);
+    public static <T> CommonResult<T> failed(int code, String message, T data, String traceId) {
+        return new CommonResult<T>(HttpStatus.ERROR, message, data, traceId);
     }
 
 }

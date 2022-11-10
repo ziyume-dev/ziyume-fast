@@ -4,8 +4,6 @@ server:
     context-path: /
 
 spring:
-  main:
-    allow-bean-definition-overriding: true
   application:
     name: pisces-lfs
   profiles:

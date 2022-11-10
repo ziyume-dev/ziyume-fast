@@ -14,7 +14,7 @@
     <version>${revision}</version>
     <packaging>pom</packaging>
     <name>pisces-lfs</name>
-    <description>pisces-lfs 是一个基于 SpringBoot + Vue + Element UI 的快速启动框架，可基于此框架快速构建系统！ 框架提供了基础的基于 RBAC 思想开发的权限管理模块，可以让您专注于业务开发。</description>
+    <description>pisces-lfs 是一个基于 SpringBoot3 + Vue + Element UI 的快速启动框架，可基于此框架快速构建系统！ 框架提供了基础的基于 RBAC 思想开发的权限管理模块，可以让您专注于业务开发。</description>
 
     <modules>
         <module>lfs-common</module>
@@ -23,12 +23,14 @@
     </modules>
 
     <properties>
-        <revision>2.0.0-rc1</revision>
+        <revision>2.0.0-rc2</revision>
         <java.version>17</java.version>
         <maven.compiler.release>17</maven.compiler.release>
-        <spring-boot.version>3.0.0-RC1</spring-boot.version>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>${java.version}</maven.compiler.source>
+        <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <spring-boot.version>3.0.0-RC1</spring-boot.version>
         <jjwt-api.version>0.11.5</jjwt-api.version>
         <spring-security-jwt.version>1.1.1.RELEASE</spring-security-jwt.version>
         <hutool.version>5.8.9</hutool.version>
@@ -44,47 +46,31 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-starter-logging</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
-
         <!--日志-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-log4j2</artifactId>
+            <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
-
+        <!-- 参数校验 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
         </dependency>
-
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <optional>true</optional>
         </dependency>
-
         <!-- 缓存 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -129,35 +115,30 @@
                 <artifactId>spring-security-jwt</artifactId>
                 <version>${spring-security-jwt.version}</version>
             </dependency>
-
             <!-- springdoc -->
             <dependency>
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-ui</artifactId>
                 <version>${springdoc.version}</version>
             </dependency>
-
             <!-- 获取系统信息 -->
             <dependency>
                 <groupId>com.github.oshi</groupId>
                 <artifactId>oshi-core</artifactId>
                 <version>${oshi-core.version}</version>
             </dependency>
-
             <!-- mapstruct -->
             <dependency>
                 <groupId>org.mapstruct</groupId>
                 <artifactId>mapstruct</artifactId>
                 <version>${mapstruct.version}</version>
             </dependency>
-
             <!-- easyexcel -->
             <dependency>
                 <groupId>com.alibaba</groupId>
                 <artifactId>easyexcel</artifactId>
                 <version>${easyexcel.version}</version>
             </dependency>
-
             <!-- 插件、工具类 -->
             <dependency>
                 <groupId>cn.hutool</groupId>
@@ -211,9 +192,9 @@
             </properties>
         </profile>
         <profile>
-            <id>docker</id>
+            <id>prod</id>
             <properties>
-                <spring.active>docker</spring.active>
+                <spring.active>prod</spring.active>
             </properties>
         </profile>
     </profiles>

@@ -1,6 +1,5 @@
 package com.besscroft.lfs.system.controller;
 
-import com.besscroft.lfs.annotation.WebLog;
 import com.besscroft.lfs.entity.AuthResourceSort;
 import com.besscroft.lfs.result.AjaxResult;
 import com.besscroft.lfs.result.CommonResult;
@@ -30,7 +29,6 @@ public class ResourceSortController {
 
     private final ResourceSortService resourceSortService;
 
-    @WebLog(description = "查询后台管理资源列表")
     @Operation(summary = "查询后台管理资源列表")
     @Parameters({
             @Parameter(name = "pageNum", description = "第几页", required = true),
@@ -43,7 +41,6 @@ public class ResourceSortController {
         return CommonResult.success(pageList);
     }
 
-    @WebLog(description = "获取资源详情")
     @Operation(summary = "获取资源详情")
     @Parameter(name = "id", description = "资源id", required = true)
     @GetMapping("/getResourceSort/{id}")
@@ -52,7 +49,6 @@ public class ResourceSortController {
         return CommonResult.success(resourceSort);
     }
 
-    @WebLog(description = "新增资源")
     @Operation(summary = "新增资源")
     @PostMapping("/addResourceSort")
     public AjaxResult addResourceSort(@RequestBody AuthResourceSort authResourceSort) {
@@ -60,7 +56,6 @@ public class ResourceSortController {
         return AjaxResult.success("新增成功！");
     }
 
-    @WebLog(description = "更新资源")
     @Operation(summary = "更新资源")
     @PutMapping("/updateResourceSort")
     public AjaxResult updateResourceSort(@RequestBody AuthResourceSort authResourceSort) {
@@ -68,7 +63,6 @@ public class ResourceSortController {
         return AjaxResult.success("更新成功！");
     }
 
-    @WebLog(description = "删除资源")
     @Operation(summary = "删除资源")
     @Parameter(name = "id", description = "资源id", required = true)
     @DeleteMapping("/delResourceSort/{id}")

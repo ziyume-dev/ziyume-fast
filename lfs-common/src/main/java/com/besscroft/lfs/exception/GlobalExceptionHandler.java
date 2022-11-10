@@ -1,9 +1,11 @@
 package com.besscroft.lfs.exception;
 
 import com.besscroft.lfs.constant.HttpStatus;
+import com.besscroft.lfs.constant.LogbackConstant;
 import com.besscroft.lfs.result.CommonResult;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.MDC;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -41,7 +43,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = MissingServletRequestParameterException.class)
     public CommonResult<?> missingServletRequestParameterExceptionHandler(MissingServletRequestParameterException ex) {
         log.warn("SpringMVC 请求参数缺失.[异常原因={}]", ex.getMessage(), ex);
-        return CommonResult.failed(HttpStatus.BAD_REQUEST, String.format("请求参数缺失:%s", ex.getParameterName()));
+        return CommonResult.failed(HttpStatus.BAD_REQUEST,
+                String.format("请求参数缺失:%s", ex.getParameterName()), null, "traceId=" + MDC.get(LogbackConstant.TRACT_ID));
     }
 
     /**
@@ -53,7 +56,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public CommonResult<?> methodArgumentTypeMismatchExceptionHandler(MethodArgumentTypeMismatchException ex) {
         log.warn("SpringMVC 请求参数类型错误.[异常原因={}]", ex.getMessage(), ex);
-        return CommonResult.failed(HttpStatus.BAD_REQUEST, String.format("请求参数类型错误:%s", ex.getMessage()));
+        return CommonResult.failed(HttpStatus.BAD_REQUEST,
+                String.format("请求参数类型错误:%s", ex.getMessage()), null, "traceId=" + MDC.get(LogbackConstant.TRACT_ID));
     }
 
     /**
@@ -65,7 +69,8 @@ public class GlobalExceptionHandler {
         log.warn("SpringMVC 参数校验异常.[异常原因={}]", ex.getMessage(), ex);
         FieldError fieldError = ex.getBindingResult().getFieldError();
         assert fieldError != null; // 断言，避免告警
-        return CommonResult.failed(HttpStatus.BAD_REQUEST, String.format("请求参数不正确:%s", fieldError.getDefaultMessage()));
+        return CommonResult.failed(HttpStatus.BAD_REQUEST,
+                String.format("请求参数不正确:%s", fieldError.getDefaultMessage()), null, "traceId=" + MDC.get(LogbackConstant.TRACT_ID));
     }
 
     /**
@@ -77,7 +82,8 @@ public class GlobalExceptionHandler {
         log.warn("SpringMVC 参数绑定异常.[异常原因={}]", ex.getMessage(), ex);
         FieldError fieldError = ex.getFieldError();
         assert fieldError != null; // 断言，避免告警
-        return CommonResult.failed(HttpStatus.BAD_REQUEST, String.format("请求参数不正确:%s", fieldError.getDefaultMessage()));
+        return CommonResult.failed(HttpStatus.BAD_REQUEST,
+                String.format("请求参数不正确:%s", fieldError.getDefaultMessage()), null, "traceId=" + MDC.get(LogbackConstant.TRACT_ID));
     }
 
     /**
@@ -88,7 +94,8 @@ public class GlobalExceptionHandler {
     public CommonResult<?> constraintViolationExceptionHandler(ConstraintViolationException ex) {
         log.warn("Validator 请求参数校验异常.[异常原因={}]", ex.getMessage(), ex);
         ConstraintViolation<?> constraintViolation = ex.getConstraintViolations().iterator().next();
-        return CommonResult.failed(HttpStatus.BAD_REQUEST, String.format("请求参数不正确:%s", constraintViolation.getMessage()));
+        return CommonResult.failed(HttpStatus.BAD_REQUEST,
+                String.format("请求参数不正确:%s", constraintViolation.getMessage()), null, "traceId=" + MDC.get(LogbackConstant.TRACT_ID));
     }
 
     /**
@@ -98,7 +105,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = ValidationException.class)
     public CommonResult<?> validationException(ValidationException ex) {
         log.warn("参数校验 ValidationException 异常.[异常原因={}]", ex.getMessage(), ex);
-        return CommonResult.failed(HttpStatus.BAD_REQUEST, ex.getMessage());
+        return CommonResult.failed(HttpStatus.BAD_REQUEST, ex.getMessage(), null, "traceId=" + MDC.get(LogbackConstant.TRACT_ID));
     }
 
     /**
@@ -108,7 +115,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public CommonResult<?> httpRequestMethodNotSupportedExceptionHandler(HttpRequestMethodNotSupportedException ex) {
         log.warn("SpringMVC 请求方法异常.[异常原因={}]", ex.getMessage(), ex);
-        return CommonResult.failed(HttpStatus.FORBIDDEN, ex.getMessage());
+        return CommonResult.failed(HttpStatus.FORBIDDEN, ex.getMessage(), null, "traceId=" + MDC.get(LogbackConstant.TRACT_ID));
     }
 
     /**
@@ -119,7 +126,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = AccessDeniedException.class)
     public CommonResult<?> accessDeniedExceptionHandler(AccessDeniedException ex) {
         log.warn("权限异常.[异常原因={}]", ex.getMessage(), ex);
-        return CommonResult.failed(HttpStatus.FORBIDDEN, ex.getMessage());
+        return CommonResult.failed(HttpStatus.FORBIDDEN, ex.getMessage(), null, "traceId=" + MDC.get(LogbackConstant.TRACT_ID));
     }
 
     /**
@@ -130,7 +137,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = AuthenticationException.class)
     public CommonResult<?> tokenDeniedExceptionHandler(AuthenticationException ex) {
         log.warn("token 异常.[异常原因={}]", ex.getMessage(), ex);
-        return CommonResult.failed(HttpStatus.UNAUTHORIZED, ex.getMessage());
+        return CommonResult.failed(HttpStatus.UNAUTHORIZED, ex.getMessage(), null, "traceId=" + MDC.get(LogbackConstant.TRACT_ID));
     }
 
     /**
@@ -140,7 +147,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = PiscesException.class)
     public CommonResult<?> piscesExceptionHandler(PiscesException ex) {
         log.info("自定义异常.[异常原因={}]", ex.getMessage(), ex);
-        return CommonResult.failed(ex.getCode(), ex.getMessage());
+        return CommonResult.failed(ex.getCode(), ex.getMessage(), null, "traceId=" + MDC.get(LogbackConstant.TRACT_ID));
     }
 
     /**
@@ -150,7 +157,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(JsonProcessingException.class)
     public CommonResult<?> handleJsonProcessingException(JsonProcessingException ex) {
         log.error("Json 转换异常.[异常原因={}]", ex.getMessage(), ex);
-        return CommonResult.failed(ex.getMessage());
+        return CommonResult.failed(HttpStatus.ERROR, ex.getMessage(), null, "traceId=" + MDC.get(LogbackConstant.TRACT_ID));
     }
 
     /**
@@ -161,7 +168,7 @@ public class GlobalExceptionHandler {
     public CommonResult<?> processException(CompletionException ex) {
         if (ex.getMessage().startsWith("feign.FeignException")) {
             log.error("微服务调用异常.[异常原因={}]", ex.getMessage(), ex);
-            return CommonResult.failed(HttpStatus.ERROR, "微服务调用异常！");
+            return CommonResult.failed(HttpStatus.ERROR, "微服务调用异常！", null, "traceId=" + MDC.get(LogbackConstant.TRACT_ID));
         }
         return handleException(ex);
     }
@@ -173,7 +180,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(Exception.class)
     public CommonResult<?> handleException(Exception ex) {
         log.error("全局异常信息.[异常原因={}]", ex.getMessage(), ex);
-        return CommonResult.failed(ex.getLocalizedMessage());
+        return CommonResult.failed(HttpStatus.ERROR, ex.getLocalizedMessage(), null, "traceId=" + MDC.get(LogbackConstant.TRACT_ID));
     }
 
 }

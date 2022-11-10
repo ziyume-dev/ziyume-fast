@@ -20,7 +20,7 @@ public class OpenApiConfiguration {
         return new OpenAPI()
                 .info(new Info().title("Pisces Lfs")
                         .description("Spring shop sample application")
-                        .version("v1.1.0")
+                        .version("v2.0.0")
                         .license(new License().name("Apache 2.0").url("https://github.com/besscroft/pisces-lfs/blob/main/LICENSE")))
                 .externalDocs(new ExternalDocumentation()
                         .description("Pisces Lfs 文档")

@@ -1,6 +1,5 @@
 package com.besscroft.lfs.system.controller;
 
-import com.besscroft.lfs.annotation.WebLog;
 import com.besscroft.lfs.entity.AuthResource;
 import com.besscroft.lfs.model.ResourceParam;
 import com.besscroft.lfs.result.AjaxResult;
@@ -31,7 +30,6 @@ public class ResourceController {
 
     private final ResourceService resourceService;
 
-    @WebLog(description = "查询后台管理资源列表")
     @Operation(summary = "查询后台管理资源列表")
     @Parameters({
             @Parameter(name = "pageNum", description = "第几页", required = true),
@@ -44,7 +42,6 @@ public class ResourceController {
         return CommonResult.success(pageList);
     }
 
-    @WebLog(description = "获取资源详情")
     @Operation(summary = "获取资源详情")
     @Parameter(name = "id", description = "资源id", required = true)
     @GetMapping("/getResource/{id}")
@@ -53,7 +50,6 @@ public class ResourceController {
         return CommonResult.success(resource);
     }
 
-    @WebLog(description = "新增资源")
     @Operation(summary = "新增资源")
     @PostMapping("/addResource")
     public AjaxResult addResource(@RequestBody AuthResource authResource) {
@@ -61,7 +57,6 @@ public class ResourceController {
         return AjaxResult.success("新增成功！");
     }
 
-    @WebLog(description = "更新资源")
     @Operation(summary = "更新资源")
     @PutMapping("/updateResource")
     public AjaxResult updateResource(@RequestBody AuthResource authResource) {
@@ -69,7 +64,6 @@ public class ResourceController {
         return AjaxResult.success("更新成功！");
     }
 
-    @WebLog(description = "删除资源")
     @Operation(summary = "删除资源")
     @Parameter(name = "id", description = "资源id", required = true)
     @DeleteMapping("/delResource/{id}")
@@ -78,7 +72,6 @@ public class ResourceController {
         return AjaxResult.success("删除成功！");
     }
 
-    @WebLog(description = "获取所有资源的资源树")
     @Operation(summary = "获取所有资源的资源树")
     @GetMapping("/getAllResourceTree")
     public CommonResult<List<ResourceParam>> getAllResourceTree() {
@@ -86,7 +79,6 @@ public class ResourceController {
         return CommonResult.success(tree);
     }
 
-    @WebLog(description = "根据角色id获取资源树数组")
     @Operation(summary = "根据角色id获取资源树数组")
     @GetMapping("/getResourceTreeById/{id}")
     public CommonResult<List<Long>> getResourceTreeById(@PathVariable("id") Long id) {
@@ -94,7 +86,6 @@ public class ResourceController {
         return CommonResult.success(tree);
     }
 
-    @WebLog(description = "更新资源树")
     @Operation(summary = "更新资源树")
     @Parameters({
             @Parameter(name = "data", description = "资源树数据", required = true),
