@@ -1,6 +1,5 @@
 package com.besscroft.lfs.system.controller;
 
-import com.besscroft.lfs.annotation.WebLog;
 import com.besscroft.lfs.entity.AuthRole;
 import com.besscroft.lfs.result.AjaxResult;
 import com.besscroft.lfs.result.CommonResult;
@@ -30,7 +29,6 @@ public class RoleController {
 
     private final RoleService roleService;
 
-    @WebLog(description = "查询后台管理角色列表")
     @Operation(summary = "查询后台管理角色列表")
     @Parameters({
             @Parameter(name = "pageNum", description = "第几页", required = true),
@@ -43,7 +41,6 @@ public class RoleController {
         return CommonResult.success(pageList);
     }
 
-    @WebLog(description = "查询角色详情")
     @Operation(summary = "查询角色详情")
     @Parameter(name = "id", description = "角色id", required = true)
     @GetMapping("/getRole/{id}")
@@ -52,7 +49,6 @@ public class RoleController {
         return CommonResult.success(role);
     }
 
-    @WebLog(description = "新增角色")
     @Operation(summary = "新增角色")
     @PostMapping("/addRole")
     public AjaxResult addRole(@RequestBody AuthRole authRole) {
@@ -60,7 +56,6 @@ public class RoleController {
         return AjaxResult.success("新增成功！");
     }
 
-    @WebLog(description = "修改角色")
     @Operation(summary = "修改角色")
     @PutMapping("/updateRole")
     public AjaxResult updateRole(@RequestBody AuthRole authRole) {
@@ -68,7 +63,6 @@ public class RoleController {
         return AjaxResult.success("更新成功！");
     }
 
-    @WebLog(description = "删除角色")
     @Operation(summary = "删除角色")
     @Parameter(name = "id", description = "角色id", required = true)
     @DeleteMapping("/delRole/{id}")
@@ -77,7 +71,6 @@ public class RoleController {
         return AjaxResult.success("删除成功！");
     }
 
-    @WebLog(description = "角色是否可用状态更新")
     @Operation(summary = "角色是否可用状态更新")
     @Parameters({
             @Parameter(name = "status", description = "可用状态", required = true),
@@ -90,7 +83,6 @@ public class RoleController {
         return AjaxResult.success("状态更新成功！");
     }
 
-    @WebLog(description = "查询所有可用角色")
     @Operation(summary = "查询所有可用角色")
     @GetMapping("/getRoleAll")
     public CommonResult<List<AuthRole>> getRoleAll() {
@@ -98,7 +90,6 @@ public class RoleController {
         return CommonResult.success(roles);
     }
 
-    @WebLog(description = "更新用户的角色")
     @Operation(summary = "更新用户的角色")
     @Parameters({
             @Parameter(name = "userId", description = "用户id", required = true),
@@ -111,7 +102,6 @@ public class RoleController {
         return AjaxResult.success("更新角色绑定成功！");
     }
 
-    @WebLog(description = "根据用户id查询角色")
     @Operation(summary = "根据用户id查询角色")
     @Parameter(name = "id", description = "用户id", required = true)
     @GetMapping("/getRoleById/{id}")

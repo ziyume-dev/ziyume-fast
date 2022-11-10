@@ -1,6 +1,5 @@
 package com.besscroft.lfs.system.controller;
 
-import com.besscroft.lfs.annotation.WebLog;
 import com.besscroft.lfs.entity.AuthMenu;
 import com.besscroft.lfs.entity.AuthUser;
 import com.besscroft.lfs.result.AjaxResult;
@@ -34,7 +33,6 @@ public class MenuController {
     private final MenuService menuService;
     private final UserService userService;
 
-    @WebLog(description = "获取当前用户管理系统菜单")
     @Operation(summary = "获取当前用户管理系统菜单")
     @GetMapping(value = "/getMenu")
     public CommonResult<List<AuthMenu>> getRouter() {
@@ -44,7 +42,6 @@ public class MenuController {
         return CommonResult.success(list);
     }
 
-    @WebLog(description = "查询后台管理菜单列表")
     @Operation(summary = "查询后台管理菜单列表")
     @Parameters({
             @Parameter(name = "pageNum", description = "第几页", required = true),
@@ -57,7 +54,6 @@ public class MenuController {
         return CommonResult.success(pageList);
     }
 
-    @WebLog(description = "获取所有父菜单")
     @Operation(summary = "获取所有父菜单")
     @GetMapping("/getParentMenu")
     public CommonResult<List<AuthMenu>> getParentMenu() {
@@ -65,7 +61,6 @@ public class MenuController {
         return CommonResult.success(list);
     }
 
-    @WebLog(description = "查询菜单详情")
     @Operation(summary = "查询菜单详情")
     @Parameter(name = "id", description = "菜单id", required = true)
     @GetMapping("/getMenu/{id}")
@@ -74,7 +69,6 @@ public class MenuController {
         return CommonResult.success(menu);
     }
 
-    @WebLog(description = "修改菜单")
     @Operation(summary = "修改菜单")
     @PutMapping("/updateMenu")
     public AjaxResult updateMenu(@Validated @RequestBody AuthMenu authMenu) {
@@ -82,7 +76,6 @@ public class MenuController {
         return AjaxResult.success("更新成功！");
     }
 
-    @WebLog(description = "菜单是否显示状态更新")
     @Operation(summary = "菜单是否显示状态更新")
     @Parameters({
             @Parameter(name = "hidden", description = "显示状态", required = true),
@@ -96,7 +89,6 @@ public class MenuController {
         return AjaxResult.success("修改成功");
     }
 
-    @WebLog(description = "删除菜单")
     @Operation(summary = "删除菜单")
     @Parameter(name = "id", description = "菜单id", required = true)
     @DeleteMapping("/delMenu/{id}")
@@ -105,7 +97,6 @@ public class MenuController {
         return AjaxResult.success("删除成功！");
     }
 
-    @WebLog(description = "新增菜单")
     @Operation(summary = "新增菜单")
     @PostMapping("/addMenu")
     public AjaxResult addUser(@RequestBody AuthMenu authMenu) {
@@ -113,7 +104,6 @@ public class MenuController {
         return AjaxResult.success("添加成功！");
     }
 
-    @WebLog(description = "根据角色id获取菜单树")
     @Operation(summary = "根据角色id获取菜单树")
     @Parameter(name = "id", description = "角色id", required = true)
     @GetMapping("/getMenuTreeById/{id}")
@@ -122,7 +112,6 @@ public class MenuController {
         return CommonResult.success(tree);
     }
 
-    @WebLog(description = "获取所有菜单的菜单树")
     @Operation(summary = "获取所有菜单的菜单树")
     @GetMapping("/getAllMenuTree")
     public CommonResult<List<AuthMenu>> getAllMenuTree() {
@@ -130,7 +119,6 @@ public class MenuController {
         return CommonResult.success(tree);
     }
 
-    @WebLog(description = "更新菜单树")
     @Operation(summary = "更新菜单树")
     @Parameters({
             @Parameter(name = "data", description = "菜单树数据", required = true),

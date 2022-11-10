@@ -2,7 +2,6 @@ package com.besscroft.lfs.system.controller;
 
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
-import com.besscroft.lfs.annotation.WebLog;
 import com.besscroft.lfs.dto.LoginParam;
 import com.besscroft.lfs.entity.AuthUser;
 import com.besscroft.lfs.result.AjaxResult;
@@ -42,7 +41,6 @@ public class UserController {
     private String tokenHead;
     private final UserService userService;
 
-    @WebLog(description = "登录以后返回token")
     @Operation(summary = "登录以后返回token")
     @PostMapping("/login")
     public CommonResult<Map<String, String>> login(@Validated @RequestBody LoginParam loginParam) {
@@ -54,7 +52,6 @@ public class UserController {
         return CommonResult.success(tokenMap);
     }
 
-    @WebLog(description = "获取当前后台系统登录用户的一些信息")
     @Operation(summary = "获取当前后台系统登录用户的一些信息")
     @GetMapping("/info")
     public CommonResult<Map<String, Object>> getInfo() {
@@ -66,7 +63,6 @@ public class UserController {
         return CommonResult.success(userInfo);
     }
 
-    @WebLog(description = "后台管理系统登出功能")
     @Operation(summary = "后台管理系统登出功能")
     @PostMapping(value = "/logout")
     public AjaxResult logout() {
@@ -81,7 +77,6 @@ public class UserController {
         return AjaxResult.success("成功退出登录啦！");
     }
 
-    @WebLog(description = "查询权限管理模块用户列表")
     @Operation(summary = "查询权限管理模块用户列表")
     @Parameters({
             @Parameter(name = "pageNum", description = "第几页", required = true),
@@ -94,7 +89,6 @@ public class UserController {
         return CommonResult.success(pageList);
     }
 
-    @WebLog(description = "查询权限管理模块用户详情")
     @Operation(summary = "查询权限管理模块用户详情")
     @Parameter(name = "id", description = "用户id", required = true)
     @GetMapping("/getUser/{id}")
@@ -104,7 +98,6 @@ public class UserController {
         return CommonResult.success(user);
     }
 
-    @WebLog(description = "修改权限管理模块用户")
     @Operation(summary = "修改权限管理模块用户")
     @PutMapping("/updateUser")
     public AjaxResult updateUser(@Validated @RequestBody AuthUser authUser) {
@@ -112,7 +105,6 @@ public class UserController {
         return AjaxResult.success("更新成功！");
     }
 
-    @WebLog(description = "用户账户启用状态更新")
     @Operation(summary = "用户账户启用状态更新")
     @Parameters({
             @Parameter(name = "status", description = "启用状态", required = true),
@@ -125,7 +117,6 @@ public class UserController {
         return AjaxResult.success("更新成功！");
     }
 
-    @WebLog(description = "删除权限管理模块用户")
     @Operation(summary = "删除权限管理模块用户")
     @Parameter(name = "id", description = "用户id", required = true)
     @DeleteMapping("/delUser/{id}")
@@ -134,7 +125,6 @@ public class UserController {
         return AjaxResult.success("删除成功！");
     }
 
-    @WebLog(description = "新增权限管理模块用户")
     @Operation(summary = "新增权限管理模块用户")
     @PostMapping("/addUser")
     public AjaxResult addUser(@RequestBody AuthUser authUser) {
