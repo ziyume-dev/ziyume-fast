@@ -11,7 +11,7 @@ import java.util.List;
  * @Time 2021/12/12 16:55
  */
 @Data
-public class ResourceParam {
+public class ResourceTree {
 
     /** 资源类别id */
     private Long id;

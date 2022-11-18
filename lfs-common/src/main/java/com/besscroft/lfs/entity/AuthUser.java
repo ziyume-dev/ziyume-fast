@@ -88,7 +88,7 @@ public class AuthUser extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     @JsonIgnore
-    @JoinTable(name = "auth_user_role_relation",joinColumns = @JoinColumn(name="user_id",referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"))
+    @JoinTable(name = "auth_user_role",joinColumns = @JoinColumn(name="user_id",referencedColumnName = "id"),inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id"))
     private List<AuthRole> roles;
 
 }

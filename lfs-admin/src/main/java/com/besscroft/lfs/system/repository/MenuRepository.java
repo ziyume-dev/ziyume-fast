@@ -19,15 +19,19 @@ public interface MenuRepository extends JpaRepository<AuthMenu, Long>, JpaSpecif
      * @param userId 用户id
      * @return 菜单集合
      */
-    @Query(value = "select" +
-            "            m.*" +
-            "        from auth_menu m" +
-            "                 inner join auth_role_menu_relation rm on m.id = rm.menu_id" +
-            "                 inner join auth_role r on rm.role_id = r.id" +
-            "                 inner join auth_user_role_relation ur on r.id = ur.role_id" +
-            "                 inner join auth_user u on ur.user_id = u.id" +
-            "        where u.id =:userId" +
-            "        order by m.sort", nativeQuery = true)
+    @Query(value = """
+        SELECT
+            m.*
+        FROM
+            auth_menu m
+        INNER JOIN auth_role_menu rm ON m.id = rm.menu_id
+        INNER JOIN auth_role r ON rm.role_id = r.id
+        INNER JOIN auth_user_role ur ON r.id = ur.role_id
+        INNER JOIN auth_user u ON ur.user_id = u.id
+        WHERE 
+            u.id =:userId
+        ORDER BY m.sort
+    """, nativeQuery = true)
     List<AuthMenu> findAllByUserId(Long userId);
 
     /**
@@ -37,12 +41,14 @@ public interface MenuRepository extends JpaRepository<AuthMenu, Long>, JpaSpecif
      * @return
      */
     @Modifying
-    @Query(value = "update" +
-            "           auth_menu" +
-            "       set" +
-            "           hidden = ?1" +
-            "       where" +
-            "           id = ?2", nativeQuery = true)
+    @Query(value = """
+        UPDATE
+            auth_menu
+        SET
+            hidden = ?1
+        WHERE
+            id = ?2
+    """, nativeQuery = true)
     int changeSwitch(Integer hidden, Long id);
 
     /**
@@ -50,12 +56,14 @@ public interface MenuRepository extends JpaRepository<AuthMenu, Long>, JpaSpecif
      * @param id 角色id
      * @return 角色的菜单数组
      */
-    @Query(value = "select" +
-            "           menu_id" +
-            "       from" +
-            "           auth_role_menu_relation" +
-            "       where" +
-            "           role_id =:id", nativeQuery = true)
+    @Query(value = """
+        SELECT 
+            menu_id
+        FROM 
+            auth_role_menu
+        WHERE 
+            role_id =:id
+    """, nativeQuery = true)
     List<Long> selectMenuTreeById(Long id);
 
     /**
@@ -64,11 +72,11 @@ public interface MenuRepository extends JpaRepository<AuthMenu, Long>, JpaSpecif
      * @return
      */
     @Modifying
-    @Query(value = "delete" +
-            "       from" +
-            "           auth_role_menu_relation" +
-            "       where" +
-            "           role_id =:id", nativeQuery = true)
+    @Query(value = """
+        DELETE FROM auth_role_menu
+        WHERE 
+            role_id =:id
+    """, nativeQuery = true)
     int deleteRoleMenuRelation(Long id);
 
     /**
@@ -78,11 +86,12 @@ public interface MenuRepository extends JpaRepository<AuthMenu, Long>, JpaSpecif
      * @return
      */
     @Modifying
-    @Query(value = "insert into" +
-            "          auth_role_menu_relation" +
-            "            (role_id, menu_id)" +
-            "       values" +
-            "           (?2 , ?1)", nativeQuery = true)
+    @Query(value = """
+        INSERT INTO
+            auth_role_menu (role_id, menu_id)
+        VALUES
+            (?2 , ?1)
+    """, nativeQuery = true)
     int insertRoleMenuRelation(Long menuId, Long roleId);
 
     /**
@@ -97,7 +106,14 @@ public interface MenuRepository extends JpaRepository<AuthMenu, Long>, JpaSpecif
      * @param ids 菜单id集合
      */
     @Modifying
-    @Query(value = "UPDATE auth_menu SET del = 0 WHERE id IN :ids", nativeQuery = true)
+    @Query(value = """
+        UPDATE 
+            auth_menu 
+        SET 
+            del = 0 
+        WHERE 
+            id IN :ids
+    """, nativeQuery = true)
     void deleteAllByIdInBatch(List<Long> ids);
 
 }

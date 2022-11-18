@@ -38,7 +38,7 @@
     <el-card class="box-card" style="margin-top: 30px" shadow="never">
       <el-table border v-loading="loading" :data="dataList" @selection-change="handleSelectionChange">
         <el-table-column type="selection" width="55" align="center" />
-        <el-table-column label="资源类别名称" align="center" prop="categoryName" width="150"/>
+        <el-table-column label="资源类别名称" align="center" prop="name" width="150"/>
         <el-table-column label="创建时间" align="center" prop="createTime" />
         <el-table-column label="资源描述" align="center" prop="description" />
         <el-table-column label="排序" align="center" prop="sort" />
@@ -73,13 +73,13 @@
     <!-- 添加或修改权限管理模块资源类别对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="600px" append-to-body>
       <el-form ref="form" :model="form" label-width="100px">
-        <el-form-item label="资源类别名称" prop="icon">
-          <el-input v-model="form.categoryName" type="textarea" placeholder="请输入资源名" />
+        <el-form-item label="资源类别名称" prop="name">
+          <el-input v-model="form.name" type="textarea" placeholder="请输入资源名" />
         </el-form-item>
-        <el-form-item label="资源描述" prop="nickName">
+        <el-form-item label="资源描述" prop="description">
           <el-input v-model="form.description" placeholder="请输入资源描述" />
         </el-form-item>
-        <el-form-item label="排序" prop="email">
+        <el-form-item label="排序" prop="sort">
           <el-input v-model="form.sort" placeholder="请输入排序" />
         </el-form-item>
       </el-form>
@@ -94,20 +94,26 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { addResourceSort, delResourceSort, getResourceSort, listResourceSort, updateResourceSort} from "@/api/auth/resourceSort";
-import { Message } from "element-ui";
+import {
+  addResourceCategory,
+  delResourceCategory,
+  getResourceCategory,
+  listResourceCategory,
+  updateResourceCategory
+} from '@/api/auth/resourceCategory'
+import { Message } from 'element-ui'
 
-const defaultAdminResourceSort = {
+const defaultAdminResourceCategory = {
   // 查询参数
   id: null,
-  categoryName: null,
+  name: null,
   createTime: null,
   description: null,
   sort: null
 };
 
 export default {
-  name: 'authResourceSort',
+  name: 'authResourceCategory',
   computed: {
     ...mapGetters([
       'name'
@@ -115,7 +121,7 @@ export default {
   },
   data() {
     return {
-      adminResourceSort: Object.assign({}, defaultAdminResourceSort),
+      adminResourceCategory: Object.assign({}, defaultAdminResourceCategory),
       // 遮罩层
       loading: true,
       // 选中数组
@@ -160,9 +166,8 @@ export default {
     /** 查询权限管理模块资源类别列表 */
     getList() {
       this.loading = true;
-      listResourceSort(this.listQuery).then(response => {
-        const data = response.data.content;
-        this.dataList = data;
+      listResourceCategory(this.listQuery).then(response => {
+        this.dataList = response.data.content;
         this.total = response.data.totalElements;
         this.loading = false;
       });
@@ -192,7 +197,7 @@ export default {
     /** 修改按钮操作 */
     handleUpdate(row) {
       const id = row.id || this.ids
-      getResourceSort(id).then(response => {
+      getResourceCategory(id).then(response => {
         this.$nextTick(() => {
           this.dialogFormVisible = true
           this.form = response.data;
@@ -206,14 +211,14 @@ export default {
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.id != null) {
-            updateResourceSort(this.form).then(response => {
+            updateResourceCategory(this.form).then(response => {
               Message.success(response.message);
               this.dialogFormVisible = false
               this.open = false;
               this.getList();
             });
           } else {
-            addResourceSort(this.form).then(response => {
+            addResourceCategory(this.form).then(response => {
               Message.success(response.message);
               this.dialogFormVisible = false
               this.open = false;
@@ -231,7 +236,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning"
       }).then(function() {
-        return delResourceSort(ids);
+        return delResourceCategory(ids);
       }).then(response => {
         this.getList();
         Message.success(response.message);
@@ -251,7 +256,7 @@ export default {
     // 重置表单为初始值并移除校验结果
     resetForm() {
       this.$refs["form"].resetFields()
-      this.form = Object.assign({}, defaultAdminResourceSort)
+      this.form = Object.assign({}, defaultAdminResourceCategory)
     }
   }
 }

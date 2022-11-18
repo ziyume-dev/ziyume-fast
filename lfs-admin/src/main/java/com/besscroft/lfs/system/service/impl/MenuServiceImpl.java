@@ -112,8 +112,8 @@ public class MenuServiceImpl implements MenuService {
 
     /**
      * 菜单层级处理
-     * @param menuList
-     * @return
+     * @param menuList 菜单列表
+     * @return 菜单列表
      */
     private List<AuthMenu> getMenus(@NonNull List<AuthMenu> menuList) {
         List<AuthMenu> parentMenus = menuList.stream().filter(menu -> menu.getParentId() == 0).collect(Collectors.toList());
@@ -129,7 +129,7 @@ public class MenuServiceImpl implements MenuService {
      * 菜单递归
      * @param menuId 菜单id
      * @param menuList 子菜单集合
-     * @return
+     * @return 菜单列表
      */
     private List<AuthMenu> getChildMenu(@NonNull Long menuId, @NonNull List<AuthMenu> menuList) {
         List<AuthMenu> menus = menuList.stream().filter(menu -> menu.getParentId() == menuId).collect(Collectors.toList());
@@ -143,7 +143,7 @@ public class MenuServiceImpl implements MenuService {
     /**
      * 获取路由信息
      * @param menuList 菜单集合
-     * @return
+     * @return 菜单路由
      */
     private List<RouterVo> getRouter(@NonNull List<AuthMenu> menuList) {
         List<RouterVo> routerVoList = new LinkedList<>();
@@ -168,7 +168,7 @@ public class MenuServiceImpl implements MenuService {
     /**
      * 子路由处理
      * @param menuList 子菜单集合
-     * @return
+     * @return 子路由列表
      */
     private List<RouterVo> getChildRouter(@NonNull List<AuthMenu> menuList) {
         List<RouterVo> list = new ArrayList<>();

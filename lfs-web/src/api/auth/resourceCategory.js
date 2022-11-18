@@ -1,9 +1,9 @@
 import request from '@/utils/request'
 
 // 获取资源类别列表
-export function listResourceSort(listQuery) {
+export function listResourceCategory(listQuery) {
   return request({
-    url: '/resourceSort/list',
+    url: '/resourceCategory/list',
     method: 'get',
     params: {
       pageNum: listQuery.pageNum,
@@ -13,43 +13,43 @@ export function listResourceSort(listQuery) {
 }
 
 // 查询资源类别详细
-export function getResourceSort(id) {
+export function getResourceCategory(id) {
   return request({
-    url: '/resourceSort/getResourceSort/' + id,
+    url: '/resourceCategory/getResourceCategory/' + id,
     method: 'get'
   })
 }
 
 // 新增资源类别
-export function addResourceSort(data) {
+export function addResourceCategory(data) {
   return request({
-    url: '/resourceSort/addResourceSort',
+    url: '/resourceCategory/addResourceCategory',
     method: 'post',
     data: data
   })
 }
 
 // 修改资源类别
-export function updateResourceSort(data) {
+export function updateResourceCategory(data) {
   return request({
-    url: '/resourceSort/updateResourceSort',
+    url: '/resourceCategory/updateResourceCategory',
     method: 'put',
     data: data
   })
 }
 
 // 删除资源类别
-export function delResourceSort(id) {
+export function delResourceCategory(id) {
   return request({
-    url: '/resourceSort/delResourceSort/' + id,
+    url: '/resourceCategory/delResourceCategory/' + id,
     method: 'delete'
   })
 }
 
 // 导出资源类别列表
-export function exportResourceSort(query) {
+export function exportResourceCategory(query) {
   return request({
-    url: '/resourceSort/exportResourceSort',
+    url: '/resourceCategory/exportResourceCategory',
     method: 'get',
     params: query
   })

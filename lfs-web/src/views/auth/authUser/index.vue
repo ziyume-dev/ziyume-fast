@@ -238,11 +238,7 @@ export default {
       listUser(this.listQuery).then(response => {
         const data = response.data.content;
         data.forEach(user => {
-          if (user.status == 1) {
-            user.status = true
-          } else {
-            user.status = false
-          }
+          user.status = user.status === 1;
         });
         this.dataList = data;
         this.total = response.data.totalElements;

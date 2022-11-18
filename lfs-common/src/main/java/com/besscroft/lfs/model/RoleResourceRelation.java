@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @Time 2021/7/8 18:13
  */
 @Entity
-@Table(name = "auth_role_resource_relation")
+@Table(name = "auth_role_resource")
 @Schema(title = "权限管理模块角色资源关系表")
 @Data
 public class RoleResourceRelation implements Serializable {

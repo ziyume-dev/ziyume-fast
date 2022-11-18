@@ -1,7 +1,7 @@
 package com.besscroft.lfs.system.service;
 
 import com.besscroft.lfs.entity.AuthResource;
-import com.besscroft.lfs.model.ResourceParam;
+import com.besscroft.lfs.model.ResourceTree;
 import org.springframework.data.domain.Page;
 
 import java.util.List;
@@ -66,7 +66,7 @@ public interface ResourceService {
      * 获取所有资源的资源树
      * @return 所有的资源树集合
      */
-    List<ResourceParam> getAllResourceTree();
+    List<ResourceTree> getAllResourceTree();
 
     /**
      * 根据角色id获取资源树数组
