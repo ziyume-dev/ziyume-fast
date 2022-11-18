@@ -75,6 +75,10 @@ export default {
             },
             {
               id: 3,
+              body: "[update] 升级 SpringBoot 版本为 3.0.0-RC2"
+            },
+            {
+              id: 4,
               body: "[fix] 修复了一些问题，提升了性能"
             }
           ]
