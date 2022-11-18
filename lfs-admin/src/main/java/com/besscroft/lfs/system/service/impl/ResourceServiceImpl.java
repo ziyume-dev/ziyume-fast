@@ -1,10 +1,10 @@
 package com.besscroft.lfs.system.service.impl;
 
 import com.besscroft.lfs.entity.AuthResource;
-import com.besscroft.lfs.entity.AuthResourceSort;
-import com.besscroft.lfs.model.ResourceParam;
+import com.besscroft.lfs.entity.AuthResourceCategory;
+import com.besscroft.lfs.model.ResourceTree;
 import com.besscroft.lfs.system.repository.ResourceRepository;
-import com.besscroft.lfs.system.repository.ResourceSortRepository;
+import com.besscroft.lfs.system.repository.ResourceCategoryRepository;
 import com.besscroft.lfs.system.service.ResourceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -27,7 +27,7 @@ import java.util.Objects;
 public class ResourceServiceImpl implements ResourceService {
 
     private final ResourceRepository resourceRepository;
-    private final ResourceSortRepository resourceSortRepository;
+    private final ResourceCategoryRepository resourceCategoryRepository;
 
     @Override
     public List<AuthResource> getResourceList(@NonNull Long userId) {
@@ -69,16 +69,16 @@ public class ResourceServiceImpl implements ResourceService {
     }
 
     @Override
-    public List<ResourceParam> getAllResourceTree() {
-        List<ResourceParam> list = new ArrayList<>();
-        List<AuthResourceSort> resourceSorts = resourceSortRepository.findAll();
+    public List<ResourceTree> getAllResourceTree() {
+        List<ResourceTree> list = new ArrayList<>();
+        List<AuthResourceCategory> resourceSorts = resourceCategoryRepository.findAll();
         resourceSorts.forEach(r -> {
-            ResourceParam resourceParam = new ResourceParam();
+            ResourceTree resourceTree = new ResourceTree();
             List<AuthResource> resources = resourceRepository.findAllByCategoryId(r.getId());
-            resourceParam.setName(r.getCategoryName());
-            resourceParam.setDisabled(true);
-            resourceParam.setChildren(resources);
-            list.add(resourceParam);
+            resourceTree.setName(r.getName());
+            resourceTree.setDisabled(true);
+            resourceTree.setChildren(resources);
+            list.add(resourceTree);
         });
         return list;
     }

@@ -40,8 +40,8 @@
         <el-table-column type="selection" width="55" align="center" />
         <el-table-column label="角色名称" align="center" prop="name" width="150"/>
         <el-table-column label="描述" align="center" prop="description" />
-        <el-table-column label="用户数量" align="center" prop="userCount" />
         <el-table-column label="创建时间" align="center" prop="createTime" />
+        <el-table-column label="更新时间" align="center" prop="updateTime" />
         <el-table-column label="排序" align="center" prop="sort" />
         <el-table-column label="帐号启用状态" align="center" prop="hidden" width="160">
           <template slot-scope="scope">
@@ -168,7 +168,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { Message } from 'element-ui'
-import { listRole, getRole, addRole, updateRole, delRole, exportRole, changeSwitch } from '@/api/auth/role'
+import { listRole, getRole, addRole, updateRole, delRole, changeSwitch } from '@/api/auth/role'
 import { getMenuTreeById, getAllMenuTree, updateMenuTree } from '@/api/auth/menu'
 import { getAllResourceTree, getResourceTreeById, updateResourceTree } from '@/api/auth/resource'
 
@@ -264,11 +264,7 @@ export default {
       listRole(this.listQuery).then(response => {
         const data = response.data.content;
         data.forEach(role => {
-          if (role.status == 1) {
-            role.status = true
-          } else {
-            role.status = false
-          }
+          role.status = role.status === 1;
         });
         this.dataList = data;
         this.total = response.data.totalElements;

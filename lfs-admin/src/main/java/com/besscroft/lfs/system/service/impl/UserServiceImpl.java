@@ -41,6 +41,7 @@ import org.springframework.transaction.annotation.Transactional;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -58,7 +59,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepository userRepository;
     private final ResourceService resourceService;
     private final JWTUtils jwtUtils;
-    private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
     private final MenuService menuService;
     private final Cache<String, Object> caffeineCache;
 
@@ -216,21 +217,13 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             excelDtos.forEach(excelDto -> {
                 String status = excelDto.getStatus();
                 switch (status) {
-                    case "0":
-                        excelDto.setStatus("禁用");
-                        break;
-                    case "1":
-                        excelDto.setStatus("启用");
-                        break;
+                    case "0" -> excelDto.setStatus("禁用");
+                    case "1" -> excelDto.setStatus("启用");
                 }
                 String del = excelDto.getDel();
                 switch (del) {
-                    case "0":
-                        excelDto.setDel("已删除");
-                        break;
-                    case "1":
-                        excelDto.setDel("可用状态");
-                        break;
+                    case "0" -> excelDto.setDel("已删除");
+                    case "1" -> excelDto.setDel("可用状态");
                 }
             });
             try {
@@ -239,7 +232,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
                 // 设置返回的数据编码
                 response.setCharacterEncoding("utf-8");
                 // 这里 URLEncoder.encode 可以防止中文乱码 当然和 easyexcel 没有关系
-                String fileName = URLEncoder.encode("用户信息", "UTF-8").replaceAll("\\+", "%20");
+                String fileName = URLEncoder.encode("用户信息", StandardCharsets.UTF_8).replaceAll("\\+", "%20");
                 response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
                 EasyExcel.write(response.getOutputStream(), AuthUserExcelDto.class).autoCloseStream(true).sheet("用户信息").doWrite(excelDtos);
             } catch (IOException e) {

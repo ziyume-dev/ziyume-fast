@@ -21,11 +21,11 @@ import jakarta.persistence.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "auth_resource_sort")
+@Table(name = "auth_resource_category")
 @Schema(title = "权限管理模块资源类别管理对象")
 @Where(clause = "del = 1")
 @SQLDelete(sql = "UPDATE auth_resource_sort SET del = 0 WHERE id = ?")
-public class AuthResourceSort extends BaseEntity {
+public class AuthResourceCategory extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,8 +34,8 @@ public class AuthResourceSort extends BaseEntity {
 
     /** 资源类别名称 */
     @Schema(title = "资源类别名称", type = "String")
-    @Column(name = "category_name")
-    private String categoryName;
+    @Column(name = "name")
+    private String name;
 
     /** 资源描述 */
     @Schema(title = "资源描述", type = "String")

@@ -42,11 +42,6 @@ public class AuthRole extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    /** 用户数量 */
-    @Schema(title = "用户数量", type = "Long")
-    @Column(name = "user_count")
-    private Long userCount;
-
     /** 启用状态：0->禁用；1->启用 */
     @Schema(title = "启用状态", type = "Integer")
     @Column(name = "status")

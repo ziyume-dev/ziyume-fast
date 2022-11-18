@@ -138,7 +138,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { Message } from 'element-ui'
-import { addMenu, changeSwitch, delMenu, getMenu, listMenu, updateMenu, getParentMenu } from "@/api/auth/menu";
+import { addMenu, changeSwitch, delMenu, getMenu, listMenu, updateMenu, getParentMenu } from '@/api/auth/menu'
 
 const defaultAdminMenu = {
   // 查询参数
@@ -215,11 +215,7 @@ export default {
       listMenu(this.listQuery).then(response => {
         const data = response.data.content;
         data.forEach(menu => {
-          if (menu.hidden == 1) {
-            menu.hidden = true
-          } else {
-            menu.hidden = false
-          }
+          menu.hidden = menu.hidden === 1;
         });
         this.dataList = data;
         this.total = response.data.totalElements;

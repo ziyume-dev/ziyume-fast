@@ -1,7 +1,7 @@
 package com.besscroft.lfs.system.controller;
 
 import com.besscroft.lfs.entity.AuthResource;
-import com.besscroft.lfs.model.ResourceParam;
+import com.besscroft.lfs.model.ResourceTree;
 import com.besscroft.lfs.result.AjaxResult;
 import com.besscroft.lfs.result.CommonResult;
 import com.besscroft.lfs.system.service.ResourceService;
@@ -74,8 +74,8 @@ public class ResourceController {
 
     @Operation(summary = "获取所有资源的资源树")
     @GetMapping("/getAllResourceTree")
-    public CommonResult<List<ResourceParam>> getAllResourceTree() {
-        List<ResourceParam> tree = resourceService.getAllResourceTree();
+    public CommonResult<List<ResourceTree>> getAllResourceTree() {
+        List<ResourceTree> tree = resourceService.getAllResourceTree();
         return CommonResult.success(tree);
     }
 

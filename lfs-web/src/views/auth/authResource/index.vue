@@ -106,8 +106,8 @@
 <script>
 import { mapGetters } from 'vuex'
 import { Message } from 'element-ui'
-import { listResource, getResource, addResource, updateResource, delResource, exportResource } from '@/api/auth/resource'
-import { listResourceSort } from '@/api/auth/resourceSort'
+import { addResource, delResource, getResource, listResource, updateResource } from '@/api/auth/resource'
+import { listResourceCategory } from '@/api/auth/resourceCategory'
 
 const defaultAdminResource = {
   // 查询参数
@@ -176,8 +176,7 @@ export default {
     getList() {
       this.loading = true;
       listResource(this.listQuery).then(response => {
-        const data = response.data.content;
-        this.dataList = data;
+        this.dataList = response.data.content;
         this.total = response.data.totalElements;
         this.loading = false;
       });
@@ -203,14 +202,14 @@ export default {
       this.dialogFormVisible = true
       this.open = true
       this.title = "添加权限管理模块资源"
-      listResourceSort({ pageNum: 0, pageSize: 100, keyword: null }).then(response => {
+      listResourceCategory({ pageNum: 0, pageSize: 100, keyword: null }).then(response => {
         this.resourceSortList = response.data.content
       })
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
       const id = row.id || this.ids
-      listResourceSort({ pageNum: 0, pageSize: 100, keyword: null }).then(response => {
+      listResourceCategory({ pageNum: 0, pageSize: 100, keyword: null }).then(response => {
         this.resourceSortList = response.data.list
       })
       getResource(id).then(response => {
@@ -226,7 +225,7 @@ export default {
     submitForm() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          if ((this.form.id != null) && (this.form.id != '')) {
+          if ((this.form.id != null) && (this.form.id !== '')) {
             updateResource(this.form).then(response => {
               Message.success(response.message);
               this.dialogFormVisible = false

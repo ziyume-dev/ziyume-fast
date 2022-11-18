@@ -1,9 +1,9 @@
 package com.besscroft.lfs.system.controller;
 
-import com.besscroft.lfs.entity.AuthResourceSort;
+import com.besscroft.lfs.entity.AuthResourceCategory;
 import com.besscroft.lfs.result.AjaxResult;
 import com.besscroft.lfs.result.CommonResult;
-import com.besscroft.lfs.system.service.ResourceSortService;
+import com.besscroft.lfs.system.service.ResourceCategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.Parameters;
@@ -24,10 +24,10 @@ import java.util.List;
 @Tag(name = "管理系统资源类别接口")
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/resourceSort")
-public class ResourceSortController {
+@RequestMapping("/resourceCategory")
+public class ResourceCategoryController {
 
-    private final ResourceSortService resourceSortService;
+    private final ResourceCategoryService resourceCategoryService;
 
     @Operation(summary = "查询后台管理资源列表")
     @Parameters({
@@ -35,39 +35,39 @@ public class ResourceSortController {
             @Parameter(name = "pageSize", description = "多少条", required = true)
     })
     @GetMapping("/list")
-    public CommonResult<Page<AuthResourceSort>> list(@RequestParam("pageNum") Integer pageNum,
-                                                     @RequestParam("pageSize") Integer pageSize) {
-        Page<AuthResourceSort> pageList = resourceSortService.getResourcePageList(pageNum, pageSize, null);
+    public CommonResult<Page<AuthResourceCategory>> list(@RequestParam("pageNum") Integer pageNum,
+                                                         @RequestParam("pageSize") Integer pageSize) {
+        Page<AuthResourceCategory> pageList = resourceCategoryService.getResourcePageList(pageNum, pageSize, null);
         return CommonResult.success(pageList);
     }
 
     @Operation(summary = "获取资源详情")
     @Parameter(name = "id", description = "资源id", required = true)
-    @GetMapping("/getResourceSort/{id}")
-    public CommonResult<AuthResourceSort> getResourceSort(@PathVariable("id") Long id) {
-        AuthResourceSort resourceSort = resourceSortService.getResourceSortById(id);
-        return CommonResult.success(resourceSort);
+    @GetMapping("/getResourceCategory/{id}")
+    public CommonResult<AuthResourceCategory> getResourceCategory(@PathVariable("id") Long id) {
+        AuthResourceCategory resourceCategory = resourceCategoryService.getResourceCategoryById(id);
+        return CommonResult.success(resourceCategory);
     }
 
     @Operation(summary = "新增资源")
-    @PostMapping("/addResourceSort")
-    public AjaxResult addResourceSort(@RequestBody AuthResourceSort authResourceSort) {
-        resourceSortService.addResourceSort(authResourceSort);
+    @PostMapping("/addResourceCategory")
+    public AjaxResult addResourceCategory(@RequestBody AuthResourceCategory authResourceCategory) {
+        resourceCategoryService.addResourceCategory(authResourceCategory);
         return AjaxResult.success("新增成功！");
     }
 
     @Operation(summary = "更新资源")
-    @PutMapping("/updateResourceSort")
-    public AjaxResult updateResourceSort(@RequestBody AuthResourceSort authResourceSort) {
-        resourceSortService.updateResourceSort(authResourceSort);
+    @PutMapping("/updateResourceCategory")
+    public AjaxResult updateResourceCategory(@RequestBody AuthResourceCategory authResourceCategory) {
+        resourceCategoryService.updateResourceCategory(authResourceCategory);
         return AjaxResult.success("更新成功！");
     }
 
     @Operation(summary = "删除资源")
     @Parameter(name = "id", description = "资源id", required = true)
-    @DeleteMapping("/delResourceSort/{id}")
-    public AjaxResult delResourceSort(@PathVariable("id") List<Long> ids) {
-        resourceSortService.delResourceSort(ids);
+    @DeleteMapping("/delResourceCategory/{id}")
+    public AjaxResult delResourceCategory(@PathVariable("id") List<Long> ids) {
+        resourceCategoryService.delResourceCategory(ids);
         return AjaxResult.success("删除成功！");
     }
 

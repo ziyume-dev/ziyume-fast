@@ -28,9 +28,14 @@ public interface UserRepository extends JpaRepository<AuthUser, Long>, JpaSpecif
      * @return
      */
     @Modifying
-    @Query(value = "update auth_user" +
-                    " set login_time =:loginTime" +
-                    " where id =:id", nativeQuery = true)
+    @Query(value = """
+        UPDATE 
+            auth_user
+        SET 
+            login_time =:loginTime
+        WHERE 
+            id =:id
+    """, nativeQuery = true)
     int updateLoginTime(Date loginTime, Long id);
 
     /**
@@ -40,14 +45,14 @@ public interface UserRepository extends JpaRepository<AuthUser, Long>, JpaSpecif
      * @return
      */
     @Modifying
-    @Query(value = "update" +
-            "           auth_user" +
-            "       set" +
-            "           status = ?1" +
-            "       where" +
-            "           id = ?2" +
-            "       and" +
-            "           del = '1'", nativeQuery = true)
+    @Query(value = """
+        UPDATE 
+            auth_user
+        SET 
+            status = ?1
+        WHERE
+            id = ?2
+    """, nativeQuery = true)
     int changeSwitch(Integer status, Long id);
 
 }

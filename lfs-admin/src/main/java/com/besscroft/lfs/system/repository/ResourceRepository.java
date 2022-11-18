@@ -19,12 +19,17 @@ public interface ResourceRepository extends JpaRepository<AuthResource, Long>, J
      * @param userId 用户id
      * @return 资源集合
      */
-    @Query(value = "select ar.* from auth_resource ar\n" +
-            "inner join auth_role_resource_relation arrr on ar.id = arrr.resource_id\n" +
-            "inner join auth_role re on arrr.role_id = re.id \n" +
-            "inner join auth_user_role_relation aurr on re.id = aurr.role_id\n" +
-            "inner join auth_user au on aurr.user_id = au.id\n" +
-            "where au.id =:userId", nativeQuery = true)
+    @Query(value = """
+        SELECT 
+            ar.* 
+        FROM 
+            auth_resource ar
+        INNER JOIN auth_role_resource arrr ON ar.id = arrr.resource_id
+        INNER JOIN auth_role re ON arrr.role_id = re.id
+        INNER JOIN auth_user_role aurr ON re.id = aurr.role_id
+        INNER JOIN auth_user au ON aurr.user_id = au.id
+        WHERE au.id =:userId
+    """, nativeQuery = true)
     List<AuthResource> findAllByUserId(Long userId);
 
     /**
@@ -45,12 +50,14 @@ public interface ResourceRepository extends JpaRepository<AuthResource, Long>, J
      * @param id 角色id
      * @return 角色的资源树数组
      */
-    @Query(value = "select" +
-            "           resource_id" +
-            "       from" +
-            "           auth_role_resource_relation" +
-            "       where" +
-            "           role_id =:id", nativeQuery = true)
+    @Query(value = """
+        SELECT 
+            resource_id
+        FROM 
+            auth_role_resource
+        WHERE 
+            role_id =:id
+    """, nativeQuery = true)
     List<Long> selectResourceTreeById(Long id);
 
     /**
@@ -59,11 +66,11 @@ public interface ResourceRepository extends JpaRepository<AuthResource, Long>, J
      * @return
      */
     @Modifying
-    @Query(value = "delete" +
-            "       from" +
-            "           auth_role_resource_relation" +
-            "       where" +
-            "           role_id =:id", nativeQuery = true)
+    @Query(value = """
+        DELETE FROM  auth_role_resource
+        WHERE 
+            role_id =:id
+    """, nativeQuery = true)
     int deleteRoleResourceRelation(Long id);
 
     /**
@@ -73,11 +80,12 @@ public interface ResourceRepository extends JpaRepository<AuthResource, Long>, J
      * @return
      */
     @Modifying
-    @Query(value = "insert into" +
-            "       auth_role_resource_relation" +
-            "            (role_id, resource_id)" +
-            "        values" +
-            "            (?2 , ?1)", nativeQuery = true)
+    @Query(value = """
+        INSERT INTO
+            auth_role_resource (role_id, resource_id)
+        VALUES 
+            (?2 , ?1)
+    """, nativeQuery = true)
     int insertRoleResourceRelation(Long resourceId, Long roleId);
 
     /**
@@ -85,7 +93,14 @@ public interface ResourceRepository extends JpaRepository<AuthResource, Long>, J
      * @param ids 角色id集合
      */
     @Modifying
-    @Query(value = "UPDATE auth_role SET del = 0 WHERE id IN :ids", nativeQuery = true)
+    @Query(value = """
+        UPDATE 
+            auth_role 
+        SET 
+            del = 0 
+        WHERE 
+            id IN :ids
+    """, nativeQuery = true)
     void deleteAllById(List<Long> ids);
 
 }

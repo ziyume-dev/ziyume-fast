@@ -23,12 +23,14 @@ public interface RoleRepository extends JpaRepository<AuthRole, Long>, JpaSpecif
      * @return
      */
     @Modifying
-    @Query(value = "update" +
-            "           auth_role" +
-            "        set" +
-            "           status =:status" +
-            "        where" +
-            "            id =:id", nativeQuery = true)
+    @Query(value = """
+        UPDATE 
+            auth_role
+        SET 
+            status =:status
+        WHERE 
+            id =:id
+    """, nativeQuery = true)
     int changeSwitch(Integer status, Long id);
 
     /**
@@ -37,10 +39,11 @@ public interface RoleRepository extends JpaRepository<AuthRole, Long>, JpaSpecif
      * @return
      */
     @Modifying
-    @Query(value = "delete from" +
-            "           auth_user_role_relation" +
-            "           where" +
-            "               user_id =:userId", nativeQuery = true)
+    @Query(value = """
+        DELETE FROM auth_user_role
+        WHERE 
+            user_id =:userId
+    """, nativeQuery = true)
     int deleteUserRoleRelationById(Long userId);
 
     /**
@@ -50,11 +53,12 @@ public interface RoleRepository extends JpaRepository<AuthRole, Long>, JpaSpecif
      * @return
      */
     @Modifying
-    @Query(value = "insert into" +
-            "           auth_user_role_relation" +
-            "            (user_id, role_id)" +
-            "        values" +
-            "            (?1, ?2)", nativeQuery = true)
+    @Query(value = """
+        INSERT INTO 
+            auth_user_role (user_id, role_id)
+        VALUES 
+            (?1, ?2)
+    """, nativeQuery = true)
     int insertUserRoleRelation(Long userId, Long roleId);
 
     /**
@@ -62,7 +66,14 @@ public interface RoleRepository extends JpaRepository<AuthRole, Long>, JpaSpecif
      * @param ids 角色id集合
      */
     @Modifying
-    @Query(value = "UPDATE auth_resource SET del = 0 WHERE id IN :ids", nativeQuery = true)
+    @Query(value = """
+        UPDATE 
+            auth_resource 
+        SET 
+            del = 0
+        WHERE 
+            id IN :ids
+    """, nativeQuery = true)
     void deleteAllByIdInBatch(List<Long> ids);
 
 }
