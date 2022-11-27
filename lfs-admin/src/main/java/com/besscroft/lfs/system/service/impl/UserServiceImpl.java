@@ -24,6 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.lang.NonNull;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -167,7 +168,8 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Override
     public Page<AuthUser> getUserPageList(Integer pageNum, Integer pageSize, String keyword) {
-        return userRepository.findAll(PageRequest.of(Objects.equals(pageNum, 0) ? 0 : pageNum - 1, pageSize));
+        Sort sort = Sort.by(Sort.Direction.ASC, "username");
+        return userRepository.findAll(PageRequest.of(Objects.equals(pageNum, 0) ? 0 : pageNum - 1, pageSize, sort));
     }
 
     @Override
