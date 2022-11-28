@@ -27,7 +27,7 @@ pisces-lfs 是一个基于 SpringBoot3 + PostgreSQL + Vue + Element UI 的快速
 pisces-lfs 的需要以下程序才能正常的安装和运行：
 
 - Git
-- nodejs 14.x LTS +
+- nodejs 16.x LTS
 - PostgreSQL 12.x+
 - open/oracleJDK 17
 - nginx 1.16+

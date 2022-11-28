@@ -58,6 +58,21 @@ export default {
         // }
         {
           name: "1",
+          title: "v2.0.0",
+          titleIcon: "el-icon-s-promotion",
+          titleType: "success",
+          titleTagInfo: "new version",
+          titleTag: "General Availability",
+          titleTime: "2022-11-27",
+          detail: [
+            {
+              id: 1,
+              body: "[update] 升级 SpringBoot 版本为 3.0.0"
+            }
+          ]
+        },
+        {
+          name: "2",
           title: "v2.0.0-rc3",
           titleIcon: "el-icon-s-promotion",
           titleType: "success",
@@ -84,7 +99,7 @@ export default {
           ]
         },
         {
-          name: "2",
+          name: "3",
           title: "v2.0.0-rc1",
           titleIcon: "el-icon-s-promotion",
           titleType: "success",
@@ -107,7 +122,7 @@ export default {
           ]
         },
         {
-          name: "3",
+          name: "4",
           title: "v2.0.0-rc0",
           titleIcon: "el-icon-s-promotion",
           titleType: "success",
@@ -146,7 +161,7 @@ export default {
           ]
         },
         {
-          name: "4",
+          name: "5",
           title: "v1.3.1-fix",
           titleIcon: "el-icon-s-promotion",
           titleType: "success",
