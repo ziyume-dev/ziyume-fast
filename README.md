@@ -18,7 +18,7 @@ pisces-lfs 是一个基于 SpringBoot3 + PostgreSQL + Vue + Element UI 的快速
 
 ## 文档
 
-[文档中心](https://developer.besscroft.com/lfs/)
+[文档中心](https://docs.besscroft.com/lfs/readme.html)
 
 ## 环境搭建
 
