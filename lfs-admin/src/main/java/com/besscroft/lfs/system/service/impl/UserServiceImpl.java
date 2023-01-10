@@ -10,6 +10,7 @@ import com.besscroft.lfs.dto.AuthUserExcelDto;
 import com.besscroft.lfs.entity.AuthResource;
 import com.besscroft.lfs.entity.AuthRole;
 import com.besscroft.lfs.entity.AuthUser;
+import com.besscroft.lfs.exception.PiscesException;
 import com.besscroft.lfs.security.model.LFSUser;
 import com.besscroft.lfs.system.repository.UserRepository;
 import com.besscroft.lfs.system.service.MenuService;
@@ -75,7 +76,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         }
         // 判断是否禁用
         if (Objects.equals(user.getStatus(), CommonConstants.DELETE)) {
-            throw new UsernameNotFoundException("用户已禁用！");
+            throw new UsernameNotFoundException("用户已被禁用！");
         }
         // 查询权限集合
         List<AuthResource> resourceList = resourceService.getResourceList(user.getId());
@@ -90,17 +91,17 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         try {
             UserDetails userDetails = loadUserByUsername(username);
             LOGGER.info("UserDetails:{}", JSONUtil.toJsonStr(userDetails));
-            if(!passwordEncoder.matches(password,userDetails.getPassword())){
+            if (!passwordEncoder.matches(password,userDetails.getPassword())) {
                 throw new RuntimeException("密码不正确");
             }
-            if(!userDetails.isEnabled()){
+            if (!userDetails.isEnabled()) {
                 throw new RuntimeException("帐号已被禁用");
             }
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             token = jwtUtils.generateToken(userDetails);
         } catch (AuthenticationException e) {
-            LOGGER.warn("登录异常:{}", e.getMessage());
+            throw new PiscesException(e.getMessage());
         }
         return token;
     }

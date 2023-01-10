@@ -24,7 +24,7 @@ public class OpenApiConfiguration {
                         .license(new License().name("Apache 2.0").url("https://github.com/besscroft/pisces-lfs/blob/main/LICENSE")))
                 .externalDocs(new ExternalDocumentation()
                         .description("Pisces Lfs 文档")
-                        .url("https://developer.besscroft.com/lfs/"));
+                        .url("https://docs.besscroft.com/lfs/readme.html"));
     }
 
 }

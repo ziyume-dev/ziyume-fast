@@ -1,7 +1,8 @@
 {
   "name": "pisces-lfs",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "pisces-lfs 的前端",
+  "private": true,
   "author": "BessCroft <besscroft@foxmail.com>",
   "scripts": {
     "dev": "vue-cli-service serve",
