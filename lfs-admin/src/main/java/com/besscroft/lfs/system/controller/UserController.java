@@ -45,7 +45,7 @@ public class UserController {
     @PostMapping("/login")
     public CommonResult<Map<String, String>> login(@Validated @RequestBody LoginParam loginParam) {
         String token = userService.login(loginParam.getUsername(), loginParam.getPassword());
-        Assert.notNull(token, "用户名或密码错误");
+        Assert.notNull(token, "登录失败！");
         Map<String, String> tokenMap = new HashMap<>();
         tokenMap.put("token", token);
         tokenMap.put("tokenHead", tokenHead);
