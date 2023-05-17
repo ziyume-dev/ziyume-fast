@@ -3,7 +3,7 @@ import { http } from '@/utils/http/axios';
 export interface BasicResponseModel<T = any> {
   code: number;
   message: string;
-  result: T;
+  data: T;
 }
 
 export interface BasicPageParams {
@@ -28,7 +28,7 @@ export function getUserInfo() {
 export function login(params) {
   return http.request<BasicResponseModel>(
     {
-      url: '/login',
+      url: '/user/login',
       method: 'POST',
       params,
     },
