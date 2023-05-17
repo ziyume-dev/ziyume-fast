@@ -1,26 +1,87 @@
-<script setup lang="ts">
-// https://github.com/vueuse/head
-// you can use this to manipulate the document head in any components,
-// they will be rendered correctly in the html results with vite-ssg
-useHead({
-  title: 'pisces-lfs',
-  meta: [
-    { name: 'description', content: '基于 openJDK 17、SpringBoot3 + PostgreSQL + Vue 的快速启动框架，可基于此框架快速构建系统！' },
-    {
-      name: 'theme-color',
-      content: computed(() => isDark.value ? '#00aba9' : '#ffffff'),
-    },
-  ],
-  link: [
-    {
-      rel: 'icon',
-      type: 'image/svg+xml',
-      href: computed(() => preferredDark.value ? '/favicon-dark.svg' : '/favicon.svg'),
-    },
-  ],
-})
+<template>
+  <NConfigProvider
+    v-if="!isLock"
+    :locale="zhCN"
+    :theme="getDarkTheme"
+    :theme-overrides="getThemeOverrides"
+    :date-locale="dateZhCN"
+  >
+    <AppProvider>
+      <RouterView />
+    </AppProvider>
+  </NConfigProvider>
+
+  <transition v-if="isLock && $route.name !== 'login'" name="slide-up">
+    <LockScreen />
+  </transition>
+</template>
+
+<script lang="ts" setup>
+  import { computed, onMounted, onUnmounted } from 'vue';
+  import { zhCN, dateZhCN, darkTheme } from 'naive-ui';
+  import { LockScreen } from '@/components/Lockscreen';
+  import { AppProvider } from '@/components/Application';
+  import { useScreenLockStore } from '@/store/modules/screenLock.js';
+  import { useRoute } from 'vue-router';
+  import { useDesignSettingStore } from '@/store/modules/designSetting';
+  import { lighten } from '@/utils/index';
+
+  const route = useRoute();
+  const useScreenLock = useScreenLockStore();
+  const designStore = useDesignSettingStore();
+  const isLock = computed(() => useScreenLock.isLocked);
+  const lockTime = computed(() => useScreenLock.lockTime);
+
+  /**
+   * @type import('naive-ui').GlobalThemeOverrides
+   */
+  const getThemeOverrides = computed(() => {
+    const appTheme = designStore.appTheme;
+    const lightenStr = lighten(designStore.appTheme, 6);
+    return {
+      common: {
+        primaryColor: appTheme,
+        primaryColorHover: lightenStr,
+        primaryColorPressed: lightenStr,
+        primaryColorSuppl: appTheme,
+      },
+      LoadingBar: {
+        colorLoading: appTheme,
+      },
+    };
+  });
+
+  const getDarkTheme = computed(() => (designStore.darkTheme ? darkTheme : undefined));
+
+  let timer: NodeJS.Timer;
+
+  const timekeeping = () => {
+    clearInterval(timer);
+    if (route.name == 'login' || isLock.value) return;
+    // 设置不锁屏
+    useScreenLock.setLock(false);
+    // 重置锁屏时间
+    useScreenLock.setLockTime();
+    timer = setInterval(() => {
+      // 锁屏倒计时递减
+      useScreenLock.setLockTime(lockTime.value - 1);
+      if (lockTime.value <= 0) {
+        // 设置锁屏
+        useScreenLock.setLock(true);
+        return clearInterval(timer);
+      }
+    }, 1000);
+  };
+
+  onMounted(() => {
+    document.addEventListener('mousedown', timekeeping);
+  });
+
+  onUnmounted(() => {
+    document.removeEventListener('mousedown', timekeeping);
+  });
 </script>
 
-<template>
-  <RouterView />
-</template>
+<style lang="less">
+  @import 'styles/index.less';
+</style>

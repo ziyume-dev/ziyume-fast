@@ -4,7 +4,12 @@
 
 ### 简介
 
-pisces-lfs 是一个基于 SpringBoot3 + PostgreSQL + Vue 的快速启动框架，可基于此框架快速构建系统！
+> 似乎没什么要写的了，项目进行归档。本项目适合大学期末作业的参考，以及适合刚步入工作学习 SpringBoot 前后端分离开发。 
+> 没什么太复杂的东西，就是集成了工作中常见的框架和场景，实现了 RBAC 模型的权限管理，没有什么多余的业务。 
+> 这个项目也是我在工作初期写的学习项目，Learning by doing，最重要的是去做，自己从零开始一个，哪怕很多东西你明白，
+> 但是你依旧会踩很多坑，它会帮助你更好地理解 SpringBoot 前后端分离开发。最后，希望这个学习项目也有能帮到他人的时候。
+
+pisces-lfs 是一个基于 SpringBoot3 + PostgreSQL + Vue + Element UI 的快速启动框架，可基于此框架快速构建系统！
 框架提供了基础的基于 RBAC 思想开发的权限管理模块，可以让您专注于业务开发。
 
 ### 预览地址
@@ -26,9 +31,11 @@ pisces-lfs 是一个基于 SpringBoot3 + PostgreSQL + Vue 的快速启动框架�
 
 pisces-lfs 的需要以下程序才能正常的安装和运行：
 
+- Git
 - nodejs 16.x LTS
 - PostgreSQL 12.x+
-- OpenJDK 17
+- open/oracleJDK 17
+- nginx 1.16+
 
 pisces-lfs 支持安装在 LNMP、宝塔面板 等集成环境中, Docker、HeroKu 等容器环境中, 支持大部分能够运行 Java 的平台。
 
@@ -49,8 +56,9 @@ pisces-lfs 欢迎各种贡献，包括但不限于改进，新功能，文档和
 ```bash
 git clone https://github.com/besscroft/pisces-lfs.git
 ```
+### 项目构建（管理平台的前端）
 
-### 前端项目构建
+推荐 [yarn](https://github.com/yarnpkg/yarn)
 
 ```bash
 # 克隆项目
@@ -60,10 +68,13 @@ git clone https://github.com/besscroft/pisces-lfs.git
 cd pisces-lfs/lfs-web
 
 # 安装依赖
-pnpm i
+npm install
+
+# 建议不要用 cnpm 安装 会有各种诡异的bug 可以通过如下操作解决 npm 下载速度慢的问题
+npm install --registry=https://registry.npmmirror.com
 
 # 本地开发 启动项目
-pnpm run dev
+npm run dev
 ```
 
 如果您有任何建议，欢迎反馈！
@@ -71,7 +82,3 @@ pnpm run dev
 我的开源项目都部署在 `DigitalOcean` ，如果你愿意走我的邀请链接注册，可以获得100美元的信用额度。
 
 <a href="https://www.digitalocean.com/?refcode=6841be7284cc&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>
-
-### 感谢
-
-[Vitesse](https://github.com/antfu/vitesse)

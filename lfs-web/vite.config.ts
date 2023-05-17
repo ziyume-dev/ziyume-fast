@@ -1,196 +1,88 @@
-import path from 'node:path'
-import { defineConfig } from 'vite'
-import Vue from '@vitejs/plugin-vue'
-import Pages from 'vite-plugin-pages'
-import generateSitemap from 'vite-ssg-sitemap'
-import Layouts from 'vite-plugin-vue-layouts'
-import Components from 'unplugin-vue-components/vite'
-import AutoImport from 'unplugin-auto-import/vite'
-import Markdown from 'vite-plugin-vue-markdown'
-import { VitePWA } from 'vite-plugin-pwa'
-import VueI18n from '@intlify/unplugin-vue-i18n/vite'
-import Inspect from 'vite-plugin-inspect'
-import Inspector from 'vite-plugin-vue-inspector'
-import LinkAttributes from 'markdown-it-link-attributes'
-import Unocss from 'unocss/vite'
-import Shiki from 'markdown-it-shiki'
-import VueMacros from 'unplugin-vue-macros/vite'
-import WebfontDownload from 'vite-plugin-webfont-dl'
-import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+import type { UserConfig, ConfigEnv } from 'vite';
+import { loadEnv } from 'vite';
+import { resolve } from 'path';
+import { wrapperEnv } from './build/utils';
+import { createVitePlugins } from './build/vite/plugin';
+import { OUTPUT_DIR } from './build/constant';
+import { createProxy } from './build/vite/proxy';
+import pkg from './package.json';
+import { format } from 'date-fns';
+const { dependencies, devDependencies, name, version } = pkg;
 
-export default defineConfig({
-  resolve: {
-    alias: {
-      '~/': `${path.resolve(__dirname, 'src')}/`,
-    },
-  },
+const __APP_INFO__ = {
+  pkg: { dependencies, devDependencies, name, version },
+  lastBuildTime: format(new Date(), 'yyyy-MM-dd HH:mm:ss'),
+};
 
-  server: {
-    // 服务器主机名，如果允许外部访问，可设置为 '0.0.0.0'
-    host: '0.0.0.0',
-    cors: true,
-    // 代理跨域
-    proxy: {
-      '/@api': {
-        target: 'http://localhost:8080',
-        changeOrigin: true,
-        rewrite: path => path.replace(/^\/@api/, ''),
-      },
-    },
-  },
+function pathResolve(dir: string) {
+  return resolve(process.cwd(), '.', dir);
+}
 
-  plugins: [
-    VueMacros({
-      plugins: {
-        vue: Vue({
-          include: [/\.vue$/, /\.md$/],
-          reactivityTransform: true,
-        }),
-      },
-    }),
-
-    // https://github.com/hannoeru/vite-plugin-pages
-    Pages({
-      extensions: ['vue', 'md'],
-    }),
-
-    // https://github.com/JohnCampionJr/vite-plugin-vue-layouts
-    Layouts(),
-
-    // https://github.com/antfu/unplugin-auto-import
-    AutoImport({
-      imports: [
-        'vue',
-        'vue-router',
-        'vue-i18n',
-        'vue/macros',
-        '@vueuse/head',
-        '@vueuse/core',
+export default ({ command, mode }: ConfigEnv): UserConfig => {
+  const root = process.cwd();
+  const env = loadEnv(mode, root);
+  const viteEnv = wrapperEnv(env);
+  const { VITE_PUBLIC_PATH, VITE_DROP_CONSOLE, VITE_PORT, VITE_GLOB_PROD_MOCK, VITE_PROXY } =
+    viteEnv;
+  const prodMock = VITE_GLOB_PROD_MOCK;
+  const isBuild = command === 'build';
+  return {
+    base: VITE_PUBLIC_PATH,
+    esbuild: {},
+    resolve: {
+      alias: [
         {
-          'naive-ui': [
-            'useDialog',
-            'useMessage',
-            'useNotification',
-            'useLoadingBar'
-          ]
+          find: /\/#\//,
+          replacement: pathResolve('types') + '/',
+        },
+        {
+          find: '@',
+          replacement: pathResolve('src') + '/',
         },
       ],
-      dts: 'src/auto-imports.d.ts',
-      dirs: [
-        'src/composables',
-        'src/stores',
-      ],
-      vueTemplate: true,
-    }),
-
-    // https://github.com/antfu/unplugin-vue-components
-    Components({
-      // allow auto load markdown components under `./src/components/`
-      extensions: ['vue', 'md'],
-      // allow auto import and register components used in markdown
-      include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
-      dts: 'src/components.d.ts',
-      resolvers: [NaiveUiResolver()],
-    }),
-
-    // https://github.com/antfu/unocss
-    // see unocss.config.ts for config
-    Unocss(),
-
-    // https://github.com/antfu/vite-plugin-vue-markdown
-    // Don't need this? Try vitesse-lite: https://github.com/antfu/vitesse-lite
-    Markdown({
-      wrapperClasses: 'prose prose-sm m-auto text-left',
-      headEnabled: true,
-      markdownItSetup(md) {
-        // https://prismjs.com/
-        md.use(Shiki, {
-          theme: {
-            light: 'vitesse-light',
-            dark: 'vitesse-dark',
-          },
-        })
-        md.use(LinkAttributes, {
-          matcher: (link: string) => /^https?:\/\//.test(link),
-          attrs: {
-            target: '_blank',
-            rel: 'noopener',
-          },
-        })
-      },
-    }),
-
-    // https://github.com/antfu/vite-plugin-pwa
-    VitePWA({
-      registerType: 'autoUpdate',
-      includeAssets: ['favicon.svg', 'safari-pinned-tab.svg'],
-      manifest: {
-        name: 'pisces-lfs',
-        short_name: 'pisces-lfs',
-        theme_color: '#ffffff',
-        icons: [
-          {
-            src: '/pwa-192x192.png',
-            sizes: '192x192',
-            type: 'image/png',
-          },
-          {
-            src: '/pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-          },
-          {
-            src: '/pwa-512x512.png',
-            sizes: '512x512',
-            type: 'image/png',
-            purpose: 'any maskable',
-          },
-        ],
-      },
-    }),
-
-    // https://github.com/intlify/bundle-tools/tree/main/packages/unplugin-vue-i18n
-    VueI18n({
-      runtimeOnly: true,
-      compositionOnly: true,
-      fullInstall: true,
-      include: [path.resolve(__dirname, 'locales/**')],
-    }),
-
-    // https://github.com/antfu/vite-plugin-inspect
-    // Visit http://localhost:3333/__inspect/ to see the inspector
-    Inspect(),
-
-    // https://github.com/webfansplz/vite-plugin-vue-inspector
-    Inspector({
-      toggleButtonVisibility: 'never',
-    }),
-
-    // https://github.com/feat-agency/vite-plugin-webfont-dl
-    WebfontDownload(),
-  ],
-
-  // https://github.com/vitest-dev/vitest
-  test: {
-    include: ['test/**/*.test.ts'],
-    environment: 'jsdom',
-    deps: {
-      inline: ['@vue', '@vueuse', 'vue-demi'],
+      dedupe: ['vue'],
     },
-  },
-
-  // https://github.com/antfu/vite-ssg
-  ssgOptions: {
-    script: 'async',
-    formatting: 'minify',
-    crittersOptions: {
-      reduceInlineStyles: false,
+    plugins: createVitePlugins(viteEnv, isBuild, prodMock),
+    define: {
+      __APP_INFO__: JSON.stringify(__APP_INFO__),
     },
-    onFinished() { generateSitemap() },
-  },
-
-  ssr: {
-    // TODO: workaround until they support native ESM
-    noExternal: ['workbox-window', /vue-i18n/],
-  },
-})
+    // css: {
+    //   preprocessorOptions: {
+    //     less: {
+    //       modifyVars: {},
+    //       javascriptEnabled: true,
+    //       additionalData: `@import "src/styles/var.less";`,
+    //     },
+    //   },
+    // },
+    server: {
+      host: true,
+      port: VITE_PORT,
+      proxy: createProxy(VITE_PROXY),
+      // proxy: {
+      //     '/api': {
+      //         target: '',
+      //         changeOrigin: true,
+      //         rewrite: (path) => path.replace(/^\/api/, '/api/v1')
+      //     }
+      // }
+    },
+    optimizeDeps: {
+      include: [],
+      exclude: ['vue-demi'],
+    },
+    build: {
+      target: 'es2015',
+      cssTarget: 'chrome80',
+      outDir: OUTPUT_DIR,
+      // terserOptions: {
+      //   compress: {
+      //     keep_infinity: true,
+      //     drop_console: VITE_DROP_CONSOLE,
+      //   },
+      // },
+      reportCompressedSize: false,
+      chunkSizeWarningLimit: 2000,
+    },
+  };
+};
