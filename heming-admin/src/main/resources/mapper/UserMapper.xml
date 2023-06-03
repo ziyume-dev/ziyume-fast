@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.heming.fast.mapper.UserMapper">
+
+    <resultMap id="userMap" type="dev.heming.fast.entity.User">
+        <result column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="avatar" property="avatar"/>
+        <result column="email" property="email"/>
+        <result column="name" property="name"/>
+        <result column="telephone" property="telephone"/>
+        <result column="remark" property="remark"/>
+        <result column="sort" property="sort"/>
+        <result column="status" property="status"/>
+        <result column="creator" property="creator"/>
+        <result column="updater" property="updater"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="del" property="del"/>
+    </resultMap>
+
+    <select id="selectByUsername" resultMap="userMap">
+        SELECT
+            id,
+            username,
+            password,
+            avatar,
+            email,
+            name,
+            telephone,
+            remark,
+            sort,
+            creator,
+            updater,
+            create_time,
+            update_time,
+            status,
+            del
+        FROM
+            heming_user
+        WHERE
+            del = 1
+        AND
+            username = #{username}
+    </select>
+
+    <select id="selectUserList" resultSets="java.util.List" resultMap="userMap">
+        SELECT
+            id,
+            username,
+            password,
+            avatar,
+            email,
+            name,
+            telephone,
+            remark,
+            sort,
+            creator,
+            updater,
+            create_time,
+            update_time,
+            status,
+            del
+        FROM
+            heming_user
+        WHERE
+            del = 1
+        <if test="username != null and username != ''">
+            AND username = #{username}
+        </if>
+        <if test="name != null and name != ''">
+            AND name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        <if test="telephone != null and telephone != ''">
+            AND telephone LIKE CONCAT('%', #{telephone}, '%')
+        </if>
+        <if test="email != null and email != ''">
+            AND email LIKE CONCAT('%', #{email}, '%')
+        </if>
+        ORDER BY sort
+    </select>
+
+</mapper>

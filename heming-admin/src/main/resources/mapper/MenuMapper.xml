@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.heming.fast.mapper.MenuMapper">
+
+    <resultMap id="menuMap" type="dev.heming.fast.entity.Menu">
+        <result column="id" property="id"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="title" property="title"/>
+        <result column="name" property="name"/>
+        <result column="path" property="path"/>
+        <result column="redirect" property="redirect"/>
+        <result column="component" property="component"/>
+        <result column="icon" property="icon"/>
+        <result column="disabled" property="disabled"/>
+        <result column="hidden" property="hidden"/>
+        <result column="keep_alive" property="keepAlive"/>
+        <result column="always_show" property="alwaysShow"/>
+        <result column="is_root" property="isRoot"/>
+        <result column="frame_src" property="frameSrc"/>
+        <result column="affix" property="affix"/>
+        <result column="sort" property="sort"/>
+        <result column="creator" property="creator"/>
+        <result column="updater" property="updater"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="del" property="del"/>
+    </resultMap>
+
+    <select id="selectAllByUserId" resultSets="java.util.List" resultMap="menuMap">
+        SELECT
+            t.*
+        FROM (
+            SELECT
+                DISTINCT ON (hm.id) hm.id,
+                hm.parent_id,
+                hm.title,
+                hm.name,
+                hm.path,
+                hm.redirect,
+                hm.component,
+                hm.icon,
+                hm.disabled,
+                hm.hidden,
+                hm.keep_alive,
+                hm.always_show,
+                hm.is_root,
+                hm.frame_src,
+                hm.affix,
+                hm.sort,
+                hm.creator,
+                hm.updater,
+                hm.create_time,
+                hm.update_time,
+                hm.del
+            FROM
+                heming_menu hm
+            INNER JOIN
+                heming_role_menu hrm
+            ON
+                hm.id = hrm.menu_id
+            INNER JOIN
+                heming_user_role hur
+            ON
+                hrm.role_id = hur.role_id
+            WHERE
+                hur.user_id = #{userId}
+            AND
+                hm.del = 1
+        ) t
+        ORDER BY t.sort
+    </select>
+
+    <select id="selectMenuList" resultSets="java.util.List" resultMap="menuMap">
+        SELECT
+            id,
+            parent_id,
+            title,
+            name,
+            path,
+            redirect,
+            component,
+            icon,
+            disabled,
+            hidden,
+            keep_alive,
+            always_show,
+            is_root,
+            frame_src,
+            affix,
+            sort,
+            creator,
+            updater,
+            create_time,
+            update_time,
+            del
+        FROM
+            heming_menu
+        WHERE
+            del = 1
+        <if test="title != null and title != ''">
+            AND title LIKE CONCAT('%', #{title}, '%')
+        </if>
+        <if test="name != null and name != ''">
+            AND name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        <if test="path != null and path != ''">
+            AND path LIKE CONCAT('%', #{path}, '%')
+        </if>
+        ORDER BY sort
+    </select>
+
+</mapper>

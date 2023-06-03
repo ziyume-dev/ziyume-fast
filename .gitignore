@@ -3,8 +3,14 @@ target/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-**/package-lock.json
-**/yarn.lock
+**/dist/
+**/node_modules/
+**/.DS_Store
+**/.vite-ssg-dist
+**/.vite-ssg-temp
+*.local
+**/dist-ssr
+*.log
 
 ### STS ###
 .apt_generated
@@ -23,20 +29,7 @@ target/
 .mvn
 mvnw
 mvnw.cmd
-lfs-web/node_modules
+heming-web/node_modules
 logs
-lfs-web/yarn.lock
-lfs-web/dist
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
-!**/src/main/**/build/
-!**/src/test/**/build/
-
-### VS Code ###
-.vscode/
+heming-web/yarn.lock
+heming-web/dist
