@@ -72,3 +72,9 @@ pnpm run dev
 我的开源项目都部署在 `DigitalOcean` ，如果你愿意走我的邀请链接注册，可以获得100美元的信用额度。
 
 <a href="https://www.digitalocean.com/?refcode=6841be7284cc&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>
+
+### 感谢
+
+[Vitesse](https://github.com/antfu/vitesse)
+[Sa-Token](https://github.com/dromara/Sa-Token)
+[naive-ui](https://github.com/tusen-ai/naive-ui)
