@@ -1,20 +1,15 @@
-## Pisces Lfs
+## Heming Fast
 
-[![](https://img.shields.io/badge/%E5%BC%80%E5%8F%91%E8%BF%9B%E5%BA%A6-%E5%BC%80%E5%8F%91%E4%B8%AD-brightgreen?style=flat-square)]() [![](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://github.com/besscroft/pisces-lfs/blob/master/LICENSE) [![](https://img.shields.io/badge/release-v0.0.2-orange?style=flat-square)]() ![GitHub repo size](https://img.shields.io/github/repo-size/besscroft/pisces-lfs?style=flat-square&color=328657)
+[![](https://img.shields.io/badge/%E5%BC%80%E5%8F%91%E8%BF%9B%E5%BA%A6-%E5%BC%80%E5%8F%91%E4%B8%AD-brightgreen?style=flat-square)]() [![](https://img.shields.io/badge/license-MIT-green?style=flat-square)](https://github.com/besscroft/heming-fast/blob/master/LICENSE) [![](https://img.shields.io/badge/release-v1.0.0-orange?style=flat-square)]() ![GitHub repo size](https://img.shields.io/github/repo-size/besscroft/heming-fast?style=flat-square&color=328657)
 
 ### 简介
 
-> 似乎没什么要写的了，项目进行归档。本项目适合大学期末作业的参考，以及适合刚步入工作学习 SpringBoot 前后端分离开发。 
-> 没什么太复杂的东西，就是集成了工作中常见的框架和场景，实现了 RBAC 模型的权限管理，没有什么多余的业务。 
-> 这个项目也是我在工作初期写的学习项目，Learning by doing，最重要的是去做，自己从零开始一个，哪怕很多东西你明白，
-> 但是你依旧会踩很多坑，它会帮助你更好地理解 SpringBoot 前后端分离开发。最后，希望这个学习项目也有能帮到他人的时候。
-
-pisces-lfs 是一个基于 SpringBoot3 + PostgreSQL + Vue + Element UI 的快速启动框架，可基于此框架快速构建系统！
+heming-fast 是一个基于 SpringBoot3  + Vue 的快速启动框架，可基于此框架快速构建系统！
 框架提供了基础的基于 RBAC 思想开发的权限管理模块，可以让您专注于业务开发。
 
 ### 预览地址
 
-[演示站](https://lfs.besscroft.com/)
+[演示站](https://heming-fast.besscroft.com/)
 
 ```
 账号：admin
@@ -23,58 +18,53 @@ pisces-lfs 是一个基于 SpringBoot3 + PostgreSQL + Vue + Element UI 的快速
 
 ## 文档
 
-[文档中心](https://docs.besscroft.com/lfs/readme.html)
+[文档中心](https://docs.besscroft.com/heming-fast/readme.html)
 
 ## 环境搭建
 
 ### 开发环境
 
-pisces-lfs 的需要以下程序才能正常的安装和运行：
+heming-fast 的需要以下程序才能正常的安装和运行：
 
 - Git
-- nodejs 16.x LTS
+- nodejs 16.x LTS +
 - PostgreSQL 12.x+
 - open/oracleJDK 17
 - nginx 1.16+
 
-pisces-lfs 支持安装在 LNMP、宝塔面板 等集成环境中, Docker、HeroKu 等容器环境中, 支持大部分能够运行 Java 的平台。
+heming-fast 支持安装在 LNMP、宝塔面板 等集成环境中, Docker、HeroKu 等容器环境中, 支持大部分能够运行 Java 的平台。
 
 ### 代码贡献
 
-[提出新想法 & 提交 Bug](https://github.com/besscroft/pisces-lfs/issues/new) | [Fork & Pull Request](https://github.com/besscroft/pisces-lfs/fork)
+[提出新想法 & 提交 Bug](https://github.com/besscroft/heming-fast/issues/new) | [Fork & Pull Request](https://github.com/besscroft/heming-fast/fork)
 
-pisces-lfs 欢迎各种贡献，包括但不限于改进，新功能，文档和代码改进，问题和错误报告。
+heming-fast 欢迎各种贡献，包括但不限于改进，新功能，文档和代码改进，问题和错误报告。
 
 ### 在线开发
 
 你可以使用 Gitpod 进行在线开发：
 
-<p><a href="https://gitpod.io/#https://github.com/besscroft/pisces-lfs" rel="nofollow"><img src="https://camo.githubusercontent.com/1eb1ddfea6092593649f0117f7262ffa8fbd3017/68747470733a2f2f676974706f642e696f2f627574746f6e2f6f70656e2d696e2d676974706f642e737667" alt="Open in Gitpod" data-canonical-src="https://gitpod.io/button/open-in-gitpod.svg" style="max-width:100%;"></a></p>
+<p><a href="https://gitpod.io/#https://github.com/besscroft/heming-fast" rel="nofollow"><img src="https://camo.githubusercontent.com/1eb1ddfea6092593649f0117f7262ffa8fbd3017/68747470733a2f2f676974706f642e696f2f627574746f6e2f6f70656e2d696e2d676974706f642e737667" alt="Open in Gitpod" data-canonical-src="https://gitpod.io/button/open-in-gitpod.svg" style="max-width:100%;"></a></p>
 
 或者克隆到本地开发:
 
 ```bash
-git clone https://github.com/besscroft/pisces-lfs.git
+git clone https://github.com/besscroft/heming-fast.git
 ```
 ### 项目构建（管理平台的前端）
 
-推荐 [yarn](https://github.com/yarnpkg/yarn)
-
 ```bash
 # 克隆项目
-git clone https://github.com/besscroft/pisces-lfs.git
+git clone https://github.com/besscroft/heming-fast.git
 
 # 进入项目目录
-cd pisces-lfs/lfs-web
+cd heming-fast/heming-web
 
 # 安装依赖
-npm install
-
-# 建议不要用 cnpm 安装 会有各种诡异的bug 可以通过如下操作解决 npm 下载速度慢的问题
-npm install --registry=https://registry.npmmirror.com
+pnpm i
 
 # 本地开发 启动项目
-npm run dev
+pnpm run dev
 ```
 
 如果您有任何建议，欢迎反馈！

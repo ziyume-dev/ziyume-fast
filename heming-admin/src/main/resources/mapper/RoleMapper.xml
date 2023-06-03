@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="dev.heming.fast.mapper.RoleMapper">
+
+    <resultMap id="roleMap" type="dev.heming.fast.entity.Role">
+        <result column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="code" property="code"/>
+        <result column="description" property="description"/>
+        <result column="sort" property="sort"/>
+        <result column="status" property="status"/>
+        <result column="creator" property="creator"/>
+        <result column="updater" property="updater"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="del" property="del"/>
+    </resultMap>
+
+    <select id="selectAllCodeByUserId" resultSets="java.util.List" resultType="java.lang.String">
+        SELECT
+            heming_role.code
+        FROM
+            heming_role
+        INNER JOIN
+            heming_user_role
+        ON
+            heming_role.id = heming_user_role.role_id
+        WHERE
+            heming_user_role.user_id = #{userId}
+        AND
+            heming_role.del = 1
+    </select>
+
+    <select id="findRoleResource" resultSets="java.util.List" resultType="dev.heming.fast.dto.RoleResourceDto">
+        SELECT
+            id,
+            role_id AS roleId,
+            resource_id AS resourceId
+        FROM
+            heming_role_resource
+    </select>
+
+    <select id="selectRoleList" resultSets="java.util.List" resultMap="roleMap">
+        SELECT
+            id,
+            name,
+            code,
+            description,
+            sort,
+            status,
+            creator,
+            updater,
+            create_time,
+            update_time,
+            del
+        FROM
+            heming_role
+        WHERE
+            del = 1
+        <if test="name != null and name != ''">
+            AND name LIKE CONCAT('%', #{name}, '%')
+        </if>
+        <if test="code != null and code != ''">
+            AND code = #{code}
+        </if>
+        ORDER BY sort
+    </select>
+
+</mapper>
