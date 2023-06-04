@@ -9,8 +9,8 @@ RUN set -eux; \
 # 创建文件夹
 RUN mkdir -p /root/lfs
 # 拷贝jar包，并重命名
-COPY ./lfs-admin/target/heming-admin.jar /heming-admin.jar
+COPY ./lfs-admin/target/heming-admin.jar /heming-fast.jar
 # 指定docker容器启动时运行jar包
-ENTRYPOINT exec java ${JAVA_OPTS} -jar ${SPRING_CONFIG} /heming-admin.jar
+ENTRYPOINT exec java ${JAVA_OPTS} -jar ${SPRING_CONFIG} /heming-fast.jar
 # 指定维护者的名字
 MAINTAINER besscroft
