@@ -78,10 +78,6 @@ export default defineConfig({
       markdownItSetup(md) {
         // https://prismjs.com/
         md.use(Shiki, {
-          theme: {
-            light: 'heming-web-light',
-            dark: 'heming-web-dark',
-          },
         })
         md.use(LinkAttributes, {
           matcher: (link: string) => /^https?:\/\//.test(link),
