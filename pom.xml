@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.0.5</version>
+        <version>3.1.2</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
@@ -30,15 +30,14 @@
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>3.0.5</spring-boot.version>
+        <spring-boot.version>3.1.2</spring-boot.version>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
         <springdoc.version>2.1.0</springdoc.version>
         <sa-token.version>1.34.0</sa-token.version>
         <hutool-all.version>5.8.18</hutool-all.version>
-        <pagehelper.version>1.4.6</pagehelper.version>
+        <pagehelper.version>1.4.7</pagehelper.version>
         <oshi.version>6.4.1</oshi.version>
-        <caffeine.version>3.1.6</caffeine.version>
         <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
     </properties>
 
@@ -122,12 +121,6 @@
                 <groupId>com.github.oshi</groupId>
                 <artifactId>oshi-core</artifactId>
                 <version>${oshi.version}</version>
-            </dependency>
-            <!-- 缓存 -->
-            <dependency>
-                <groupId>com.github.ben-manes.caffeine</groupId>
-                <artifactId>caffeine</artifactId>
-                <version>${caffeine.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

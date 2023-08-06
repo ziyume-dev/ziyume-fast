@@ -1,23 +1,30 @@
 spring:
   data:
     redis:
-      # 数据库索引
-      database: 0
-      host: 127.0.0.1
-      port: 6379
-      password: password
-      # 连接超时时间
+      # Redis数据库索引（默认为0）
+      database: ${REDIS_DATABASE:0}
+      # Redis服务器地址
+      host: ${REDIS_HOST:localhost}
+      # Redis服务器连接端口
+      port: ${REDIS_PORT:6379}
+      # Redis服务器连接密码（默认为空）
+      password: ${REDIS_PASSWORD:password}
+      # 连接超时时间（毫秒）
       timeout: 5000
+      # 连接池最大连接数（使用负值表示没有限制）
       lettuce:
         pool:
-          max-active: 8
+          max-active: 10
+          # 连接池最大阻塞等待时间（使用负值表示没有限制）
           max-wait: -1ms
-          max-idle: 10
-          min-idle: 0
+          # 连接池中的最大空闲连接
+          max-idle: 8
+          # 连接池中的最小空闲连接
+          min-idle: 2
   datasource:
-    driverClassName: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/lfs?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=false
-    username: postgres
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${DB_URL:localhost:3306}/${DB_NAME:heming-fast}?serverTimezone=Asia/Shanghai&characterEncoding=utf8&useSSL=${DB_SSL:false}
+    username: root
     password: 666666
     hikari:
       # 连接池最大连接数
@@ -32,7 +39,7 @@ spring:
       connection-test-query: select 1
   # 缓存
   cache:
-    type: CAFFEINE
+    type: redis
     caffeine:
       spec: maximumSize=500,initialCapacity=100,expireAfterAccess=600s
 
