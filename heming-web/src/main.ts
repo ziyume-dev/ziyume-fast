@@ -1,40 +1,25 @@
+import { ViteSSG } from 'vite-ssg'
+import { setupLayouts } from 'virtual:generated-layouts'
+
+// import Previewer from 'virtual:vue-component-preview'
+import App from './App.vue'
+import type { UserModule } from './types'
+import generatedRoutes from '~pages'
+
 import '@unocss/reset/tailwind.css'
 import './styles/main.css'
 import 'uno.css'
-import { createApp } from 'vue'
-import App from './App.vue'
-import router, { setupRouter } from './router'
-import { setupDirectives, setupNaive, setupNaiveDiscreteApi } from '~/plugins'
-import { setupStore } from '~/stores'
 
-async function bootstrap() {
-  const app = createApp(App)
+const routes = setupLayouts(generatedRoutes)
 
-  // 挂载状态管理
-  setupStore(app)
-
-  // 注册全局常用的 naive-ui 组件
-  setupNaive(app)
-
-  // 挂载 naive-ui 脱离上下文的 Api
-  setupNaiveDiscreteApi()
-
-  // 注册全局自定义指令，如：v-permission权限指令
-  setupDirectives(app)
-
-  // 挂载路由
-  setupRouter(app)
-
-  // 路由准备就绪后挂载 APP 实例
-  // https://router.vuejs.org/api/interfaces/router.html#isready
-  await router.isReady()
-
-  // https://www.naiveui.com/en-US/os-theme/docs/style-conflict#About-Tailwind's-Preflight-Style-Override
-  const meta = document.createElement('meta')
-  meta.name = 'naive-ui-style'
-  document.head.appendChild(meta)
-
-  app.mount('#app', true)
-}
-
-void bootstrap()
+// https://github.com/antfu/vite-ssg
+export const createApp = ViteSSG(
+  App,
+  { routes, base: import.meta.env.BASE_URL },
+  (ctx) => {
+    // install all modules under `modules/`
+    Object.values(import.meta.glob<{ install: UserModule }>('./modules/*.ts', { eager: true }))
+      .forEach(i => i.install?.(ctx))
+    // ctx.app.use(Previewer)
+  },
+)
