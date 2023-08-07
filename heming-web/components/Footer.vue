@@ -1,5 +1,7 @@
 <template>
-  <div text="xl gray4" m-5 flex="~ gap3" justify-center>
-    <DarkToggle />
+  <div flex text-center h-full justify-center items-center>
+    <span>
+      Made with ❤ by Bess Croft.
+    </span>
   </div>
 </template>

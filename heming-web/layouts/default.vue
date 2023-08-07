@@ -6,14 +6,14 @@
       </n-layout-header>
       <n-layout has-sider position="absolute" style="margin-top: 60px; height: calc(100% - 60px)">
         <n-layout-sider bordered collapse-mode="width" width="188">
-          菜单
+          <PopMenu />
         </n-layout-sider>
         <n-layout h-full>
           <n-layout-content content-style="padding: 0.25rem;" style="height: calc(100% - 60px)">
             <RouterView />
           </n-layout-content>
           <n-layout-footer style="height: 60px">
-            页脚
+            <Footer />
           </n-layout-footer>
         </n-layout>
       </n-layout>
