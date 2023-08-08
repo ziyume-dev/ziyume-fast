@@ -2,8 +2,10 @@
 import type { FormInst, FormRules } from 'naive-ui'
 import { Login } from '~/types'
 import { useMessage } from 'naive-ui'
+import { getBaseUrl } from '~/utils/api'
 
 const message = useMessage()
+const user = useUserStore()
 const router = useRouter()
 const formRef = ref<FormInst | null>(null)
 
@@ -27,16 +29,18 @@ const handleSubmitClick = () => {
   formRef.value?.validate(async (errors) => {
     if (!errors) {
       await $fetch('/user/login', {
-        baseURL: '/@api',
+        baseURL: getBaseUrl(),
         method: 'POST',
         body: { username: loginForm.username, password: loginForm.password },
         parseResponse: JSON.parse,
       }).then((res: any) => {
         if (res.code === 200) {
           message.success('登录成功')
+          user.setToken(res.data.tokenValue)
+          user.setTokenName(res.data.tokenName)
           // 等待一秒
           setTimeout(() => {
-            router.push('/')
+            router.push('/admin')
           }, 1000)
         } else {
           message.error(res.message)

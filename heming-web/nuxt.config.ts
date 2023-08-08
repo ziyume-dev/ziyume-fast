@@ -2,6 +2,7 @@ import { pwa } from './config/pwa'
 import { appDescription } from './constants'
 import Components from 'unplugin-vue-components/vite'
 import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
+import { apiUrl } from './constants/api'
 
 export default defineNuxtConfig({
   build: {
@@ -34,11 +35,16 @@ export default defineNuxtConfig({
     '@vite-pwa/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
   ],
+
+  pinia: {
+    autoImports: [
+        'defineStore',
+    ]
+  },
+
   piniaPersistedstate: {
-    cookieOptions: {
-      sameSite: 'strict',
-    },
     storage: 'localStorage',
+    debug: true,
   },
 
   experimental: {
@@ -61,7 +67,7 @@ export default defineNuxtConfig({
   nitro: {
     devProxy: {
       "/@api": {
-        target: 'http://127.0.0.1:8080/',
+        target: apiUrl,
         prependPath: true,
         changeOrigin: true,
         autoRewrite: true,

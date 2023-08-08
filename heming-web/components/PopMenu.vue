@@ -25,7 +25,7 @@ const menuOptions: MenuOption[] = [
         h(
             NuxtLink,
             {
-              to: '/',
+              to: '/admin',
             },
             { default: () => '首页' }
         ),
@@ -42,7 +42,7 @@ const menuOptions: MenuOption[] = [
             h(
                 NuxtLink,
                 {
-                  to: '/user',
+                  to: '/admin/user',
                 },
                 { default: () => '用户' }
             ),
@@ -54,7 +54,7 @@ const menuOptions: MenuOption[] = [
             h(
                 NuxtLink,
                 {
-                  to: '/user/1',
+                  to: '/admin/user/1',
                 },
                 { default: () => '用户1' }
             ),
@@ -66,7 +66,7 @@ const menuOptions: MenuOption[] = [
             h(
                 NuxtLink,
                 {
-                  to: '/user/2',
+                  to: '/admin/user/2',
                 },
                 { default: () => '用户2' }
             ),
@@ -78,16 +78,16 @@ const menuOptions: MenuOption[] = [
 ]
 
 const activeItemHandle = (path: string) => {
-  if (path === '/') {
+  if (path === '/admin') {
     activeItem.value = 'home'
     expandedKeys.value = ['home']
-  } else if (path === '/user') {
+  } else if (path === '/admin/user') {
     activeItem.value = 'users'
     expandedKeys.value = ['user','users']
-  } else if (path === '/user/1') {
+  } else if (path === '/admin/user/1') {
     activeItem.value = 'user1'
     expandedKeys.value = ['user','user1']
-  } else if (path === '/user/2') {
+  } else if (path === '/admin/user/2') {
     activeItem.value = 'user2'
     expandedKeys.value = ['user','user2']
   }
