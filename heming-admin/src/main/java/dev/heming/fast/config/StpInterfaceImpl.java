@@ -2,10 +2,9 @@ package dev.heming.fast.config;
 
 import cn.dev33.satoken.stp.StpInterface;
 import cn.hutool.core.collection.CollUtil;
-import dev.heming.fast.service.RoleService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -14,10 +13,7 @@ import java.util.List;
  * @Date 2023/1/15 19:56
  */
 @Component
-@RequiredArgsConstructor
 public class StpInterfaceImpl implements StpInterface {
-
-    private final RoleService roleService;
 
     /**
      * 返回一个账号所拥有的权限码集合
@@ -40,7 +36,7 @@ public class StpInterfaceImpl implements StpInterface {
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
         // TODO 配置缓存
-        return roleService.getAllRoleCodeByCurrentUser(Long.parseLong(loginId.toString()));
+        return new ArrayList<>();
     }
 
 }

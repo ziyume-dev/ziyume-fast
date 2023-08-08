@@ -14,10 +14,7 @@ import dev.heming.fast.mapper.UserMapper;
 import dev.heming.fast.param.user.PageListParam;
 import dev.heming.fast.param.user.UserAddParam;
 import dev.heming.fast.param.user.UserUpdateParam;
-import dev.heming.fast.service.MenuService;
-import dev.heming.fast.service.RoleService;
 import dev.heming.fast.service.UserService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
@@ -36,11 +33,7 @@ import java.util.Objects;
  */
 @Slf4j
 @Service
-@RequiredArgsConstructor
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
-
-    private final RoleService roleService;
-    private final MenuService menuService;
 
     @Override
     public SaTokenInfo login(String username, String password) {
@@ -68,8 +61,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         Map<String, Object> map = new HashMap<>();
         map.put("userName", user.getName());
         map.put("avatar", user.getAvatar());
-        map.put("role", roleService.getAllRoleCodeByCurrentUser(userId));
-        map.put("menus", menuService.getRouterByUserId(userId));
         return map;
     }
 
