@@ -59,6 +59,14 @@ export default defineNuxtConfig({
   },
 
   nitro: {
+    devProxy: {
+      "/@api": {
+        target: 'http://127.0.0.1:8080/',
+        prependPath: true,
+        changeOrigin: true,
+        autoRewrite: true,
+      }
+    },
     esbuild: {
       options: {
         target: 'esnext',
@@ -67,7 +75,6 @@ export default defineNuxtConfig({
     prerender: {
       crawlLinks: false,
       routes: ['/'],
-      ignore: ['/hi'],
     },
   },
 

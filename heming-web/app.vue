@@ -10,9 +10,11 @@ useHead({
 <template>
   <VitePwaManifest />
   <n-config-provider :theme="isDark ? darkTheme : undefined">
-    <NuxtLayout>
-      <NuxtPage />
-    </NuxtLayout>
+    <n-message-provider>
+      <NuxtLayout>
+        <NuxtPage />
+      </NuxtLayout>
+    </n-message-provider>
   </n-config-provider>
 </template>
 
