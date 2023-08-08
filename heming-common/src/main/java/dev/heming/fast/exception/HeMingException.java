@@ -1,7 +1,9 @@
 package dev.heming.fast.exception;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 /**
@@ -10,6 +12,8 @@ import org.springframework.http.HttpStatus;
  * @Date 2022/12/15 14:47
  */
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class HeMingException extends RuntimeException {
 
@@ -21,44 +25,9 @@ public class HeMingException extends RuntimeException {
     /** 错误提示 */
     private String message;
 
-    /**
-     * 空构造方法，避免反序列化问题
-     */
-    public HeMingException() {
-    }
-
-    public HeMingException(ErrorCode errorCode) {
-        this.code = errorCode.getCode();
-        this.message = errorCode.getMessage();
-    }
-
     public HeMingException(String message) {
         this.code = HttpStatus.INTERNAL_SERVER_ERROR.value();
         this.message = message;
-    }
-
-    public HeMingException(Integer code, String message) {
-        this.code = code;
-        this.message = message;
-    }
-
-    public Integer getCode() {
-        return code;
-    }
-
-    public HeMingException setCode(Integer code) {
-        this.code = code;
-        return this;
-    }
-
-    @Override
-    public String getMessage() {
-        return message;
-    }
-
-    public HeMingException setMessage(String message) {
-        this.message = message;
-        return this;
     }
 
 }

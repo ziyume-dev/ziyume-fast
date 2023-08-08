@@ -4,21 +4,20 @@
 
 ### 简介
 
-heming-fast 是一个基于 SpringBoot3  + Vue 的快速启动框架，可基于此框架快速构建系统！
-框架提供了基础的基于 RBAC 思想开发的权限管理模块，可以让您专注于业务开发。
+heming-fast 是一个基于 SpringBoot 3  + Nuxt 3 的脚手架，可基于此框架快速构建系统！
 
 ### 预览地址
 
-[演示站](https://heming-fast.besscroft.com/)
+[演示站](https://fast.heming.dev/)
 
 ```
-账号：admin
+账号：heming
 密码：666666
 ```
 
 ## 文档
 
-[文档中心](https://docs.besscroft.com/heming-fast/readme.html)
+改造中...
 
 ## 环境搭建
 
@@ -28,7 +27,7 @@ heming-fast 的需要以下程序才能正常的安装和运行：
 
 - Git
 - nodejs 16.x LTS +
-- PostgreSQL 12.x+
+- MySQL 8.0 +
 - open/oracleJDK 17
 - nginx 1.16+
 
@@ -75,6 +74,14 @@ pnpm run dev
 
 ### 感谢
 
-[Vitesse](https://github.com/antfu/vitesse)
+[vitesse-nuxt3](https://github.com/antfu/vitesse-nuxt3)
 [Sa-Token](https://github.com/dromara/Sa-Token)
 [naive-ui](https://github.com/tusen-ai/naive-ui)
+
+以及更多用到的开源项目...
+
+本项目使用 JetBrains 的开源许可证，基于 IntelliJ IDEA 开发，感谢！
+
+![JetBrains 徽标（主要） logo](https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg)
+
+![IntelliJ IDEA logo](https://resources.jetbrains.com/storage/products/company/brand/logos/IntelliJ_IDEA.svg)
