@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { appName } from '../../constants'
 
-const user = useUserStore()
 const router = useRouter()
 const formattedValue = ref('2023.08.08 12:08:08')
 const inputValue = ref(null)
@@ -26,20 +25,6 @@ const dropdownOptions = [
     key: 'the beverly hills hotel, los angeles'
   }
 ]
-
-onMounted(() => {
-  useFetch('/api/user',
-      {
-        headers: {
-          Authorization: 'Bearer ' + user.token
-        },
-        method: 'GET',
-      }).then((res: any) => {
-        console.log(res)
-      }).catch((err: any) => {
-        // console.log(err)
-      })
-})
 
 definePageMeta({
   title: '首页',
