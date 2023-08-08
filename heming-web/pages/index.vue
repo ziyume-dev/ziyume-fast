@@ -25,6 +25,11 @@ const dropdownOptions = [
     key: 'the beverly hills hotel, los angeles'
   }
 ]
+
+definePageMeta({
+  title: '首页',
+  layout: 'admin'
+})
 </script>
 
 <template>
