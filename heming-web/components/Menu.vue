@@ -9,18 +9,20 @@ const activeItem = ref<string | null>(null)
 const open = ref([''])
 
 const handleOpen = (item: string) => {
-  if (item === '/admin/dict' || item === '/admin/word' || item === '/admin/feedback') {
-    open.value = ['Business']
+  if (item === '/admin/menu') {
+    open.value = ['Menu']
   } else if (item === '/admin/user') {
     open.value = ['System']
+  } else if (item === '/admin/menu/menu11' || item === '/admin/menu/menu12') {
+    open.value = ['Menu', 'MenuChild']
   }
 }
 
 const logout = async () => {
-  const json = await nuxtApp.$api.post('/@api/user/logout').json();
+  const json = await nuxtApp.$api.post('/@fast-api/user/logout').json();
   user.$reset()
   toast.add({title: '退出成功!', timeout: 1000, ui: {width: 'w-full sm:w-96'}})
-  router.push('/')
+  router.push('/login')
 }
 
 watch(router.currentRoute, (val) => {
@@ -43,11 +45,6 @@ onMounted(() => {
       <p font-ark>{{ user.userName }}</p>
       <p font-ark>{{ user.email || '暂未绑定邮箱' }}</p>
       <div flex items-center justify-center m-2 space-x-2>
-        <v-tooltip text="学习">
-          <template v-slot:activator="{ props }">
-            <v-icon v-bind="props" icon="mdi-school-outline" cursor-pointer @click="router.push('/learn')"></v-icon>
-          </template>
-        </v-tooltip>
         <v-tooltip text="退出">
           <template v-slot:activator="{ props }">
             <v-icon v-bind="props" icon="mdi-logout-variant" cursor-pointer @click="logout"></v-icon>
@@ -65,8 +62,8 @@ onMounted(() => {
           prepend-icon="mdi-view-dashboard"
           title="控制台"
           value="admin"
-          :active="activeItem === '/admin'"
-          @click="router.push('/admin')"
+          :active="activeItem === '/'"
+          @click="router.push('/')"
         ></v-list-item>
         <v-list-group value="System">
           <template v-slot:activator="{ props }">
@@ -84,35 +81,44 @@ onMounted(() => {
             @click="router.push('/admin/user')"
           ></v-list-item>
         </v-list-group>
-        <v-list-group value="Business">
+        <v-list-group value="Menu">
           <template v-slot:activator="{ props }">
             <v-list-item
               v-bind="props"
               prepend-icon="mdi-puzzle-outline"
-              title="数据维护"
+              title="嵌套菜单"
             ></v-list-item>
           </template>
           <v-list-item
-            prepend-icon="mdi-book-alphabet"
-            title="词典管理"
-            value="dict"
-            :active="activeItem === '/admin/dict'"
-            @click="router.push('/admin/dict')"
+            prepend-icon="mdi-puzzle-outline"
+            title="菜单1"
+            value="menu"
+            :active="activeItem === '/admin/menu'"
+            @click="router.push('/admin/menu')"
           ></v-list-item>
-          <v-list-item
-            prepend-icon="mdi-alphabetical-variant"
-            title="单词维护"
-            value="word"
-            :active="activeItem === '/admin/word'"
-            @click="router.push('/admin/word')"
-          ></v-list-item>
-          <v-list-item
-            prepend-icon="mdi-message-alert-outline"
-            title="反馈管理"
-            value="feedback"
-            :active="activeItem === '/admin/feedback'"
-            @click="router.push('/admin/feedback')"
-          ></v-list-item>
+          <v-list-group value="MenuChild">
+            <template v-slot:activator="{ props }">
+              <v-list-item
+                  v-bind="props"
+                  prepend-icon="mdi-puzzle-outline"
+                  title="子菜单"
+              ></v-list-item>
+            </template>
+            <v-list-item
+                prepend-icon="mdi-puzzle-outline"
+                title="菜单1-1"
+                value="menu11"
+                :active="activeItem === '/admin/menu/menu11'"
+                @click="router.push('/admin/menu/menu11')"
+            ></v-list-item>
+            <v-list-item
+                prepend-icon="mdi-puzzle-outline"
+                title="菜单1-2"
+                value="menu12"
+                :active="activeItem === '/admin/menu/menu12'"
+                @click="router.push('/admin/menu/menu12')"
+            ></v-list-item>
+          </v-list-group>
         </v-list-group>
       </v-list>
     </div>

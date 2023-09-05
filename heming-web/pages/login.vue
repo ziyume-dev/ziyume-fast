@@ -9,19 +9,19 @@ const toast = useToast()
 const nuxtApp = useNuxtApp()
 
 const loginForm = reactive<Login.ReqLoginForm>({
-  username: 'view',
+  username: 'heming',
   password: '666666',
 })
 
 const handUserInfo = async () => {
-  const json = await nuxtApp.$api.get('/@api/user/info').json();
+  const json = await nuxtApp.$api.get('/@fast-api/user/info').json();
   if (json.code === 200) {
     user.setUserName(json.data.userName)
     user.setAvatar(json.data.avatar)
     user.setRoleCode(json.data.role)
     user.setEmail(json.data.email)
     setTimeout(() => {
-      router.push('/learn')
+      router.push('/')
     }, 888)
   } else {
     console.log(json.message)
@@ -29,7 +29,7 @@ const handUserInfo = async () => {
 }
 
 const handleSubmitClick = async () => {
-  const json = await ky.post('/@api/user/login', {
+  const json = await ky.post('/@fast-api/user/login', {
     json: {username: loginForm.username, password: loginForm.password}
   }).json();
   if (json.code === 200) {

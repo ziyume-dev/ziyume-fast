@@ -2,6 +2,7 @@ package dev.heming.fast.controller;
 
 import cn.dev33.satoken.annotation.SaIgnore;
 import cn.dev33.satoken.stp.SaTokenInfo;
+import dev.heming.fast.constant.MessageConstants;
 import dev.heming.fast.entity.User;
 import dev.heming.fast.param.LoginParam;
 import dev.heming.fast.param.user.PageListParam;
@@ -56,21 +57,28 @@ public class UserController {
     @Operation(summary = "新增用户")
     public CommonResult<Void> addUser(@RequestBody @Valid UserAddParam param) {
         userService.addUser(param);
-        return CommonResult.success();
+        return CommonResult.success(MessageConstants.ADD_SUCCESS);
     }
 
     @PutMapping("/updateUser")
     @Operation(summary = "修改用户")
     public CommonResult<Void> updateUser(@RequestBody @Valid UserUpdateParam param) {
         userService.updateUser(param);
-        return CommonResult.success();
+        return CommonResult.success(MessageConstants.UPDATE_SUCCESS);
     }
 
     @Operation(summary = "删除用户")
     @DeleteMapping("/deleteUser/{userId:[\\d]+}")
     public CommonResult<Void> deleteUser(@PathVariable(name = "userId") Long userId) {
         userService.deleteUser(userId);
-        return CommonResult.success();
+        return CommonResult.success(MessageConstants.DELETE_SUCCESS);
+    }
+
+    @Operation(summary = "退出登录接口")
+    @PostMapping("/logout")
+    public CommonResult<Void> logout() {
+        userService.logout();
+        return CommonResult.success(MessageConstants.SUCCESS);
     }
 
 }

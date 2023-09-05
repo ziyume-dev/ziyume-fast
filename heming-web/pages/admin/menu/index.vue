@@ -1,12 +1,11 @@
 <script setup lang="ts">
 definePageMeta({
-  title: '用户',
   layout: 'admin'
 })
 </script>
 
 <template>
-  用户 id -> {{ $route.params.id }}
+  菜单1
 </template>
 
 <style scoped>

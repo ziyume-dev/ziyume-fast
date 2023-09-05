@@ -61,6 +61,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         Map<String, Object> map = new HashMap<>();
         map.put("userName", user.getName());
         map.put("avatar", user.getAvatar());
+        map.put("email", user.getEmail());
         return map;
     }
 
@@ -97,6 +98,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public void deleteUser(Long userId) {
         this.baseMapper.deleteById(userId);
+    }
+
+    @Override
+    public void logout() {
+        StpUtil.logout();
     }
 
 }

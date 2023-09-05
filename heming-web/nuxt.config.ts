@@ -13,6 +13,10 @@ export default defineNuxtConfig({
     '@nuxthq/ui',
   ],
 
+  build: {
+    transpile: ["vuetify"],
+  },
+
   pinia: {
     autoImports: [
       'defineStore',

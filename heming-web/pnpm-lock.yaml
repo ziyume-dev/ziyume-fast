@@ -22,9 +22,6 @@ devDependencies:
   '@antfu/eslint-config':
     specifier: ^0.41.0
     version: 0.41.0(eslint@8.48.0)(typescript@5.2.2)
-  '@css-render/vue3-ssr':
-    specifier: ^0.15.12
-    version: 0.15.12(vue@3.3.4)
   '@iconify-json/carbon':
     specifier: ^1.1.21
     version: 1.1.21
@@ -1657,14 +1654,6 @@ packages:
     resolution: {integrity: sha512-9CB/MKf/wdvbfkUdfrj+OkEwZ5b7rws0eogJ4293h+7b6KX5toPwym+VQKmILafNB9YiehqY0DlNrDcDhdWHSQ==}
     dependencies:
       mime: 3.0.0
-    dev: true
-
-  /@css-render/vue3-ssr@0.15.12(vue@3.3.4):
-    resolution: {integrity: sha512-AQLGhhaE0F+rwybRCkKUdzBdTEM/5PZBYy+fSYe1T9z9+yxMuV/k7ZRqa4M69X+EI1W8pa4kc9Iq2VjQkZx4rg==}
-    peerDependencies:
-      vue: ^3.0.11
-    dependencies:
-      vue: 3.3.4
     dev: true
 
   /@csstools/cascade-layer-name-parser@1.0.4(@csstools/css-parser-algorithms@2.3.1)(@csstools/css-tokenizer@2.2.0):
