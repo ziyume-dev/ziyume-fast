@@ -70,4 +70,9 @@ public interface UserService extends IService<User> {
      */
     void deleteUser(Long userId);
 
+    /**
+     * 退出登录
+     */
+    void logout();
+
 }

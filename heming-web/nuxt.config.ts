@@ -1,31 +1,7 @@
 import { pwa } from './config/pwa'
 import { appDescription } from './constants'
-import Components from 'unplugin-vue-components/vite'
-import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
-import { apiUrl } from './constants/api'
 
 export default defineNuxtConfig({
-  build: {
-    transpile: process.env.NODE_ENV === 'production'
-        ? [
-            'naive-ui',
-            'vueuc',
-            '@css-render/vue3-ssr',
-            '@juggle/resize-observer',
-            'date-fns',
-            '@css-render/plugin-bem',
-          ]
-        : ['@juggle/resize-observer']
-  },
-
-  vite: {
-    plugins: [
-      Components({
-        dts: true,
-        resolvers: [NaiveUiResolver()], // Automatically register all components in the `components` directory
-      }),
-    ],
-  },
 
   modules: [
     '@vueuse/nuxt',
@@ -34,11 +10,16 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@vite-pwa/nuxt',
     '@pinia-plugin-persistedstate/nuxt',
+    '@nuxthq/ui',
   ],
+
+  build: {
+    transpile: ["vuetify"],
+  },
 
   pinia: {
     autoImports: [
-        'defineStore',
+      'defineStore',
     ]
   },
 
@@ -58,6 +39,8 @@ export default defineNuxtConfig({
 
   css: [
     '@unocss/reset/tailwind.css',
+    'tw-elements/dist/css/tw-elements.min.css',
+    '@mdi/font/css/materialdesignicons.css',
   ],
 
   colorMode: {
@@ -66,11 +49,16 @@ export default defineNuxtConfig({
 
   nitro: {
     devProxy: {
-      "/@api": {
-        target: apiUrl,
+      '/@fast-api': {
+        target: process.env.PROXY_URL,
         prependPath: true,
         changeOrigin: true,
         autoRewrite: true,
+      },
+    },
+    routeRules: {
+      '/@fast-api/**': {
+        proxy: process.env.PROXY_URL+'/**'
       }
     },
     esbuild: {
@@ -82,6 +70,7 @@ export default defineNuxtConfig({
       crawlLinks: false,
       routes: ['/'],
     },
+    preset: 'vercel'
   },
 
   app: {

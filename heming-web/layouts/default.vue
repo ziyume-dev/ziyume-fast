@@ -3,6 +3,6 @@
 
 <template>
   <div>
-    <RouterView />
+    <slot />
   </div>
 </template>

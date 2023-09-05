@@ -1,13 +1,11 @@
 <script setup lang="ts">
 definePageMeta({
-  layout: 'admin',
+  layout: 'admin'
 })
 </script>
 
 <template>
-  <div>
-    <h1>首页</h1>
-  </div>
+  菜单1-1
 </template>
 
 <style scoped>
