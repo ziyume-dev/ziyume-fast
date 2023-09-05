@@ -1,12 +1,26 @@
 <script setup lang="ts">
-import { appName } from '../constants'
+import { useUserStore } from '~/stores/user'
+
+const router = useRouter()
+const user = useUserStore()
 </script>
 
 <template>
-  <div flex justify-start justify-center items-center h-full mx-2>
-    <p mr-auto font-serif text-xl font-normal><NuxtLink to="/">{{ appName }}</NuxtLink></p>
-    <DarkToggle />
-  </div>
+  <v-toolbar>
+    <v-toolbar
+      color="primary"
+      :dark="true"
+    >
+      <v-toolbar-title font-ark>HeMing Fast</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn
+        v-if="user.roleCode === 'platform-super-admin' || user.roleCode === 'platform-admin' || user.roleCode === 'platform-self-provisioner' || user.roleCode === 'platform-view'"
+        icon="mdi-view-dashboard"
+        @click="router.push('/admin')"
+      />
+      <DarkToggle />
+    </v-toolbar>
+  </v-toolbar>
 </template>
 
 <style scoped>

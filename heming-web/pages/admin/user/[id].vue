@@ -1,8 +1,7 @@
 <script setup lang="ts">
 definePageMeta({
   title: '用户',
-  layout: 'admin',
-  middleware: ['route']
+  layout: 'admin'
 })
 </script>
 

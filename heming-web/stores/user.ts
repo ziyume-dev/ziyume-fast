@@ -1,5 +1,5 @@
 import { acceptHMRUpdate, defineStore } from 'pinia'
-import { UserStore } from '~/types/user'
+import type { UserStore } from '../types/user'
 
 export const useUserStore = defineStore('user', {
   state: (): UserStore => ({
@@ -21,6 +21,8 @@ export const useUserStore = defineStore('user', {
     beian: '',
     // 角色 Code
     roleCode: '',
+    // 邮箱
+    email: '',
   }),
   actions: {
     /** 设置用户名称 */
@@ -59,6 +61,10 @@ export const useUserStore = defineStore('user', {
     setRoleCode(roleCode: string) {
       this.roleCode = roleCode
     },
+    /** 设置邮箱 */
+    setEmail(email: string) {
+      this.email = email
+    }
   },
   persist: true,
 })

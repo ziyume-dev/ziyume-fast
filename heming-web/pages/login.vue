@@ -1,113 +1,118 @@
 <script setup lang="ts">
-import type { FormInst, FormRules } from 'naive-ui'
-import { Login } from '~/types'
-import { useMessage } from 'naive-ui'
-import { getBaseUrl } from '~/utils/api'
+import { Login } from '../types'
+import { useUserStore } from '../stores/user'
+import ky from 'ky'
 
-const message = useMessage()
 const user = useUserStore()
 const router = useRouter()
-const formRef = ref<FormInst | null>(null)
+const toast = useToast()
+const nuxtApp = useNuxtApp()
 
 const loginForm = reactive<Login.ReqLoginForm>({
-  username: '',
-  password: '',
+  username: 'view',
+  password: '666666',
 })
 
-const rules: FormRules = {
-  username: [
-    { required: true, message: '用户名不能为空！', trigger: 'blur' },
-    { min: 6, max: 20, message: '用户名长度在 6~20 之间', trigger: 'blur' },
-  ],
-  password: [
-    { required: true, message: '密码不能为空！', trigger: 'blur' },
-    { min: 6, max: 20, message: '密码长度在 6~20 之间', trigger: 'blur' },
-  ],
+const handUserInfo = async () => {
+  const json = await nuxtApp.$api.get('/@api/user/info').json();
+  if (json.code === 200) {
+    user.setUserName(json.data.userName)
+    user.setAvatar(json.data.avatar)
+    user.setRoleCode(json.data.role)
+    user.setEmail(json.data.email)
+    setTimeout(() => {
+      router.push('/learn')
+    }, 888)
+  } else {
+    console.log(json.message)
+  }
 }
 
-const handleSubmitClick = () => {
-  formRef.value?.validate(async (errors) => {
-    if (!errors) {
-      await $fetch('/user/login', {
-        baseURL: getBaseUrl(),
-        method: 'POST',
-        body: { username: loginForm.username, password: loginForm.password },
-        parseResponse: JSON.parse,
-      }).then((res: any) => {
-        if (res.code === 200) {
-          message.success('登录成功')
-          user.setToken(res.data.tokenValue)
-          user.setTokenName(res.data.tokenName)
-          // 等待一秒
-          setTimeout(() => {
-            router.push('/admin')
-          }, 1000)
-        } else {
-          message.error(res.message)
-        }
-      })
-    } else {
-      console.log(errors)
-    }
-  })
+const handleSubmitClick = async () => {
+  const json = await ky.post('/@api/user/login', {
+    json: {username: loginForm.username, password: loginForm.password}
+  }).json();
+  if (json.code === 200) {
+    user.setToken(json.data.tokenValue)
+    user.setTokenName(json.data.tokenName)
+    toast.add({ title: '登录成功!', timeout: 1000, ui: { width: 'w-full sm:w-96' }})
+    await handUserInfo()
+  } else {
+    console.log(json.message)
+  }
 }
 
-const handleRegisterClick = () => {
-  message.info('还没写呢')
+const keyDown = (e) => {
+  if (e.keyCode === 13 || e.keyCode === 100) {
+    handleSubmitClick()
+  }
 }
+
+onMounted(() => {
+  window.addEventListener('keydown', keyDown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', keyDown, false)
+})
+
+definePageMeta({
+  layout: 'default',
+})
 </script>
 
 <template>
-  <section bg-white>
-    <div lg:grid lg:min-h-screen lg:grid-cols-12>
-      <section relative flex h-32 items-end bg-gray-900 lg:col-span-5 lg:h-full xl:col-span-6>
-        <img
-            alt="Night"
-            src="https://images.unsplash.com/photo-1617195737496-bc30194e3a19?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80"
-            absolute inset-0 h-full w-full object-cover opacity-80
-        />
+  <div class="bg-white dark:bg-gray-900 w-full">
+    <div class="flex justify-center h-screen">
+      <div class="hidden bg-cover lg:block lg:w-2/3" style="background-image: url(https://images.unsplash.com/photo-1616763355603-9755a640a287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)">
+        <div class="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
+          <div>
+            <h2 class="text-4xl text-white">HeMing Fast</h2>
 
-        <div chidden lg:relative lg:block lg:p-12>
-
-          <h2 mt-6 text-2xl font-bold text-white sm:text-3xl md:text-4xl>
-            HeMing Fast
-          </h2>
-
-          <p mt-4 leading-relaxed  class="text-white/90">
-            HeMing 工作室出品，一款基于 SpringBoot 3 和 Nuxt3 的脚手架
-          </p>
+            <p text-sm text-gray-300 mt-4>
+              鹤鸣工作室出品，一款基于 SpringBoot 3 和 Nuxt3 的脚手架。
+            </p>
+          </div>
         </div>
-      </section>
+      </div>
 
-      <main flex flex-col items-center justify-center px-4 py-4 sm:px-12 lg:col-span-7 lg:px-16 lg:py-12 xl:col-span-6>
-        <h2 mt-6 text-2xl font-bold sm:text-3xl md:text-4xl>
-          HeMing Fast
-        </h2>
-        <n-form
-            mt-8 w-80
-            ref="formRef"
-            :model="loginForm"
-            :rules="rules"
-        >
-          <n-form-item label="用户名" path="username" required>
-            <n-input v-model:value="loginForm.username" placeholder="输入用户名" />
-          </n-form-item>
-          <n-form-item label="密码" path="password" required>
-            <n-input v-model:value="loginForm.password" placeholder="输入密码" />
-          </n-form-item>
-          演示账号：demo/666666
-          <n-form-item>
-            <n-button attr-type="button" @click="handleSubmitClick">
-              登录
-            </n-button>
-            <n-button ml-2 attr-type="button" @click="handleRegisterClick">
-              注册
-            </n-button>
-          </n-form-item>
-        </n-form>
-      </main>
+      <div class="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
+        <div class="flex-1">
+          <div class="text-center">
+            <h2 class="text-4xl text-center text-gray-700 dark:text-white">HeMing Fast</h2>
+
+            <p class="mt-3 text-gray-500 dark:text-gray-300">登录你的帐号</p>
+          </div>
+
+          <div class="mt-8">
+            <div>
+              <label for="account" class=" block mb-2 text-sm text-gray-600 dark:text-gray-200">帐号</label>
+              <input type="account" v-model="loginForm.username" name="account" id="account" class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            </div>
+
+            <div class="mt-6">
+              <div class="flex justify-between mb-2">
+                <label for="password" class="text-sm text-gray-600 dark:text-gray-200">密码</label>
+                <a href="#" class="text-sm text-gray-400 focus:text-blue-500 hover:text-blue-500 hover:underline">忘记密码？</a>
+              </div>
+
+              <input type="password" v-model="loginForm.password" name="password" id="password" class="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            </div>
+
+            <div class="mt-6">
+              <button
+                  @click="handleSubmitClick"
+                  class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-200 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                登录
+              </button>
+            </div>
+
+            <p class="mt-6 text-sm text-center text-gray-400">还没有帐号？<a href="#" class="text-blue-500 focus:outline-none focus:underline hover:underline">立即注册</a>.</p>
+          </div>
+        </div>
+      </div>
     </div>
-  </section>
+  </div>
 </template>
 
 <style scoped>

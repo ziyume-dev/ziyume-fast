@@ -1,8 +1,6 @@
 <script setup lang="ts">
-const router = useRouter()
-
-onBeforeMount(() => {
-  router.push('/admin')
+definePageMeta({
+  layout: 'admin',
 })
 </script>
 
