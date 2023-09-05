@@ -4,7 +4,7 @@
 
 ### 简介
 
-heming-fast 是一个基于 SpringBoot 3  + Nuxt 3 的脚手架，可基于此框架快速构建系统！
+heming-fast 是一个基于 SpringBoot 3  + Nuxt 3 + Vuetify 3 的脚手架，可基于此框架快速构建系统！
 
 ### 预览地址
 
@@ -28,8 +28,8 @@ heming-fast 的需要以下程序才能正常的安装和运行：
 - Git
 - nodejs 16.x LTS +
 - MySQL 8.0 +
-- open/oracleJDK 17
-- nginx 1.16+
+- openJDK 17
+- Redis 5 +
 
 heming-fast 支持安装在 LNMP、宝塔面板 等集成环境中, Docker、HeroKu 等容器环境中, 支持大部分能够运行 Java 的平台。
 
@@ -76,7 +76,7 @@ pnpm run dev
 
 [vitesse-nuxt3](https://github.com/antfu/vitesse-nuxt3)
 [Sa-Token](https://github.com/dromara/Sa-Token)
-[naive-ui](https://github.com/tusen-ai/naive-ui)
+[Vuetify3](https://github.com/vuetifyjs/vuetify)
 
 以及更多用到的开源项目...
 

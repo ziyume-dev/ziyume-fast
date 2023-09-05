@@ -1,15 +1,5 @@
 /*
- Source Server         : localmysql
- Source Server Type    : MySQL
- Source Server Version : 101102 (10.11.2-MariaDB-1:10.11.2+maria~ubu2204)
- Source Host           : localhost:3306
- Source Schema         : heming-fast
-
- Target Server Type    : MySQL
- Target Server Version : 101102 (10.11.2-MariaDB-1:10.11.2+maria~ubu2204)
- File Encoding         : 65001
-
- Date: 08/08/2023 10:24:31
+ Date: 05/09/2023 23:51:38
 */
 
 SET NAMES utf8mb4;
@@ -36,7 +26,7 @@ CREATE TABLE `heming_user`  (
   `status` tinyint NOT NULL COMMENT '帐号启用状态：0->禁用；1->启用',
   `del` tinyint NOT NULL COMMENT '逻辑删除：0->删除状态；1->可用状态',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户' ROW_FORMAT = DYNAMIC;
 
 -- ----------------------------
 -- Records of heming_user
