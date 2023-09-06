@@ -2,7 +2,7 @@ name: "Java CI with Multi-arch Docker Test Image"
 
 on:
   push:
-    tags:
+    branches:
       - dev
 
 jobs:
