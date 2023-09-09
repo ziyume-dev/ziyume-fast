@@ -68,7 +68,14 @@ export default defineNuxtConfig({
     },
     prerender: {
       crawlLinks: false,
-      routes: ['/'],
+      routes: [
+        '/',
+        '/login',
+        '/admin/user',
+        '/admin/menu',
+        '/admin/menu/menu11',
+        '/admin/menu/menu12',
+      ],
     },
     preset: 'vercel'
   },
