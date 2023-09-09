@@ -4,7 +4,7 @@ const router = useRouter()
 // 面包屑路由
 const routes = ref<Array<any>>([
   {
-    href: '/admin',
+    href: '/',
     title: '控制台',
   },
 ])
@@ -13,7 +13,7 @@ const routes = ref<Array<any>>([
 const handleRouterChange = async (uri: any) => {
   routes.value = []
   routes.value.push({
-    href: '/admin',
+    href: '/',
     title: '控制台',
   })
   if (uri === '/admin/user') {
@@ -22,22 +22,22 @@ const handleRouterChange = async (uri: any) => {
       title: '用户管理',
     })
   }
-  if (uri === '/admin/dict') {
+  if (uri === '/admin/menu') {
     routes.value.push({
-      href: '/admin/dict',
-      title: '词典管理',
+      href: '/admin/menu',
+      title: '菜单1',
     })
   }
-  if (uri === '/admin/word') {
+  if (uri === '/admin/menu/menu11') {
     routes.value.push({
-      href: '/admin/word',
-      title: '单词维护',
+      href: '/admin/menu/menu11',
+      title: '菜单1-1',
     })
   }
-  if (uri === '/admin/feedback') {
+  if (uri === '/admin/menu/menu12') {
     routes.value.push({
-      href: '/admin/feedback',
-      title: '反馈管理',
+      href: '/admin/menu/menu12',
+      title: '菜单1-2',
     })
   }
 }
