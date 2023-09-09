@@ -11,6 +11,7 @@ const routes = ref<Array<any>>([
 
 /** 路由变化 */
 const handleRouterChange = async (uri: any) => {
+  console.log(router.currentRoute)
   routes.value = []
   routes.value.push({
     href: '/',
@@ -51,9 +52,7 @@ const handleClick = async (path: string) => {
 watch(() => {
   return router.currentRoute.value.path
 }, async (path) => {
-  if (path.startsWith('/admin')) {
-    await handleRouterChange(path)
-  }
+  await handleRouterChange(path)
 })
 
 onBeforeMount(async () => {
