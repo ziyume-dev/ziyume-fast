@@ -87,6 +87,7 @@ export default defineNuxtConfig({
         { name: 'apple-mobile-web-app-status-bar-style', content: 'black-translucent' },
       ],
     },
+    pageTransition: { name: 'page', mode: 'out-in' },
   },
 
   pwa,
