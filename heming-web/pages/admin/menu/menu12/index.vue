@@ -5,7 +5,9 @@ definePageMeta({
 </script>
 
 <template>
-  菜单1-2
+  <div>
+    菜单1-2
+  </div>
 </template>
 
 <style scoped>
