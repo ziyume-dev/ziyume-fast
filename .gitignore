@@ -29,7 +29,4 @@ target/
 .mvn
 mvnw
 mvnw.cmd
-heming-web/node_modules
 logs
-heming-web/yarn.lock
-heming-web/dist
