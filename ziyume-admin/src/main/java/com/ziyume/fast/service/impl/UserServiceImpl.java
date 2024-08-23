@@ -41,7 +41,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         log.info("用户发起登录请求:{}，请求 uri 为：{}", username, request.toUriString());
         User user = this.baseMapper.selectByUsername(username);
         Assert.notNull(user, "账号或密码错误！");
-        if (Objects.equals(user.getStatus(), SystemConstants.STATUS_NO)) {
+        if (Objects.equals(user.getStatusAt(), SystemConstants.STATUS_NO)) {
             throw new ZiYumeException(String.format("账号：%s 已被禁用，请联系管理员！", username));
         }
         if (!Objects.equals(SecureUtil.sha256(password), user.getPassword())) {
@@ -59,7 +59,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         User user = getUserById(userId);
         Assert.notNull(user, "暂未登录！");
         Map<String, Object> map = new HashMap<>();
-        map.put("userName", user.getName());
+        map.put("userName", user.getNikeName());
         map.put("avatar", user.getAvatar());
         map.put("email", user.getEmail());
         return map;

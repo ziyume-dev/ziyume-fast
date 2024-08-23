@@ -39,24 +39,24 @@ public class BaseEntity implements Serializable {
     @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @TableField(fill = FieldFill.INSERT, value = "create_time")
-    private LocalDateTime createTime;
+    @TableField(fill = FieldFill.INSERT, value = "created_at")
+    private LocalDateTime createAt;
 
     /** 更新时间 */
     @Schema(title = "更新时间", type = "Date")
     @JsonFormat(locale = "zh", timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     @JsonDeserialize(using = LocalDateTimeDeserializer.class)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @TableField(fill = FieldFill.INSERT_UPDATE, value = "update_time")
-    private LocalDateTime updateTime;
+    @TableField(fill = FieldFill.INSERT_UPDATE, value = "updated_at")
+    private LocalDateTime updateAt;
 
     /**
-     * 逻辑删除：0->删除状态；1->可用状态
+     * 逻辑删除：0->可用状态；1->删除状态
      * 只对自动注入的 sql 起效 @ToSee: https://baomidou.com/pages/6b03c5/
      */
     @TableLogic
-    @TableField(value = "del")
-    @Schema(title = "逻辑删除：0->删除状态；1->可用状态", type = "Integer")
-    private Integer del;
+    @TableField(value = "deleted_at")
+    @Schema(title = "逻辑删除：0->可用状态；1->删除状态", type = "Integer")
+    private Integer deletedAt;
 
 }

@@ -15,7 +15,7 @@ create table ziyume_user
     created_at     timestamp(6),
     updated_at     timestamp,
     status_at      smallint default 1 not null,
-    deleted_status smallint default 0 not null
+    deleted_at smallint default 0 not null
 );
 
 comment on table ziyume_user is '用户表';

@@ -8,69 +8,59 @@
         <result column="password" property="password"/>
         <result column="avatar" property="avatar"/>
         <result column="email" property="email"/>
-        <result column="name" property="name"/>
+        <result column="nike_name" property="nikeName"/>
         <result column="telephone" property="telephone"/>
         <result column="remark" property="remark"/>
         <result column="sort" property="sort"/>
-        <result column="status" property="status"/>
+        <result column="status_at" property="statusAt"/>
         <result column="creator" property="creator"/>
         <result column="updater" property="updater"/>
-        <result column="create_time" property="createTime"/>
-        <result column="update_time" property="updateTime"/>
-        <result column="del" property="del"/>
+        <result column="created_at" property="createAt"/>
+        <result column="updated_at" property="updateAt"/>
+        <result column="deleted_at" property="deletedAt"/>
     </resultMap>
+
+    <sql id="selectColumns">
+        id,
+        username,
+        password,
+        avatar,
+        email,
+        nike_name,
+        telephone,
+        remark,
+        sort,
+        creator,
+        updater,
+        created_at,
+        updated_at,
+        status_at,
+        deleted_at
+    </sql>
 
     <select id="selectByUsername" resultMap="userMap">
         SELECT
-            id,
-            username,
-            password,
-            avatar,
-            email,
-            name,
-            telephone,
-            remark,
-            sort,
-            creator,
-            updater,
-            create_time,
-            update_time,
-            status,
-            del
+            <include refid="selectColumns"/>
         FROM
-            heming_user
+            ziyume_user
         WHERE
-            del = 1
+            deleted_at = 0
         AND
             username = #{username}
     </select>
 
     <select id="selectUserList" resultSets="java.util.List" resultMap="userMap">
         SELECT
-            id,
-            username,
-            password,
-            avatar,
-            email,
-            name,
-            telephone,
-            remark,
-            sort,
-            creator,
-            updater,
-            create_time,
-            update_time,
-            status,
-            del
+            <include refid="selectColumns"/>
         FROM
-            heming_user
+            ziyume_user
         WHERE
-            del = 1
+            deleted_at = 0
         <if test="username != null and username != ''">
             AND username = #{username}
         </if>
         <if test="name != null and name != ''">
-            AND name LIKE CONCAT('%', #{name}, '%')
+            AND nike_name LIKE CONCAT('%', #{name}, '%')
         </if>
         <if test="telephone != null and telephone != ''">
             AND telephone LIKE CONCAT('%', #{telephone}, '%')

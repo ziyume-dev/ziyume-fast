@@ -21,9 +21,9 @@ import lombok.*;
 @Schema(title = "用户实体")
 public class User extends BaseEntity {
 
-    @TableId(type = IdType.AUTO)
-    @Schema(title = "id", type = "Long")
-    private Long id;
+    @TableId(type = IdType.ASSIGN_UUID)
+    @Schema(title = "id", type = "String")
+    private String id;
 
     /** 账号(用户名) */
     @TableField(value = "username")
@@ -46,9 +46,9 @@ public class User extends BaseEntity {
     private String email;
 
     /** 昵称 */
-    @TableField(value = "name")
+    @TableField(value = "nike_name")
     @Schema(title = "昵称", type = "String")
-    private String name;
+    private String nikeName;
 
     /** 手机 */
     @TableField(value = "telephone")
@@ -65,9 +65,9 @@ public class User extends BaseEntity {
     @Schema(title = "排序", type = "Integer")
     private Integer sort;
 
-    /** 帐号启用状态：0->禁用；1->启用 */
-    @TableField(value = "status")
-    @Schema(title = "帐号启用状态：0->禁用；1->启用", type = "Integer")
-    private Integer status;
+    /** 帐号启用状态：0->启用；1->禁用 */
+    @TableField(value = "status_at")
+    @Schema(title = "帐号启用状态：0->启用；1->禁用", type = "Integer")
+    private Integer statusAt;
 
 }
