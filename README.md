@@ -10,10 +10,8 @@ ziyume-fast 是一个基于 SpringBoot 3 的 infra 快速启动框架，可基�
 
 ### 开发环境
 
-heming-fast 的需要以下程序才能正常的安装和运行：
+ziyume-fast 的需要以下程序才能正常的安装和运行：
 
-- Git
-- nodejs 18.x LTS +
 - PostgreSQL 14.x +
 - openJDK 17
 - Redis 5 +
@@ -24,7 +22,7 @@ ziyume-fast 支持安装在 LNMP、宝塔面板 等集成环境中, Docker、Her
 
 [提出新想法 & 提交 Bug](https://github.com/ziyume-dev/ziyume-fast/issues/new) | [Fork & Pull Request](https://github.com/ziyume-dev/ziyume-fast/fork)
 
-heming-fast 欢迎各种贡献，包括但不限于改进，新功能，文档和代码改进，问题和错误报告。
+ziyume-fast 欢迎各种贡献，包括但不限于改进，新功能，文档和代码改进，问题和错误报告。
 
 ### 在线开发
 
@@ -45,12 +43,6 @@ git clone https://github.com/ziyume-dev/ziyume-fast.git
 <a href="https://www.digitalocean.com/?refcode=6841be7284cc&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge"><img src="https://web-platforms.sfo2.cdn.digitaloceanspaces.com/WWW/Badge%201.svg" alt="DigitalOcean Referral Badge" /></a>
 
 ### 感谢
-
-[vitesse-nuxt3](https://github.com/antfu/vitesse-nuxt3)
-[Sa-Token](https://github.com/dromara/Sa-Token)
-[Vuetify3](https://github.com/vuetifyjs/vuetify)
-
-以及更多用到的开源项目...
 
 本项目使用 JetBrains 的开源许可证，基于 IntelliJ IDEA 开发，感谢！
 
