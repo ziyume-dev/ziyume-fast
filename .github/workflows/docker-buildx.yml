@@ -37,16 +37,16 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./
-          file: ./.github/docker/jar/heming-fast/Dockerfile
+          file: ./.github/docker/jar/ziyume-fast/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/heming-fast:${{ steps.get_version.outputs.VERSION }}
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ziyume-fast:${{ steps.get_version.outputs.VERSION }}
       - name: Build and push fast latest
         id: docker_build_fast_latest
         uses: docker/build-push-action@v2
         with:
           context: ./
-          file: ./.github/docker/jar/heming-fast/Dockerfile
+          file: ./.github/docker/jar/ziyume-fast/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/heming-fast:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ziyume-fast:latest

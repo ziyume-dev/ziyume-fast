@@ -37,7 +37,7 @@ jobs:
         uses: docker/build-push-action@v2
         with:
           context: ./
-          file: ./.github/docker/jar/heming-fast/Dockerfile
+          file: ./.github/docker/jar/ziyume-fast/Dockerfile
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/heming-fast:test
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/ziyume-fast:test
